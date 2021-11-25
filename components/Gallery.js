@@ -9,7 +9,7 @@ function GalleryImage({ src }) {
       </div>
       <style jsx>{`
         div {
-          width: 100%;
+          width: calc((1024px - 40px) / 3);
           height: calc((1024px - 40px) / 3);
           margin-right: 20px;
           position: relative;
@@ -40,7 +40,7 @@ export default function Gallery() {
       <style jsx>{`
         div {
           display: flex;
-          justify-content: center;
+          justify-content: flex-start;
           margin-bottom: 20px;
         }
 

@@ -6,6 +6,7 @@ export default function Subtitle({ children }) {
         h1 {
           font-size: 40px;
           margin-top: 20px;
+          color: var(--primary);
         }
       `}</style>
     </>

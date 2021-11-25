@@ -1,5 +1,14 @@
 import { useState } from "react";
 
+function Protip({ children }) {
+  return (
+    <>
+      <span>({children})</span>
+      <style jsx>{``}</style>
+    </>
+  );
+}
+
 function Picker({ children, onClick, name, active }) {
   function handleOnClick() {
     onClick(name);
@@ -25,7 +34,7 @@ function Picker({ children, onClick, name, active }) {
         div {
           background: ${active ? "var(--primary)" : "white"};
           border: 1px solid ${active ? "var(--primary)" : "gray"};
-          color: ${active ? "white" : "black"};
+          color: ${active ? "white" : "var(--secondary)"};
         }
       `}</style>
     </div>
@@ -109,11 +118,11 @@ export default function Calculator() {
         </Picker>
       </div>
       <p>
-        Нужна ли ламинация?{' '}
-        <span className="protip">
-          (Ламинация - специальное покрытие, предназначено для защиты пленки от
-          внешних воздействий, таким образом продлевая срок службы)
-        </span>
+        Нужна ли ламинация?{" "}
+        <Protip>
+          Ламинация - специальное покрытие, предназначено для защиты пленки от
+          внешних воздействий, таким образом продлевая срок службы
+        </Protip>
       </p>
       <div>
         <Picker
@@ -142,18 +151,18 @@ export default function Calculator() {
 
         p {
           font-size: 24px;
+          color: var(--secondary);
         }
 
         div {
           display: flex;
-        }
-
-        .protip {
-          color: gray;
+          color: var(--secondary);
         }
 
         h2 {
           margin-bottom: 0;
+          color: var(--secondary);
+          font-size: 30px;
         }
       `}</style>
     </>

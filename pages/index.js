@@ -9,7 +9,7 @@ export default function Index() {
   return (
     <>
       <Head>
-        <title>Olga.ru - креативная оклейка автомобилей</title>
+        <title>Olga.ru - творческая оклейка автомобилей</title>
       </Head>
       <Header />
       <section className="calculator">

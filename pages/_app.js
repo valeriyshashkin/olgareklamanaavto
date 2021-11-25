@@ -5,6 +5,7 @@ function MyApp({ Component, pageProps }) {
       <style jsx global>{`
         :root {
           --primary: #4394ff;
+          --secondary: gray;
         }
 
         body {
