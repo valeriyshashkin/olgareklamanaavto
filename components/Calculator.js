@@ -150,6 +150,10 @@ export default function Calculator() {
         .protip {
           color: gray;
         }
+
+        h2 {
+          margin-bottom: 0;
+        }
       `}</style>
     </>
   );

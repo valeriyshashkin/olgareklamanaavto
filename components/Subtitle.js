@@ -5,6 +5,7 @@ export default function Subtitle({ children }) {
       <style jsx>{`
         h1 {
           font-size: 40px;
+          margin-top: 20px;
         }
       `}</style>
     </>

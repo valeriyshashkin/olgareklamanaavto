@@ -21,10 +21,7 @@ export default function Index() {
         section {
           width: 1024px;
           margin: 0 auto;
-        }
-
-        .calculator {
-          margin-top: 73px;
+          padding-top: 73px;
         }
       `}</style>
     </>
