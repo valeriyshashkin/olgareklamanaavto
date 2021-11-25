@@ -4,7 +4,7 @@ function MyApp({ Component, pageProps }) {
       <Component {...pageProps} />
       <style jsx global>{`
         :root {
-          --primary: blue;
+          --primary: #4394ff;
         }
 
         body {
