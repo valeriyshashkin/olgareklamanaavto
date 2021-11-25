@@ -33,7 +33,7 @@ function Picker({ children, onClick, name, active }) {
       <style jsx>{`
         div {
           background: ${active ? "var(--primary)" : "white"};
-          border: 1px solid ${active ? "var(--primary)" : "gray"};
+          border: 1px solid ${active ? "var(--primary)" : "var(--secondary)"};
           color: ${active ? "white" : "var(--secondary)"};
         }
       `}</style>
@@ -161,7 +161,7 @@ export default function Calculator() {
 
         h2 {
           margin-bottom: 0;
-          color: var(--secondary);
+          color: var(--calculator-price);
           font-size: 30px;
         }
       `}</style>

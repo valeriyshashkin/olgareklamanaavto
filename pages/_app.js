@@ -6,6 +6,7 @@ function MyApp({ Component, pageProps }) {
         :root {
           --primary: #4394ff;
           --secondary: gray;
+          --calculator-price: #bababa;
         }
 
         body {
