@@ -55,7 +55,7 @@ export default function Header() {
 
         a {
           text-decoration: none;
-          color: black;
+          color: var(--primary);
         }
       `}</style>
     </>

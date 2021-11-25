@@ -29,7 +29,7 @@ function Contact({ src, type, content }) {
 
         a {
           text-decoration: none;
-          color: blue;
+          color: var(--primary);
           margin-top: 30px;
           font-size: 24px;
         }

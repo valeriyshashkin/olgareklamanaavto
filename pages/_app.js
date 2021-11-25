@@ -3,6 +3,10 @@ function MyApp({ Component, pageProps }) {
     <>
       <Component {...pageProps} />
       <style jsx global>{`
+        :root {
+          --primary: blue;
+        }
+
         body {
           margin: 0;
           padding: 0;
