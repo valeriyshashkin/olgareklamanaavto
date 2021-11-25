@@ -7,6 +7,7 @@ function MyApp({ Component, pageProps }) {
           --primary: #4394ff;
           --secondary: gray;
           --calculator-price: #bababa;
+          --border-radius: 24px;
         }
 
         body {

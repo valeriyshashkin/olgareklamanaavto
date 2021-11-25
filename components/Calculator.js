@@ -20,7 +20,7 @@ function Picker({ children, onClick, name, active }) {
       <style jsx>{`
         div {
           padding: 20px;
-          border-radius: 24px;
+          border-radius: var(--border-radius);
           margin-right: 14px;
           cursor: pointer;
           user-select: none;
