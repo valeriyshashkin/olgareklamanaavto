@@ -5,7 +5,7 @@ function GalleryImage({ src }) {
   return (
     <>
       <div>
-        <Image src={src} layout="fill" />
+        <Image alt="" src={src} layout="fill" />
       </div>
       <style jsx>{`
         div {

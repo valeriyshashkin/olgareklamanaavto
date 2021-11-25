@@ -15,7 +15,7 @@ function Contact({ src, type, content }) {
 
   return (
     <div>
-      <Image src={src} width={50} height={50} />
+      <Image alt="" src={src} width={50} height={50} />
       <a href={hrefByType()}>
         {type === "instagram" ? "@" + content : content}
       </a>
