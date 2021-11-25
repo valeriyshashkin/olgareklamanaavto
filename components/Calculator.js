@@ -136,7 +136,7 @@ export default function Calculator() {
         h1 {
           font-size: 70px;
           margin: 0;
-          margin-top: 30px;
+          padding-top: 30px;
         }
 
         p {
