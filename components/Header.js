@@ -8,8 +8,11 @@ export default function Header() {
           </h1>
           <ul>
             <li>
-              <a href="#">Калькулятор</a>
+              <a href="#">Каталог</a>
             </li>
+            {/* <li>
+              <a href="#calculator">Калькулятор</a>
+            </li> */}
             <li>
               <a href="#gallery">Сделано</a>
             </li>

@@ -4,6 +4,7 @@ import Gallery from "../components/Gallery";
 import Header from "../components/Header";
 import Contacts from "../components/Contacts";
 import Footer from "../components/Footer";
+import Catalog from "../components/Catalog";
 
 export default function Index() {
   return (
@@ -12,9 +13,12 @@ export default function Index() {
         <title>Olga.ru - творческая оклейка автомобилей</title>
       </Head>
       <Header />
-      <section className="calculator">
-        <Calculator />
+      <section id="catalog">
+        <Catalog />
       </section>
+      {/* <section id="calculator">
+        <Calculator />
+      </section> */}
       <section id="gallery">
         <Gallery />
       </section>
