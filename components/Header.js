@@ -1,23 +1,30 @@
+import Link from "next/link";
+
 export default function Header() {
   return (
     <>
       <header>
         <nav>
           <h1>
-            <a href="#">Olga.ru</a>
+            <Link href="/" passHref>
+              <a>Olga.ru</a>
+            </Link>
           </h1>
           <ul>
             <li>
-              <a href="#">Каталог</a>
-            </li>
-            {/* <li>
-              <a href="#calculator">Калькулятор</a>
-            </li> */}
-            <li>
-              <a href="#gallery">Сделано</a>
+              <Link href="/showcase" passHref>
+                <a>Демонстрация</a>
+              </Link>
             </li>
             <li>
-              <a href="#contacts">Обращайтесь</a>
+              <Link href="/pricing" passHref>
+                <a>Цены</a>
+              </Link>
+            </li>
+            <li>
+              <Link href="/contacts" passHref>
+                <a>Контакты</a>
+              </Link>
             </li>
           </ul>
         </nav>
