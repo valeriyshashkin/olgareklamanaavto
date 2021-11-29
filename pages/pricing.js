@@ -8,8 +8,8 @@ function Price({ title, price, description }) {
       <h3>{title}</h3>
       <p>от {price} руб.</p>
       <ul>
-        {description.map((text) => (
-          <li>{text}</li>
+        {description.map((text, i) => (
+          <li key={i}>{text}</li>
         ))}
       </ul>
       <style jsx>{`
