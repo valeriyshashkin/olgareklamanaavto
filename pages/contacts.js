@@ -1,13 +1,14 @@
 import Head from "next/head";
 import Layout from "../components/Layout";
+import Title from "../components/Title";
 
 export default function Contacts() {
   return (
     <>
       <Head>
-        <title>Контакты</title>
+        <title>Контакты | Olga.ru</title>
       </Head>
-      Контакты
+      <Title>Контакты</Title>
     </>
   );
 }

@@ -31,13 +31,21 @@ export default function Header() {
       </header>
       <style jsx>{`
         header {
-          border-bottom: 1px solid var(--secondary);
+          border-bottom: 1px solid lightgray;
           position: fixed;
           top: 0;
           left: 0;
           right: 0;
           background: white;
           z-index: 1;
+        }
+
+        h1 {
+          font-weight: 400;
+        }
+
+        h1 a {
+          color: black;
         }
 
         nav {
@@ -55,7 +63,6 @@ export default function Header() {
         }
 
         ul li {
-          font-weight: bold;
           margin-right: 50px;
         }
 
@@ -65,7 +72,7 @@ export default function Header() {
 
         a {
           text-decoration: none;
-          color: var(--primary);
+          color: gray;
         }
       `}</style>
     </>

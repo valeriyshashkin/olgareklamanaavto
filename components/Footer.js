@@ -4,10 +4,10 @@ export default function Footer() {
       Copyright © {new Date().getFullYear()} Olga.ru. Все права защищены.
       <style jsx>{`
         footer {
-          border-top: 1px solid var(--secondary);
+          border-top: 1px solid lightgray;
           padding: 20px;
           text-align: center;
-          color: var(--secondary);
+          color: gray;
         }
       `}</style>
     </footer>

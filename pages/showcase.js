@@ -1,13 +1,22 @@
 import Head from "next/head";
 import Layout from "../components/Layout";
+import Title from "../components/Title";
 
 export default function ShowCase() {
   return (
     <>
       <Head>
-        <title>Демонстрация</title>
+        <title>Демонстрация | Olga.ru</title>
       </Head>
-      Демонстрация
+      <div>
+        <Title>Демонстрация</Title>
+      </div>
+      <style jsx>{`
+        div {
+          margin: 0 auto;
+          width: 1024px;
+        }
+      `}</style>
     </>
   );
 }
