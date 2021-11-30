@@ -1,5 +1,6 @@
 import Head from "next/head";
-import Layout from "../components/Layout";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 export default function Index() {
   return (
@@ -7,11 +8,16 @@ export default function Index() {
       <Head>
         <title>Olga.ru - творческая оклейка автомобилей</title>
       </Head>
-      Главная
+      <Header />
+      <div>Главная</div>
+      <Footer />
+      <style jsx>{`
+        div {
+          padding-top: 74px;
+          margin: 0 auto;
+          width: 1024px;
+        }
+      `}</style>
     </>
   );
 }
-
-Index.getLayout = function getLayout(page) {
-  return <Layout>{page}</Layout>;
-};
