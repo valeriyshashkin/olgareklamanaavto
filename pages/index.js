@@ -9,13 +9,24 @@ export default function Index() {
         <title>Olga.ru - творческая оклейка автомобилей</title>
       </Head>
       <Header />
-      <div>Главная</div>
+      <h1>
+        <span>Живописные</span> наклейки на&nbsp;автомобиль
+      </h1>
       <Footer />
       <style jsx>{`
-        div {
-          padding-top: 74px;
+        h1 {
+          padding-top: 130px;
           margin: 0 auto;
-          width: 1024px;
+          color: #0575e6;
+          text-align: center;
+          font-size: 80px;
+          width: 700px;
+        }
+
+        span {
+          background-image: linear-gradient(to right, #00f260, #0575e6);
+          color: transparent;
+          background-clip: text;
         }
       `}</style>
     </>
