@@ -12,6 +12,12 @@ export default function Index() {
       <h1>
         <span>Живописные</span> наклейки на&nbsp;автомобиль
       </h1>
+      <h3>Сделано</h3>
+      <div style={{ textAlign: "center" }}>Здесь будут фото автомобилей</div>
+      <h3>Цены</h3>
+      <div style={{ textAlign: "center" }}>Здесь будут цены на оклейки разных типов сложности</div>
+      <h3>Контакты</h3>
+      <div style={{ textAlign: "center" }}>Здесь будут контакты</div>
       <Footer />
       <style jsx>{`
         h1 {
@@ -21,6 +27,11 @@ export default function Index() {
           text-align: center;
           font-size: 80px;
           width: 700px;
+        }
+
+        h3 {
+          text-align: center;
+          font-size: 40px;
         }
 
         span {
