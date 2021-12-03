@@ -26,7 +26,7 @@ export default function Index() {
       .then((res) => res.json())
       .then((res) => {
         if (!res.error) {
-          router.push("/admin/content");
+          router.push("/admin/dashboard");
         }
       });
   }

@@ -1,9 +1,13 @@
 import connectDb from "../../utils/db";
+import jwt from "jsonwebtoken";
+import cookies from "../../utils/cookies";
 
-export default async function handler(req, res) {
+async function handler(req, res) {
   if (req.method === "POST") {
+    const token = jwt.sign({ email: "admin@admin.com" }, process.env.SECRET);
+    res.cookie("auth", token);
     res.status(200).json({ error: false });
-  } else {
-    res.status(200).json({ ok: true });
   }
 }
+
+export default cookies(handler);
