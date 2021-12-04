@@ -34,7 +34,7 @@ export default function Index() {
   return (
     <div>
       <Head>
-        <title>Вход в панель управления | Olga.ru</title>
+        <title>Вход в панель управления - Olga</title>
       </Head>
       <h1>Вход</h1>
       <input

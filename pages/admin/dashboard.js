@@ -4,7 +4,7 @@ export default function Dashboard() {
   return (
     <>
       <Head>
-        <title>Панель управления | Olga.ru</title>
+        <title>Панель управления - Olga</title>
       </Head>
     </>
   );

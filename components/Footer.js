@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
     <footer>
-      Copyright © {new Date().getFullYear()} Olga.ru. Все права защищены.
+      Copyright © {new Date().getFullYear()} Olga. Все права защищены.
       <style jsx>{`
         footer {
           border-top: 1px solid lightgray;
