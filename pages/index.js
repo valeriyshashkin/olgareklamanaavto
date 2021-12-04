@@ -31,7 +31,7 @@ function ImageWithMargin({ alt, src, margin }) {
 function Contact({text, src}) {
   return (
     <div>
-      <Image src={src} width={50} height={50} />
+      <Image alt="" src={src} width={50} height={50} />
       <p>{text}</p>
       <style jsx>{`
         div {
