@@ -28,7 +28,7 @@ function ImageWithMargin({ alt, src, margin }) {
   );
 }
 
-function Contact({text, src}) {
+function Contact({ text, src }) {
   return (
     <div>
       <Image alt="" src={src} width={50} height={50} />
@@ -40,6 +40,57 @@ function Contact({text, src}) {
         }
       `}</style>
     </div>
+  );
+}
+
+function Price({ src, alt, title, price, right }) {
+  return (
+    <>
+      {right ? (
+        <div className="container">
+          <div className="text">
+            <h4>{title}</h4>
+            <p>{price}</p>
+          </div>
+          <Image width={400} height={400} alt={alt} src={src} />
+        </div>
+      ) : (
+        <div className="container">
+          <Image width={400} height={400} alt={alt} src={src} />
+          <div className="text">
+            <h4>{title}</h4>
+            <p>{price}</p>
+          </div>
+        </div>
+      )}
+      <style jsx>{`
+        .container {
+          display: flex;
+          margin: 80px 0;
+        }
+
+        .container:first-child,
+        .container:last-child {
+          margin: 0;
+        }
+
+        h4 {
+          font-size: 30px;
+          margin: 0;
+          font-weight: 400;
+        }
+
+        p {
+          margin: 0;
+        }
+      `}</style>
+      <style jsx>{`
+        .text {
+          width: ${right ? "600px" : "520px"};
+          padding-left: ${right ? "0" : "80px"};
+        }
+      `}</style>
+    </>
   );
 }
 
@@ -92,7 +143,27 @@ export default function Index() {
       </section>
       <section id="prices">
         <h3>Цены</h3>
-        Здесь будут цены на оклейки разных типов сложности
+        <div className="prices">
+          <Price
+            alt=""
+            src="/cloud/06082021-002005-1.jpg"
+            title="Простая наклейка"
+            price="от 2400 рублей"
+          />
+          <Price
+            right
+            alt=""
+            src="/cloud/06082021-002005-1.jpg"
+            title="Универсал, каблучок"
+            price="от 5200 рублей"
+          />
+          <Price
+            alt=""
+            src="/cloud/06082021-002005-1.jpg"
+            title="Микроавтобус, автобус, грузовик"
+            price="от 7800 рублей"
+          />
+        </div>
       </section>
       <section id="contacts">
         <h3>Контакты</h3>
@@ -123,6 +194,12 @@ export default function Index() {
 
         .image-row:last-child {
           padding-bottom: 0;
+        }
+
+        .prices {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
         }
 
         h3 {
