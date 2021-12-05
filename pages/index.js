@@ -37,6 +37,7 @@ function Contact({ text, src }) {
         div {
           text-align: center;
           font-size: 20px;
+          width: 300px;
         }
       `}</style>
     </div>
@@ -67,6 +68,7 @@ function Price({ src, alt, title, price, right }) {
         .container {
           display: flex;
           margin: 80px 0;
+          align-items: center;
         }
 
         .container:first-child,
@@ -77,11 +79,11 @@ function Price({ src, alt, title, price, right }) {
         h4 {
           font-size: 30px;
           margin: 0;
-          font-weight: 400;
         }
 
         p {
           margin: 0;
+          font-size: 20px;
         }
       `}</style>
       <style jsx>{`
@@ -167,9 +169,11 @@ export default function Index() {
       </section>
       <section id="contacts">
         <h3>Контакты</h3>
-        <Contact text="+7 (777) 777-77-77" src="/whatsapp.png" />
-        <Contact text="@olgareklamanaavto" src="/instagram.png" />
-        <Contact text="a@a.ru" src="/email.png" />
+        <div className="contacts">
+          <Contact text="+7 (777) 777-77-77" src="/whatsapp.png" />
+          <Contact text="@olgareklamanaavto" src="/instagram.png" />
+          <Contact text="a@a.ru" src="/email.png" />
+        </div>
       </section>
       <Footer />
       <style jsx>{`
@@ -213,6 +217,12 @@ export default function Index() {
           background-image: linear-gradient(to right, #00f260, #0575e6);
           color: transparent;
           background-clip: text;
+        }
+
+        .contacts {
+          margin: 200px 0;
+          display: flex;
+          justify-content: space-between;
         }
       `}</style>
     </>
