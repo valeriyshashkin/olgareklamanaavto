@@ -13,6 +13,11 @@ function MyApp({ Component, pageProps }) {
         * {
           font-family: Open Sans;
         }
+
+        :root {
+          --from-color: #00f260;
+          --to-color: #0575e6;
+        }
       `}</style>
     </>
   );

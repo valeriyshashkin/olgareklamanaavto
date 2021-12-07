@@ -180,7 +180,7 @@ export default function Index() {
         h1 {
           padding-top: 130px;
           margin: 0 auto;
-          color: #0575e6;
+          color: var(--to-color);
           text-align: center;
           font-size: 80px;
           width: 700px;
@@ -214,7 +214,7 @@ export default function Index() {
         }
 
         span {
-          background-image: linear-gradient(to right, #00f260, #0575e6);
+          background-image: linear-gradient(to right, var(--from-color), var(--to-color));
           color: transparent;
           background-clip: text;
         }

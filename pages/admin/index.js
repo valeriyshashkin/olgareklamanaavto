@@ -62,23 +62,28 @@ export default function Index() {
         h1 {
           text-align: center;
           font-size: 40px;
+          background-image: linear-gradient(to right, var(--from-color), var(--to-color));
+          color: transparent;
+          background-clip: text;
+          margin-bottom: 20px;
         }
 
         input,
         button {
           border-radius: 6px;
           border: 1px solid gray;
-          padding: 20px;
+          padding: 10px;
           margin-bottom: 20px;
           font-size: 20px;
+          outline-color: var(--to-color);
         }
 
         button {
           margin-bottom: 0;
-          background: black;
           color: white;
           border: none;
           cursor: pointer;
+          background: var(--to-color);
         }
       `}</style>
     </div>
