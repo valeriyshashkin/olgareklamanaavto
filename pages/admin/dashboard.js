@@ -43,6 +43,16 @@ function InputWithSymbol({ type, symbol, value, onChange }) {
 }
 
 function Gallery() {
+  const [active, setActive] = useState([]);
+
+  function hanldeActive(name) {
+    if (active.includes(name)) {
+      setActive(active.filter((item) => item != name));
+    } else {
+      setActive([...active, name]);
+    }
+  }
+
   return (
     <>
       <button>Добавить фото</button>
@@ -51,16 +61,25 @@ function Gallery() {
           src="/cloud/06082021-002005-1.jpg"
           width={200}
           height={200}
+          onClick={hanldeActive}
+          name="first"
+          active={active.includes("first")}
         />
         <ImageInGallery
           src="/cloud/06082021-002005-1.jpg"
           width={200}
           height={200}
+          onClick={hanldeActive}
+          name="second"
+          active={active.includes("second")}
         />
         <ImageInGallery
           src="/cloud/06082021-002005-1.jpg"
           width={200}
           height={200}
+          onClick={hanldeActive}
+          name="third"
+          active={active.includes("third")}
         />
       </div>
       <style jsx>{`
@@ -69,21 +88,51 @@ function Gallery() {
         }
 
         button {
-          margin-left: auto;
           background: var(--to-color);
           border: none;
           color: white;
           border-radius: 6px;
           padding: 10px;
           cursor: pointer;
+          margin-bottom: 25px;
         }
       `}</style>
     </>
   );
 }
 
-function ImageInGallery({ src, height, width }) {
-  return <Image alt="" src={src} width={width} height={height} />;
+function ImageInGallery({ src, height, width, onClick, name, active }) {
+  function handle() {
+    return onClick(name);
+  }
+
+  return (
+    <div onClick={handle} className={active ? "active" : ""}>
+      <Image
+        alt=""
+        src={src}
+        width={width}
+        height={height}
+      />
+      <style jsx global>{`
+        div {
+          position: relative;
+        }
+
+        .active::after {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 200px;
+          width: 200px;
+          background-size: cover;
+          background-repeat: no-repeat;
+          background-image: url("/selected.svg");
+        }
+      `}</style>
+    </div>
+  );
 }
 
 export default function Dashboard() {
