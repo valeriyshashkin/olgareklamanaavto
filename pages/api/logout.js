@@ -1,8 +1,6 @@
-import cookies from "../../utils/cookies";
+import setCookie from "../../utils/cookies";
 
-async function handler(req, res) {
-  res.cookie("auth", "", { maxAge: 0 });
+export default async function handler(req, res) {
+  setCookie(res, "auth", "", { maxAge: 0, path: '/' });
   res.end();
 }
-
-export default cookies(handler);
