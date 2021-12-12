@@ -27,6 +27,8 @@ export default function Index() {
       .then((res) => {
         if (!res.error) {
           router.push("/admin/dashboard");
+        } else {
+          console.log(res);
         }
       });
   }
