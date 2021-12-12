@@ -1,13 +1,24 @@
 import Head from "next/head";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
 function InputWithSymbol({ type, symbol, value, onChange }) {
+  const [focus, setFocus] = useState(false);
+
+  const handleFocus = () => setFocus(true);
+  const handleBlur = () => setFocus(false);
+
   return (
     <div className="container">
       <div>{symbol}</div>
-      <input type={type} value={value} onChange={onChange} />
+      <input
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        type={type}
+        value={value}
+        onChange={onChange}
+      />
       <style jsx>{`
         .container {
           position: relative;
@@ -22,10 +33,11 @@ function InputWithSymbol({ type, symbol, value, onChange }) {
           margin: 5px 0;
           outline-color: var(--to-color);
         }
-
+      `}</style>
+      <style jsx>{`
         .container div {
           position: absolute;
-          background: var(--to-color);
+          background: ${focus ? "var(--to-color)" : "gray"};
           color: white;
           left: 0;
           top: 0;
@@ -108,12 +120,7 @@ function ImageInGallery({ src, height, width, onClick, name, active }) {
 
   return (
     <div onClick={handle} className={active ? "active" : ""}>
-      <Image
-        alt=""
-        src={src}
-        width={width}
-        height={height}
-      />
+      <Image alt="" src={src} width={width} height={height} />
       <style jsx global>{`
         div {
           position: relative;
@@ -156,6 +163,54 @@ export default function Dashboard() {
       router.push("/admin");
     });
 
+  const saveContacts = () =>
+    fetch("/api/content/update", {
+      method: "POST",
+      body: JSON.stringify([
+        { key: "instagram", value: instagram },
+        { key: "whatsapp", value: whatsapp },
+        { key: "email", value: email },
+      ]),
+    });
+
+  const savePrices = () =>
+    fetch("/api/content/update", {
+      method: "POST",
+      body: JSON.stringify([
+        { key: "simplePrice", value: simplePrice },
+        { key: "universalPrice", value: universalPrice },
+        { key: "busPrice", value: busPrice },
+      ]),
+    });
+
+  useEffect(() => {
+    fetch("/api/content")
+      .then((res) => res.json())
+      .then((res) => {
+        for (const { key, value } of res.content) {
+          switch (key) {
+            case "instagram":
+              setInstagram(value);
+              break;
+            case "whatsapp":
+              setWhatsapp(value);
+              break;
+            case "email":
+              setEmail(value);
+              break;
+            case "simplePrice":
+              setSimplePrice(value);
+              break;
+            case "universalPrice":
+              setUniversalPrice(value);
+              break;
+            case "busPrice":
+              setBusPrice(value);
+          }
+        }
+      });
+  }, []);
+
   return (
     <div className="container">
       <Head>
@@ -178,6 +233,9 @@ export default function Dashboard() {
           <input value={whatsapp} onChange={handleWhatsapp} />
           <label>Почта</label>
           <input value={email} onChange={handleEmail} />
+          <div className="submit">
+            <button onClick={saveContacts}>Сохранить</button>
+          </div>
         </div>
         <div>
           <h3>Цены</h3>
@@ -202,6 +260,9 @@ export default function Dashboard() {
             value={busPrice}
             onChange={handleBusPrice}
           />
+          <div className="submit">
+            <button onClick={savePrices}>Сохранить</button>
+          </div>
         </div>
       </div>
       <h3>Галерея</h3>
@@ -235,6 +296,10 @@ export default function Dashboard() {
           border-radius: 6px;
           padding: 10px;
           cursor: pointer;
+        }
+
+        .submit {
+          margin-top: 20px;
         }
 
         h3 {

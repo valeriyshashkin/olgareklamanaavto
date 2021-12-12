@@ -2,6 +2,7 @@ import Head from "next/head";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Image from "next/image";
+import prisma from "../prisma/prisma";
 
 function ImageWithMargin({ alt, src, margin }) {
   return (
@@ -96,7 +97,7 @@ function Price({ src, alt, title, price, right }) {
   );
 }
 
-export default function Index() {
+export default function Index({ content }) {
   return (
     <>
       <Head>
@@ -150,29 +151,29 @@ export default function Index() {
             alt=""
             src="/cloud/06082021-002005-1.jpg"
             title="Простая наклейка"
-            price="от 2400 рублей"
+            price={`от ${content.simplePrice} рублей`}
           />
           <Price
             right
             alt=""
             src="/cloud/06082021-002005-1.jpg"
             title="Универсал, каблучок"
-            price="от 5200 рублей"
+            price={`от ${content.universalPrice} рублей`}
           />
           <Price
             alt=""
             src="/cloud/06082021-002005-1.jpg"
             title="Микроавтобус, автобус, грузовик"
-            price="от 7800 рублей"
+            price={`от ${content.busPrice} рублей`}
           />
         </div>
       </section>
       <section id="contacts">
         <h3>Контакты</h3>
         <div className="contacts">
-          <Contact text="+7 (777) 777-77-77" src="/whatsapp.png" />
-          <Contact text="@olgareklamanaavto" src="/instagram.png" />
-          <Contact text="a@a.ru" src="/email.png" />
+          <Contact text={content.whatsapp} src="/whatsapp.png" />
+          <Contact text={"@" + content.instagram} src="/instagram.png" />
+          <Contact text={content.email} src="/email.png" />
         </div>
       </section>
       <Footer />
@@ -214,7 +215,11 @@ export default function Index() {
         }
 
         span {
-          background-image: linear-gradient(to right, var(--from-color), var(--to-color));
+          background-image: linear-gradient(
+            to right,
+            var(--from-color),
+            var(--to-color)
+          );
           color: transparent;
           background-clip: text;
         }
@@ -227,4 +232,16 @@ export default function Index() {
       `}</style>
     </>
   );
+}
+
+export async function getStaticProps() {
+  const content = await prisma.content.findMany();
+
+  let props = {};
+
+  for (const { key, value } of content) {
+    props[key] = value;
+  }
+
+  return { props: { content: props }, revalidate: 60 };
 }
