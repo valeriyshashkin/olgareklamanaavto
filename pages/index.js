@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Image from "next/image";
 import prisma from "../prisma/prisma";
+import { useEffect, useState } from "react";
 
 function ImageWithMargin({ alt, src, margin }) {
   return (
@@ -10,6 +11,29 @@ function ImageWithMargin({ alt, src, margin }) {
       <div className="inner">
         <Image alt={alt} src={src} layout="fill" />
       </div>
+      <style jsx>{`
+        .outer {
+          margin-right: ${margin}px;
+          width: 100%;
+        }
+
+        .outer:last-child {
+          margin-right: 0;
+        }
+
+        .inner {
+          position: relative;
+          padding-bottom: 100%;
+        }
+      `}</style>
+    </div>
+  );
+}
+
+function EmptyImageWithMargin({ margin }) {
+  return (
+    <div className="outer">
+      <div className="inner"></div>
       <style jsx>{`
         .outer {
           margin-right: ${margin}px;
@@ -98,6 +122,30 @@ function Price({ src, alt, title, price, right }) {
 }
 
 export default function Index({ content }) {
+  const [images, setImages] = useState([]);
+
+  useEffect(() => {
+    fetch("/api/cloud")
+      .then((res) => res.json())
+      .then(({ images }) => setImages(chunk(images, 3)));
+  }, []);
+
+  function chunk(arr, n) {
+    let chunkedArr = new Array(Math.ceil(arr.length / n))
+      .fill()
+      .map(() => arr.splice(0, n));
+
+    const remainItems = n - chunkedArr[n - 1].length;
+
+    if (remainItems) {
+      for (let i = 0; i < remainItems; i++) {
+        chunkedArr[n - 1].push(null);
+      }
+    }
+
+    return chunkedArr;
+  }
+
   return (
     <>
       <Head>
@@ -109,7 +157,23 @@ export default function Index({ content }) {
       </h1>
       <section id="gallery">
         <h3>Сделано</h3>
-        <div className="image-row">
+        {images.map((_, i) => (
+          <div className="image-row" key={i}>
+            {images[i].map((image, j) =>
+              image ? (
+                <ImageWithMargin
+                  key={j}
+                  alt=""
+                  src={"data:image/png;base64, " + image.src}
+                  margin={20}
+                />
+              ) : (
+                <EmptyImageWithMargin margin={20} />
+              )
+            )}
+          </div>
+        ))}
+        {/* <div className="image-row">
           <ImageWithMargin
             alt=""
             src="/cloud/06082021-002005-1.jpg"
@@ -125,24 +189,7 @@ export default function Index({ content }) {
             src="/cloud/06082021-002005-1.jpg"
             margin={20}
           />
-        </div>
-        <div className="image-row">
-          <ImageWithMargin
-            alt=""
-            src="/cloud/06082021-002005-1.jpg"
-            margin={20}
-          />
-          <ImageWithMargin
-            alt=""
-            src="/cloud/06082021-002005-1.jpg"
-            margin={20}
-          />
-          <ImageWithMargin
-            alt=""
-            src="/cloud/06082021-002005-1.jpg"
-            margin={20}
-          />
-        </div>
+        </div> */}
       </section>
       <section id="prices">
         <h3>Цены</h3>
