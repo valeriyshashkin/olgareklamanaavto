@@ -56,6 +56,7 @@ function InputWithSymbol({ type, symbol, value, onChange }) {
 
 function Gallery() {
   const [active, setActive] = useState([]);
+  const [images, setImages] = useState([]);
   const inputRef = useRef();
 
   function hanldeActive(name) {
@@ -64,6 +65,12 @@ function Gallery() {
     } else {
       setActive([...active, name]);
     }
+  }
+
+  function fetchImages() {
+    fetch("/api/cloud")
+      .then((res) => res.json())
+      .then(({ images }) => setImages(images));
   }
 
   function upload(e) {
@@ -76,16 +83,27 @@ function Gallery() {
     fetch("/api/cloud/create", {
       method: "POST",
       body: formData,
-    });
+    }).then(() => fetchImages());
+  }
+
+  function remove() {
+    fetch("/api/cloud/delete", {
+      method: "POST",
+      body: JSON.stringify({ ids: active }),
+    }).then(() => fetchImages());
   }
 
   function handleClick() {
     inputRef.current.click();
   }
 
+  useEffect(() => {
+    fetchImages();
+  }, []);
+
   return (
     <>
-      <div className="upload-button">
+      <div>
         <input
           type="file"
           multiple
@@ -94,32 +112,22 @@ function Gallery() {
           ref={inputRef}
         />
         <button onClick={handleClick}>Добавить фото</button>
+        {active.length !== 0 && (
+          <button className="remove" onClick={remove}>
+            Удалить
+          </button>
+        )}
       </div>
       <div>
-        <ImageInGallery
-          src="/cloud/06082021-002005-1.jpg"
-          width={200}
-          height={200}
-          onClick={hanldeActive}
-          name="first"
-          active={active.includes("first")}
-        />
-        <ImageInGallery
-          src="/cloud/06082021-002005-1.jpg"
-          width={200}
-          height={200}
-          onClick={hanldeActive}
-          name="second"
-          active={active.includes("second")}
-        />
-        <ImageInGallery
-          src="/cloud/06082021-002005-1.jpg"
-          width={200}
-          height={200}
-          onClick={hanldeActive}
-          name="third"
-          active={active.includes("third")}
-        />
+        {images.map(({ id, src }) => (
+          <ImageInGallery
+            key={id}
+            src={"data:image/png;base64, " + src}
+            onClick={hanldeActive}
+            name={id}
+            active={active.includes(id)}
+          />
+        ))}
       </div>
       <style jsx>{`
         div {
@@ -136,34 +144,38 @@ function Gallery() {
           margin-bottom: 25px;
         }
 
-        .upload-button {
-          position: relative;
-          height: 60px;
+        input {
+          display: none;
         }
 
-        .upload-button input {
-          visibility: hidden;
-        }
-
-        .upload-button button {
-          position: absolute;
+        .remove {
+          background: #ff2222;
+          margin-left: 20px;
         }
       `}</style>
     </>
   );
 }
 
-function ImageInGallery({ src, height, width, onClick, name, active }) {
+function ImageInGallery({ src, onClick, name, active }) {
   function handle() {
     return onClick(name);
   }
 
   return (
-    <div onClick={handle} className={active ? "active" : ""}>
-      <Image alt="" src={src} width={width} height={height} />
-      <style jsx global>{`
+    <>
+      <div onClick={handle} className={active ? "active" : ""}>
+        <Image className="img" alt="" src={src} height={200} width={200} />
+      </div>
+      <style jsx>{`
         div {
           position: relative;
+          cursor: pointer;
+        }
+      `}</style>
+      <style jsx global>{`
+        .img {
+          object-fit: cover;
         }
 
         .active::after {
@@ -178,7 +190,7 @@ function ImageInGallery({ src, height, width, onClick, name, active }) {
           background-image: url("/selected.svg");
         }
       `}</style>
-    </div>
+    </>
   );
 }
 
