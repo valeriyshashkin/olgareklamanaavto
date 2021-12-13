@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
@@ -56,6 +56,7 @@ function InputWithSymbol({ type, symbol, value, onChange }) {
 
 function Gallery() {
   const [active, setActive] = useState([]);
+  const inputRef = useRef();
 
   function hanldeActive(name) {
     if (active.includes(name)) {
@@ -65,9 +66,35 @@ function Gallery() {
     }
   }
 
+  function upload(e) {
+    const formData = new FormData();
+
+    for (const f of e.target.files) {
+      formData.append("file", f);
+    }
+
+    fetch("/api/cloud/create", {
+      method: "POST",
+      body: formData,
+    });
+  }
+
+  function handleClick() {
+    inputRef.current.click();
+  }
+
   return (
     <>
-      <button>Добавить фото</button>
+      <div className="upload-button">
+        <input
+          type="file"
+          multiple
+          accept="image/*"
+          onChange={upload}
+          ref={inputRef}
+        />
+        <button onClick={handleClick}>Добавить фото</button>
+      </div>
       <div>
         <ImageInGallery
           src="/cloud/06082021-002005-1.jpg"
@@ -107,6 +134,19 @@ function Gallery() {
           padding: 10px;
           cursor: pointer;
           margin-bottom: 25px;
+        }
+
+        .upload-button {
+          position: relative;
+          height: 60px;
+        }
+
+        .upload-button input {
+          visibility: hidden;
+        }
+
+        .upload-button button {
+          position: absolute;
         }
       `}</style>
     </>
