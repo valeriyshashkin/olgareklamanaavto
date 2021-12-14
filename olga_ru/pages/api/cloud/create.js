@@ -1,6 +1,5 @@
 import prisma from "../../../prisma/prisma";
 import formidable from "formidable";
-import fs from "fs";
 
 export const config = {
   api: {
@@ -23,16 +22,17 @@ export default async function handler(req, res) {
       });
     });
 
-    if (files.file.constructor === Array) {
-      for (const f of files.file) {
-        await prisma.image.create({
-          data: { src: fs.readFileSync(f.filepath, { encoding: "base64" }) },
-        });
-      }
-    } else {
+    const res = await fetch(`${CLOUD_STORAGE_DOMAIN}/create`, {
+      method: "POST",
+      body: JSON.stringify() + req.body,
+    });
+
+    const urls = await res.json();
+
+    for (const u of urls) {
       await prisma.image.create({
         data: {
-          src: fs.readFileSync(files.file.filepath, { encoding: "base64" }),
+          src: u,
         },
       });
     }
