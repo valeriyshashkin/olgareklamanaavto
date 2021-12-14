@@ -1,14 +1,19 @@
-require("dotenv").config();
 const express = require("express");
+const bodyParser = require("body-parser");
 
 const app = express();
 const port = process.env.PORT;
 
+app.use(bodyParser.json());
 app.use("/public", express.static(__dirname + "/public"));
 
-app.get("/create", (req, res) => {});
+app.post("/create", (req, res) => {
+  // const { files } = req.body;
+  console.log(req.body);
+  res.send(JSON.stringify([]));
+});
 
-app.get("/delete", (req, res) => {});
+app.post("/delete", (req, res) => {});
 
 app.listen(port, () => {
   console.log(`listen on http://localhost:${port}`);

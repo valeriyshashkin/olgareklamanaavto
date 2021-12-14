@@ -22,20 +22,25 @@ export default async function handler(req, res) {
       });
     });
 
-    const res = await fetch(`${CLOUD_STORAGE_DOMAIN}/create`, {
+    const result = await fetch(`${process.env.CLOUD_STORAGE_DOMAIN}/create`, {
       method: "POST",
-      body: JSON.stringify() + req.body,
+      headers: {
+        Authorization: process.env.CLOUD_STORAGE_KEY,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ files }),
     });
 
-    const urls = await res.json();
+    const urls = await result.json();
+    console.log(urls);
 
-    for (const u of urls) {
-      await prisma.image.create({
-        data: {
-          src: u,
-        },
-      });
-    }
+    // for (const u of urls) {
+    //   await prisma.image.create({
+    //     data: {
+    //       src: u,
+    //     },
+    //   });
+    // }
 
     res.end();
   }
