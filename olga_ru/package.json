@@ -1,5 +1,5 @@
 {
-  "name": "olga.ru.nextjs",
+  "name": "olga_ru",
   "private": true,
   "scripts": {
     "dev": "next dev",
