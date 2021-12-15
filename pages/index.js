@@ -4,54 +4,10 @@ import Footer from "../components/Footer";
 import Image from "next/image";
 import prisma from "../prisma/prisma";
 import { useEffect, useState } from "react";
-
-function ImageWithMargin({ alt, src, margin }) {
-  return (
-    <div className="outer">
-      <div className="inner">
-        <Image alt={alt} src={src} layout="fill" />
-      </div>
-      <style jsx>{`
-        .outer {
-          margin-right: ${margin}px;
-          width: 100%;
-        }
-
-        .outer:last-child {
-          margin-right: 0;
-        }
-
-        .inner {
-          position: relative;
-          padding-bottom: 100%;
-        }
-      `}</style>
-    </div>
-  );
-}
-
-function EmptyImageWithMargin({ margin }) {
-  return (
-    <div className="outer">
-      <div className="inner"></div>
-      <style jsx>{`
-        .outer {
-          margin-right: ${margin}px;
-          width: 100%;
-        }
-
-        .outer:last-child {
-          margin-right: 0;
-        }
-
-        .inner {
-          position: relative;
-          padding-bottom: 100%;
-        }
-      `}</style>
-    </div>
-  );
-}
+import {
+  ImageWithMargin,
+  EmptyImageWithMargin,
+} from "../components/ImageWithMargin";
 
 function Contact({ text, src }) {
   return (
