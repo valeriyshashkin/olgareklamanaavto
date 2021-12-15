@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export function ImageWithMargin({ alt, src, margin }) {
   return (
     <div className="outer">

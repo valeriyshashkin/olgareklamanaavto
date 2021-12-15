@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 
 function ImageInGallery({ src, onClick, name, active }) {
   function handle() {
