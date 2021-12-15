@@ -82,8 +82,14 @@ function Gallery() {
 
     fetch("/api/cloud/create", {
       method: "POST",
-      body: formData,
-    }).then(() => fetchImages());
+    })
+      .then((res) => res.json())
+      .then(({ url }) =>
+        fetch(url, {
+          method: "POST",
+          body: formData,
+        }).then(() => fetchImages())
+      );
   }
 
   function remove() {

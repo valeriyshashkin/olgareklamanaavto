@@ -7,6 +7,8 @@ const port = process.env.PORT;
 app.use(bodyParser.json());
 app.use("/public", express.static(__dirname + "/public"));
 
+app.post("/presigned", (req, res) => {});
+
 app.post("/create", (req, res) => {
   // const { files } = req.body;
   console.log(req.body);
