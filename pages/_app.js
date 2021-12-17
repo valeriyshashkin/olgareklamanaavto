@@ -17,6 +17,9 @@ function MyApp({ Component, pageProps }) {
         :root {
           --from-color: #00f260;
           --to-color: #0575e6;
+          --lightgray: #eee;
+          --gray: #555;
+          --bordergray: lightgray;
         }
       `}</style>
     </>

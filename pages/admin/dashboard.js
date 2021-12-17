@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import InputWithSymbol from "../../components/InputWithSymbol";
 import Gallery from "../../components/Gallery";
+import Setting from "../../components/Setting";
 
 export default function Dashboard() {
   const [instagram, setInstagram] = useState("");
@@ -82,22 +83,36 @@ export default function Dashboard() {
         <h1>Панель управления</h1>
         <button onClick={logout}>Выйти</button>
       </div>
-      <div className="row">
+      <div>
         <div>
-          <h3>Контакты</h3>
-          <label>Инстаграм</label>
-          <InputWithSymbol
-            symbol="@"
-            value={instagram}
-            onChange={handleInstagram}
-          />
-          <label>Ватсап</label>
-          <input value={whatsapp} onChange={handleWhatsapp} />
-          <label>Почта</label>
-          <input value={email} onChange={handleEmail} />
-          <div className="submit">
-            <button onClick={saveContacts}>Сохранить</button>
-          </div>
+          <header>
+            <h3>Контакты</h3>
+          </header>
+          <Setting
+            title="Ваш Instagram"
+            desc="Введите свое имя пользователя в Instagram."
+            tip="Эти данные будут отображаться на главной странице сайта в разделе Контакты."
+          >
+            <InputWithSymbol
+              symbol="@"
+              value={instagram}
+              onChange={handleInstagram}
+            />
+          </Setting>
+          <Setting
+            title="Ваш WhatsApp"
+            desc="Введите свой номер телефона в WhatsApp."
+            tip="Эти данные будут отображаться на главной странице сайта в разделе Контакты."
+          >
+            <input value={whatsapp} onChange={handleWhatsapp} />
+          </Setting>
+          <Setting
+            title="Ваша электронная почта"
+            desc="Введите адрес вашей электронной почты"
+            tip="Эти данные будут отображаться на главной странице сайта в разделе Контакты."
+          >
+            <input value={email} onChange={handleEmail} />
+          </Setting>
         </div>
         <div>
           <h3>Цены</h3>
@@ -140,6 +155,11 @@ export default function Dashboard() {
           align-items: center;
         }
 
+        header {
+          border-bottom: 1px solid var(--bordergray);
+          margin-bottom: 20px;
+        }
+
         h1 {
           background-image: linear-gradient(
             to right,
@@ -166,6 +186,7 @@ export default function Dashboard() {
 
         h3 {
           color: var(--to-color);
+          font-size: 36px;
         }
 
         label {
@@ -176,19 +197,14 @@ export default function Dashboard() {
         input {
           padding: 10px;
           border-radius: 6px;
-          border: 1px solid gray;
+          border: 1px solid var(--bordergray);
           margin: 5px 0;
           width: 300px;
-          outline-color: var(--to-color);
+          outline: none;
         }
 
-        .row {
-          display: flex;
-          justify-content: space-between;
-        }
-
-        .row div {
-          width: 500px;
+        input:focus {
+          border-color: var(--to-color);
         }
       `}</style>
     </div>
