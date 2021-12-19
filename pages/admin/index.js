@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import Button from "../../components/Button";
 
 export default function Index() {
   const [email, setEmail] = useState("");
@@ -51,7 +52,7 @@ export default function Index() {
         placeholder="Пароль"
         type="password"
       />
-      <button onClick={login}>Войти</button>
+      <Button large onClick={login}>Войти</Button>
       <style jsx>{`
         div {
           display: flex;
@@ -64,9 +65,6 @@ export default function Index() {
         h1 {
           text-align: center;
           font-size: 40px;
-          background-image: linear-gradient(to right, var(--from-color), var(--to-color));
-          color: transparent;
-          background-clip: text;
           margin-bottom: 20px;
         }
 

@@ -1,4 +1,4 @@
-export default function Button({ onClick, children, margin }) {
+export default function Button({ large, onClick, children, margin }) {
   return (
     <button onClick={onClick}>
       {children}
@@ -15,6 +15,7 @@ export default function Button({ onClick, children, margin }) {
       <style jsx>{`
         button {
           margin: ${margin ?? "0"};
+          font-size: ${large ? "20px" : "14px"};
         }
       `}</style>
     </button>
