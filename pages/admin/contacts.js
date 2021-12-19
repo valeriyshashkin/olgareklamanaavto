@@ -2,7 +2,6 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Input from "../../components/Input";
-import Gallery from "../../components/Gallery";
 import Setting from "../../components/Setting";
 import useUser from "../../utils/user";
 import NavigationBar from "../../components/NavigationBar";
@@ -24,10 +23,6 @@ export default function Contacts() {
   const handleBusPrice = (e) => setBusPrice(e.target.value);
   const handleSimplePrice = (e) => setSimplePrice(e.target.value);
   const handleUniversalPrice = (e) => setUniversalPrice(e.target.value);
-  const logout = () =>
-    fetch("/api/logout").then(() => {
-      router.push("/admin");
-    });
 
   const saveContacts = () =>
     fetch("/api/content/update", {

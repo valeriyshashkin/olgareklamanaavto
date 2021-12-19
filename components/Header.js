@@ -1,6 +1,14 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function Header({ admin }) {
+  const router = useRouter();
+
+  const logout = () =>
+    fetch("/api/logout").then(() => {
+      router.push("/admin");
+    });
+
   return (
     <>
       <header>
@@ -25,7 +33,7 @@ export default function Header({ admin }) {
             </a>
           </Link>
           {admin ? (
-            <div>
+            <div onClick={logout}>
               <p>Выйти</p>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
