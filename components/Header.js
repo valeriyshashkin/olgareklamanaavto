@@ -1,13 +1,21 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 export default function Header({ admin }) {
   const router = useRouter();
+  const [isScrollZero, setIsScrollZero] = useState(true);
 
   const logout = () =>
     fetch("/api/logout").then(() => {
       router.push("/admin");
     });
+
+  useEffect(() => {
+    addEventListener("scroll", () => {
+      setIsScrollZero(scrollY === 0);
+    });
+  }, []);
 
   return (
     <>
@@ -68,7 +76,6 @@ export default function Header({ admin }) {
       </header>
       <style jsx>{`
         header {
-          border-bottom: 1px solid lightgray;
           position: fixed;
           top: 0;
           left: 0;
@@ -124,6 +131,11 @@ export default function Header({ admin }) {
         div p {
           margin: 0;
           margin-right: 10px;
+        }
+      `}</style>
+      <style jsx>{`
+        header {
+          border-bottom: ${isScrollZero ? "none" : "1px solid lightgray"};
         }
       `}</style>
     </>

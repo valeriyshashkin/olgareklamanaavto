@@ -2,7 +2,6 @@ import Head from "next/head";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Image from "next/image";
-import prisma from "../prisma/prisma";
 import { useEffect, useState } from "react";
 import {
   ImageWithMargin,
@@ -77,30 +76,8 @@ function Price({ src, alt, title, price, right }) {
   );
 }
 
-export default function Index({ content }) {
+export default function Index() {
   const [images, setImages] = useState([]);
-
-  useEffect(() => {
-    fetch("/api/cloud")
-      .then((res) => res.json())
-      .then(({ images }) => setImages(chunk(images, 3)));
-  }, []);
-
-  function chunk(arr, n) {
-    let chunkedArr = new Array(Math.ceil(arr.length / n))
-      .fill()
-      .map(() => arr.splice(0, n));
-
-    const remainItems = n - chunkedArr[n - 1].length;
-
-    if (remainItems) {
-      for (let i = 0; i < remainItems; i++) {
-        chunkedArr[n - 1].push(null);
-      }
-    }
-
-    return chunkedArr;
-  }
 
   return (
     <>
@@ -113,39 +90,6 @@ export default function Index({ content }) {
       </h1>
       <section id="gallery">
         <h3>Сделано</h3>
-        {images.map((_, i) => (
-          <div className="image-row" key={i}>
-            {images[i].map((image, j) =>
-              image ? (
-                <ImageWithMargin
-                  key={j}
-                  alt=""
-                  src={"data:image/png;base64, " + image.src}
-                  margin={20}
-                />
-              ) : (
-                <EmptyImageWithMargin margin={20} />
-              )
-            )}
-          </div>
-        ))}
-        {/* <div className="image-row">
-          <ImageWithMargin
-            alt=""
-            src="/cloud/06082021-002005-1.jpg"
-            margin={20}
-          />
-          <ImageWithMargin
-            alt=""
-            src="/cloud/06082021-002005-1.jpg"
-            margin={20}
-          />
-          <ImageWithMargin
-            alt=""
-            src="/cloud/06082021-002005-1.jpg"
-            margin={20}
-          />
-        </div> */}
       </section>
       <section id="prices">
         <h3>Цены</h3>
@@ -154,29 +98,29 @@ export default function Index({ content }) {
             alt=""
             src="/cloud/06082021-002005-1.jpg"
             title="Простая наклейка"
-            price={`от ${content.simplePrice} рублей`}
+            price={`от  рублей`}
           />
           <Price
             right
             alt=""
             src="/cloud/06082021-002005-1.jpg"
             title="Универсал, каблучок"
-            price={`от ${content.universalPrice} рублей`}
+            price={`от  рублей`}
           />
           <Price
             alt=""
             src="/cloud/06082021-002005-1.jpg"
             title="Микроавтобус, автобус, грузовик"
-            price={`от ${content.busPrice} рублей`}
+            price={`от  рублей`}
           />
         </div>
       </section>
       <section id="contacts">
         <h3>Контакты</h3>
         <div className="contacts">
-          <Contact text={content.whatsapp} src="/whatsapp.png" />
-          <Contact text={"@" + content.instagram} src="/instagram.png" />
-          <Contact text={content.email} src="/email.png" />
+          <Contact src="/whatsapp.png" />
+          <Contact src="/instagram.png" />
+          <Contact src="/email.png" />
         </div>
       </section>
       <Footer />
@@ -235,16 +179,4 @@ export default function Index({ content }) {
       `}</style>
     </>
   );
-}
-
-export async function getStaticProps() {
-  const content = await prisma.content.findMany();
-
-  let props = {};
-
-  for (const { key, value } of content) {
-    props[key] = value;
-  }
-
-  return { props: { content: props }, revalidate: 60 };
 }
