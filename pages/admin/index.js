@@ -26,7 +26,7 @@ export default function Index() {
       .then((res) => res.json())
       .then((res) => {
         if (!res.error) {
-          router.push("/admin/dashboard");
+          router.push("/admin/contacts");
         } else {
           console.log(res);
         }

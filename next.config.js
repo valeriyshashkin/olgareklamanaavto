@@ -11,7 +11,7 @@ module.exports = {
           },
         ],
         permanent: false,
-        destination: "/admin/dashboard",
+        destination: "/admin/contacts",
       }
     ];
   },

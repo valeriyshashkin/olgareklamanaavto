@@ -5,8 +5,10 @@ import Input from "../../components/Input";
 import Gallery from "../../components/Gallery";
 import Setting from "../../components/Setting";
 import useUser from "../../utils/user";
+import NavigationBar from "../../components/NavigationBar";
+import Header from "../../components/Header";
 
-export default function Dashboard() {
+export default function Contacts() {
   const [instagram, setInstagram] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
   const [email, setEmail] = useState("");
@@ -87,29 +89,23 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="container">
+    <div>
       <Head>
-        <title>Панель управления - Olga</title>
+        <title>Контакты - Olga</title>
       </Head>
-      <div className="header">
-        <h1>Панель управления - {user.email}</h1>
-        <button onClick={logout}>Выйти</button>
-      </div>
-      <div>
-        <div>
-          <header>
-            <h3>Контакты</h3>
-          </header>
+      <Header admin />
+      <h3>
+        <div className="container">Контакты</div>
+      </h3>
+      <div className="container row">
+        <NavigationBar />
+        <div className="settings">
           <Setting
             title="Ваш Instagram"
             desc="Введите свое имя пользователя в Instagram."
             tip="Эти данные будут отображаться на главной странице сайта в разделе Контакты."
           >
-            <Input
-              prefix="@"
-              value={instagram}
-              onChange={handleInstagram}
-            />
+            <Input prefix="@" value={instagram} onChange={handleInstagram} />
           </Setting>
           <Setting
             title="Ваш WhatsApp"
@@ -126,7 +122,7 @@ export default function Dashboard() {
             <Input value={email} onChange={handleEmail} />
           </Setting>
         </div>
-        <div>
+        {/* <div>
           <h3>Цены</h3>
           <label>Простая наклейка</label>
           <Input
@@ -152,62 +148,30 @@ export default function Dashboard() {
           <div className="submit">
             <button onClick={savePrices}>Сохранить</button>
           </div>
-        </div>
+        </div> */}
       </div>
-      <h3>Галерея</h3>
-      <Gallery />
+      {/* <h3>Галерея</h3>
+      <Gallery /> */}
       <style jsx>{`
+        .row {
+          display: flex;
+          justify-content: space-between;
+        }
+
         .container {
           width: 1024px;
           margin: 0 auto;
         }
 
-        .header {
-          display: flex;
-          align-items: center;
-        }
-
-        header {
-          border-bottom: 1px solid var(--bordergray);
-          margin-bottom: 20px;
-        }
-
-        h1 {
-          background-image: linear-gradient(
-            to right,
-            var(--from-color),
-            var(--to-color)
-          );
-          color: transparent;
-          background-clip: text;
-        }
-
-        button {
-          margin-left: auto;
-          background: var(--to-color);
-          border: none;
-          color: white;
-          border-radius: 6px;
-          padding: 10px;
-          cursor: pointer;
-        }
-
-        .submit {
-          margin-top: 20px;
+        .settings {
+          width: 100%;
         }
 
         h3 {
-          color: var(--to-color);
+          border-bottom: 1px solid var(--bordergray);
+          padding-top: 70px;
+          padding-bottom: 40px;
           font-size: 36px;
-        }
-
-        label {
-          display: block;
-          margin-top: 10px;
-        }
-
-        input:focus {
-          border-color: var(--to-color);
         }
       `}</style>
     </div>
