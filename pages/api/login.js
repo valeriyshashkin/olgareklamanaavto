@@ -7,12 +7,17 @@ export default async function handler(req, res) {
     const { email, password } = JSON.parse(req.body);
 
     const admin = await prisma.admin.findFirst({
-      where: { email }
+      where: { email },
     });
 
     if (admin && admin.password === password) {
-      const token = jwt.sign({ email }, process.env.SECRET);
-      setCookie(res, "auth", token, { maxAge: 365 * 24 * 60 * 60 * 1000, path: '/' });
+      const token = jwt.sign({ email }, process.env.SECRET, {
+        expiresIn: "1y",
+      });
+      setCookie(res, "auth", token, {
+        maxAge: 365 * 24 * 60 * 60 * 1000,
+        path: "/",
+      });
       res.json({ error: false });
     } else {
       res.json({ error: true });

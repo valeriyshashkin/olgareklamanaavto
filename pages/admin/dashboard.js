@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import InputWithSymbol from "../../components/InputWithSymbol";
 import Gallery from "../../components/Gallery";
 import Setting from "../../components/Setting";
+import useUser from "../../utils/user";
 
 export default function Dashboard() {
   const [instagram, setInstagram] = useState("");
@@ -74,13 +75,24 @@ export default function Dashboard() {
       });
   }, []);
 
+  const { user, isLoading } = useUser();
+
+  if (isLoading) {
+    return "Загрузка...";
+  }
+
+  if (user.error) {
+    router.push("/admin");
+    return "Загрузка...";
+  }
+
   return (
     <div className="container">
       <Head>
         <title>Панель управления - Olga</title>
       </Head>
       <div className="header">
-        <h1>Панель управления</h1>
+        <h1>Панель управления - {user.email}</h1>
         <button onClick={logout}>Выйти</button>
       </div>
       <div>

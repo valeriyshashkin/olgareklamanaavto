@@ -2,13 +2,6 @@ const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
-const admins = [
-  {
-    email: "admin@admin.com",
-    password: "admin",
-  },
-];
-
 const content = [
   {
     key: "instagram",
@@ -44,17 +37,6 @@ async function main() {
     if (!isExists) {
       await prisma.content.create({
         data: c,
-      });
-    }
-  }
-
-  for (const a of admins) {
-    const isExists = await prisma.admin.findFirst({
-      where: { email: a.email },
-    });
-    if (!isExists) {
-      await prisma.admin.create({
-        data: a,
       });
     }
   }
