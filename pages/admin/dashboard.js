@@ -1,7 +1,7 @@
 import Head from "next/head";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import InputWithSymbol from "../../components/InputWithSymbol";
+import Input from "../../components/Input";
 import Gallery from "../../components/Gallery";
 import Setting from "../../components/Setting";
 import useUser from "../../utils/user";
@@ -105,8 +105,8 @@ export default function Dashboard() {
             desc="Введите свое имя пользователя в Instagram."
             tip="Эти данные будут отображаться на главной странице сайта в разделе Контакты."
           >
-            <InputWithSymbol
-              symbol="@"
+            <Input
+              prefix="@"
               value={instagram}
               onChange={handleInstagram}
             />
@@ -116,36 +116,36 @@ export default function Dashboard() {
             desc="Введите свой номер телефона в WhatsApp."
             tip="Эти данные будут отображаться на главной странице сайта в разделе Контакты."
           >
-            <input value={whatsapp} onChange={handleWhatsapp} />
+            <Input value={whatsapp} onChange={handleWhatsapp} />
           </Setting>
           <Setting
             title="Ваша электронная почта"
             desc="Введите адрес вашей электронной почты"
             tip="Эти данные будут отображаться на главной странице сайта в разделе Контакты."
           >
-            <input value={email} onChange={handleEmail} />
+            <Input value={email} onChange={handleEmail} />
           </Setting>
         </div>
         <div>
           <h3>Цены</h3>
           <label>Простая наклейка</label>
-          <InputWithSymbol
+          <Input
             type="number"
-            symbol="₽"
+            prefix="₽"
             value={simplePrice}
             onChange={handleSimplePrice}
           />
           <label>Универсал, каблучок</label>
-          <InputWithSymbol
+          <Input
             type="number"
-            symbol="₽"
+            prefix="₽"
             value={universalPrice}
             onChange={handleUniversalPrice}
           />
           <label>Микроавтобус, автобус, грузовик</label>
-          <InputWithSymbol
+          <Input
             type="number"
-            symbol="₽"
+            prefix="₽"
             value={busPrice}
             onChange={handleBusPrice}
           />
@@ -204,15 +204,6 @@ export default function Dashboard() {
         label {
           display: block;
           margin-top: 10px;
-        }
-
-        input {
-          padding: 10px;
-          border-radius: 6px;
-          border: 1px solid var(--bordergray);
-          margin: 5px 0;
-          width: 300px;
-          outline: none;
         }
 
         input:focus {
