@@ -1,3 +1,5 @@
+import Button from "./Button";
+
 export default function Setting({ title, desc, tip, children }) {
   return (
     <section>
@@ -8,7 +10,7 @@ export default function Setting({ title, desc, tip, children }) {
       </div>
       <footer>
         <p>{tip}</p>
-        <button>Сохранить</button>
+        <Button margin="0 0 0 auto">Сохранить</Button>
       </footer>
       <style jsx>{`
         h4 {
@@ -19,16 +21,6 @@ export default function Setting({ title, desc, tip, children }) {
         p {
           margin: 10px 0;
           font-size: 14px;
-        }
-
-        button {
-          background: var(--to-color);
-          color: white;
-          border-radius: 6px;
-          padding: 10px;
-          border: none;
-          margin-left: auto;
-          display: block;
         }
 
         section {
