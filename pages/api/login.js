@@ -11,7 +11,7 @@ export default async function handler(req, res) {
     });
 
     if (admin && admin.password === password) {
-      const token = jwt.sign({ email }, process.env.SECRET, {
+      const token = jwt.sign({ email }, process.env.JWT_SECRET, {
         expiresIn: "1y",
       });
       setCookie(res, "auth", token, {

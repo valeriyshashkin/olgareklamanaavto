@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-function NavigationLink({ href, children }) {
+function NavigationLink({ href, children, active }) {
   return (
     <li>
       <Link href={href} passHref>
@@ -9,7 +9,6 @@ function NavigationLink({ href, children }) {
       <style jsx>{`
         a {
           text-decoration: none;
-          color: black;
           font-size: 20px;
           display: block;
           padding: 20px;
@@ -22,17 +21,29 @@ function NavigationLink({ href, children }) {
           background: var(--lightgray);
         }
       `}</style>
+      <style jsx>{`
+        a {
+          color: ${active ? "black" : "var(--gray)"};
+          font-weight: ${active ? "bold" : "initial"};
+        }
+      `}</style>
     </li>
   );
 }
 
-export default function NavigationBar() {
+export default function NavigationBar({ active }) {
   return (
     <div>
       <ul>
-        <NavigationLink href="/admin/contacts">Контакты</NavigationLink>
-        <NavigationLink href="/admin/prices">Цены</NavigationLink>
-        <NavigationLink href="/admin/gallery">Галерея</NavigationLink>
+        <NavigationLink href="/admin/contacts" active={active === "Контакты"}>
+          Контакты
+        </NavigationLink>
+        <NavigationLink href="/admin/prices" active={active === "Цены"}>
+          Цены
+        </NavigationLink>
+        <NavigationLink href="/admin/gallery" active={active === "Галерея"}>
+          Галерея
+        </NavigationLink>
       </ul>
       <style jsx>{`
         div {

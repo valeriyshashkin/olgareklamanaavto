@@ -4,8 +4,7 @@ import { useRouter } from "next/router";
 import Input from "../../components/Input";
 import Setting from "../../components/Setting";
 import useUser from "../../utils/user";
-import NavigationBar from "../../components/NavigationBar";
-import Header from "../../components/Header";
+import Layout from "../../components/Layout";
 
 export default function Contacts() {
   const [instagram, setInstagram] = useState("");
@@ -84,91 +83,35 @@ export default function Contacts() {
   }
 
   return (
-    <div>
+    <>
       <Head>
         <title>Контакты - Olga</title>
       </Head>
-      <Header admin />
-      <h3>
-        <div className="container">Контакты</div>
-      </h3>
-      <div className="container row">
-        <NavigationBar />
-        <div className="settings">
-          <Setting
-            title="Ваш Instagram"
-            desc="Введите свое имя пользователя в Instagram."
-            tip="Эти данные будут отображаться на главной странице сайта в разделе Контакты."
-          >
-            <Input prefix="@" value={instagram} onChange={handleInstagram} />
-          </Setting>
-          <Setting
-            title="Ваш WhatsApp"
-            desc="Введите свой номер телефона в WhatsApp."
-            tip="Эти данные будут отображаться на главной странице сайта в разделе Контакты."
-          >
-            <Input value={whatsapp} onChange={handleWhatsapp} />
-          </Setting>
-          <Setting
-            title="Ваша электронная почта"
-            desc="Введите адрес вашей электронной почты"
-            tip="Эти данные будут отображаться на главной странице сайта в разделе Контакты."
-          >
-            <Input value={email} onChange={handleEmail} />
-          </Setting>
-        </div>
-        {/* <div>
-          <h3>Цены</h3>
-          <label>Простая наклейка</label>
-          <Input
-            type="number"
-            prefix="₽"
-            value={simplePrice}
-            onChange={handleSimplePrice}
-          />
-          <label>Универсал, каблучок</label>
-          <Input
-            type="number"
-            prefix="₽"
-            value={universalPrice}
-            onChange={handleUniversalPrice}
-          />
-          <label>Микроавтобус, автобус, грузовик</label>
-          <Input
-            type="number"
-            prefix="₽"
-            value={busPrice}
-            onChange={handleBusPrice}
-          />
-          <div className="submit">
-            <button onClick={savePrices}>Сохранить</button>
-          </div>
-        </div> */}
-      </div>
-      {/* <h3>Галерея</h3>
-      <Gallery /> */}
-      <style jsx>{`
-        .row {
-          display: flex;
-          justify-content: space-between;
-        }
-
-        .container {
-          width: 1024px;
-          margin: 0 auto;
-        }
-
-        .settings {
-          width: 100%;
-        }
-
-        h3 {
-          border-bottom: 1px solid var(--bordergray);
-          padding-top: 70px;
-          padding-bottom: 40px;
-          font-size: 36px;
-        }
-      `}</style>
-    </div>
+      <Setting
+        title="Ваш Instagram"
+        desc="Введите свое имя пользователя в Instagram."
+        tip="Эти данные будут отображаться на главной странице сайта в разделе Контакты."
+      >
+        <Input prefix="@" value={instagram} onChange={handleInstagram} />
+      </Setting>
+      <Setting
+        title="Ваш WhatsApp"
+        desc="Введите свой номер телефона в WhatsApp."
+        tip="Эти данные будут отображаться на главной странице сайта в разделе Контакты."
+      >
+        <Input value={whatsapp} onChange={handleWhatsapp} />
+      </Setting>
+      <Setting
+        title="Ваша электронная почта"
+        desc="Введите адрес вашей электронной почты"
+        tip="Эти данные будут отображаться на главной странице сайта в разделе Контакты."
+      >
+        <Input value={email} onChange={handleEmail} />
+      </Setting>
+    </>
   );
 }
+
+Contacts.getLayout = function getLayout(page) {
+  return <Layout active="Контакты">{page}</Layout>;
+};
