@@ -4,6 +4,7 @@ import Setting, { SettingSkeleton } from "../../components/Setting";
 import Input from "../../components/Input";
 import useUser from "../../utils/user";
 import useContent from "../../utils/content";
+import { useRouter } from "next/router";
 
 function Skeletons() {
   return (
@@ -16,6 +17,8 @@ function Skeletons() {
 }
 
 export default function Prices() {
+  const router = useRouter();
+
   const { user, isUserLoading } = useUser();
   const { content, isContentLoading } = useContent();
 
