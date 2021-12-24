@@ -60,9 +60,6 @@ export default function Contacts() {
 
   return (
     <>
-      <Head>
-        <title>Контакты - Olga</title>
-      </Head>
       <Setting
         title="Ваш Instagram"
         desc="Введите свое имя пользователя в Instagram."
@@ -92,5 +89,12 @@ export default function Contacts() {
 }
 
 Contacts.getLayout = function getLayout(page) {
-  return <Layout active="Контакты">{page}</Layout>;
+  return (
+    <Layout active="Контакты">
+      <Head>
+        <title>Контакты - Olga</title>
+      </Head>
+      {page}
+    </Layout>
+  );
 };

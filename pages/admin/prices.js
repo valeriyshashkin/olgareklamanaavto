@@ -60,9 +60,6 @@ export default function Prices() {
 
   return (
     <>
-      <Head>
-        <title>Цены - Olga</title>
-      </Head>
       <Setting
         title="Цена простой наклейки"
         desc="Укажите цену простой наклейки на транспортное средство"
@@ -96,5 +93,12 @@ export default function Prices() {
 }
 
 Prices.getLayout = function getLayout(page) {
-  return <Layout active="Цены">{page}</Layout>;
+  return (
+    <Layout active="Цены">
+      <Head>
+        <title>Цены - Olga</title>
+      </Head>
+      {page}
+    </Layout>
+  );
 };
