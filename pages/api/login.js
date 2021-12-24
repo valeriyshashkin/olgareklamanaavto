@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import setCookie from "../../utils/cookies";
-import prisma from "../../prisma/prisma";
+import prisma from "../../lib/prisma";
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
