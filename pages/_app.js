@@ -20,6 +20,7 @@ function MyApp({ Component, pageProps }) {
           --lightgray: #eee;
           --gray: #555;
           --bordergray: lightgray;
+          --skeletongray: #d1d1d1;
         }
       `}</style>
     </>

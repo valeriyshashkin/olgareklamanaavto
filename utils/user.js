@@ -1,9 +1,8 @@
 import useSWR from "swr";
-
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+import fetcher from "./fetcher";
 
 export default function useUser() {
   const { data, error } = useSWR("/api/user", fetcher);
 
-  return { user: data, isLoading: !error && !data, isError: error };
+  return { user: data, isUserLoading: !error && !data, isError: error };
 }

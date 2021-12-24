@@ -1,9 +1,33 @@
 import Head from "next/head";
 import Layout from "../../components/Layout";
-import Setting from "../../components/Setting";
+import Setting, { SettingSkeleton } from "../../components/Setting";
 import Input from "../../components/Input";
+import useUser from "../../utils/user";
+import useContent from "../../utils/content";
+
+function Skeletons() {
+  return (
+    <>
+      <SettingSkeleton />
+      <SettingSkeleton />
+      <SettingSkeleton />
+    </>
+  );
+}
 
 export default function Prices() {
+  const { user, isUserLoading } = useUser();
+  const { content, isContentLoading } = useContent();
+
+  if (isUserLoading || isContentLoading) {
+    return <Skeletons />;
+  }
+
+  if (user.error) {
+    router.push("/admin");
+    return <Skeletons />;
+  }
+
   return (
     <>
       <Head>
