@@ -20,15 +20,15 @@ export default function Contacts() {
   const changeWhatsapp = (e) => setWhatsapp(e.target.value);
 
   const saveInstagram = () => {
-    mutate("/api/content", {...content, instagram}, false)
+    mutate("/api/content", { ...content, instagram }, false);
     saveContent("instagram", instagram, () => mutate("/api/content"));
   };
   const saveWhatsapp = () => {
-    mutate("/api/content", {...content, whatsapp}, false)
+    mutate("/api/content", { ...content, whatsapp }, false);
     saveContent("whatsapp", whatsapp, () => mutate("/api/content"));
   };
   const saveEmail = () => {
-    mutate("/api/content", {...content, email}, false)
+    mutate("/api/content", { ...content, email }, false);
     saveContent("email", email, () => mutate("/api/content"));
   };
 
