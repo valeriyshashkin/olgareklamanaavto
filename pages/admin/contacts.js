@@ -13,6 +13,8 @@ export default function Contacts() {
   const [whatsapp, setWhatsapp] = useState("");
   const [email, setEmail] = useState("");
 
+  const [isUpdated, setIsUpdated] = useState(false);
+
   const router = useRouter();
 
   const changeInstagram = (e) => setInstagram(e.target.value);
@@ -20,16 +22,19 @@ export default function Contacts() {
   const changeWhatsapp = (e) => setWhatsapp(e.target.value);
 
   const saveInstagram = () => {
+    setIsUpdated(true);
     mutate("/api/content", { ...content, instagram }, false);
-    saveContent("instagram", instagram, () => mutate("/api/content"));
+    saveContent("instagram", instagram);
   };
   const saveWhatsapp = () => {
+    setIsUpdated(true);
     mutate("/api/content", { ...content, whatsapp }, false);
-    saveContent("whatsapp", whatsapp, () => mutate("/api/content"));
+    saveContent("whatsapp", whatsapp);
   };
   const saveEmail = () => {
+    setIsUpdated(true);
     mutate("/api/content", { ...content, email }, false);
-    saveContent("email", email, () => mutate("/api/content"));
+    saveContent("email", email);
   };
 
   const { mutate } = useSWRConfig();
@@ -37,12 +42,12 @@ export default function Contacts() {
   const { content, isContentLoading } = useContent();
 
   useEffect(() => {
-    if (!isUserLoading && !isContentLoading) {
+    if (!isUserLoading && !isContentLoading && !isUpdated) {
       setInstagram(content.instagram);
       setWhatsapp(content.whatsapp);
       setEmail(content.email);
     }
-  }, [content, isContentLoading, isUserLoading]);
+  }, [content, isContentLoading, isUserLoading, isUpdated]);
 
   if (isUserLoading || isContentLoading) {
     return <Skeletons />;

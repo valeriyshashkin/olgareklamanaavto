@@ -1,4 +1,4 @@
-import { getContent } from "../../../utils/content";
+import { getContent } from "../../../utils/getContent";
 
 export default async function handler(req, res) {
   const content = await getContent();

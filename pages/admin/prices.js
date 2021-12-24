@@ -13,6 +13,8 @@ export default function Prices() {
   const [simplePrice, setSimplePrice] = useState("");
   const [universalPrice, setUniversalPrice] = useState("");
 
+  const [isUpdated, setIsUpdated] = useState(false);
+
   const router = useRouter();
 
   const changeBusPrice = (e) => setBusPrice(e.target.value);
@@ -20,16 +22,19 @@ export default function Prices() {
   const changeUniversalPrice = (e) => setUniversalPrice(e.target.value);
 
   const saveBusPrice = () => {
+    setIsUpdated(true);
     mutate("/api/content", { ...content, busPrice }, false);
-    saveContent("busPrice", busPrice, () => mutate("/api/content"));
+    saveContent("busPrice", busPrice);
   };
   const saveSimplePrice = () => {
+    setIsUpdated(true);
     mutate("/api/content", { ...content, simplePrice }, false);
-    saveContent("simplePrice", simplePrice, () => mutate("/api/content"));
+    saveContent("simplePrice", simplePrice);
   };
   const saveUniversalPrice = () => {
+    setIsUpdated(true);
     mutate("/api/content", { ...content, universalPrice }, false);
-    saveContent("universalPrice", universalPrice, () => mutate("/api/content"));
+    saveContent("universalPrice", universalPrice);
   };
 
   const { mutate } = useSWRConfig();
@@ -37,12 +42,12 @@ export default function Prices() {
   const { content, isContentLoading } = useContent();
 
   useEffect(() => {
-    if (!isUserLoading && !isContentLoading) {
+    if (!isUserLoading && !isContentLoading && !isUpdated) {
       setBusPrice(content.busPrice);
       setSimplePrice(content.simplePrice);
       setUniversalPrice(content.universalPrice);
     }
-  }, [content, isUserLoading, isContentLoading]);
+  }, [content, isUserLoading, isContentLoading, isUpdated]);
 
   if (isUserLoading || isContentLoading) {
     return <Skeletons />;

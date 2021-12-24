@@ -7,7 +7,7 @@ import {
   ImageWithMargin,
   EmptyImageWithMargin,
 } from "../components/ImageWithMargin";
-import { getContent } from "../utils/content";
+import { getContent } from "../utils/getContent";
 import Contact from "../components/Contact";
 import whatsapp from "../public/whatsapp.png";
 import instagram from "../public/instagram.png";
