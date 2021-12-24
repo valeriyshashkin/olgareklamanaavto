@@ -1,3 +1,4 @@
+import prisma from "./prisma";
 import useSWR from "swr";
 import fetcher from "./fetcher";
 
@@ -12,4 +13,16 @@ export function saveContent(key, value, callback) {
     method: "POST",
     body: JSON.stringify({ key, value }),
   }).then(callback);
+}
+
+export async function getContent() {
+  const content = await prisma.content.findMany();
+
+  let result = {};
+  
+  for (const { key, value } of content) {
+    result[key] = value;
+  }
+
+  return result;
 }

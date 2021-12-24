@@ -1,8 +1,4 @@
 module.exports = {
-  images: {
-    loader: "cloudinary",
-    path: "res.cloudinary.com",  
-  },
   reactStrictMode: true,
   async redirects() {
     return [

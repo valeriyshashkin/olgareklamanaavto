@@ -2,27 +2,16 @@ import Head from "next/head";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   ImageWithMargin,
   EmptyImageWithMargin,
 } from "../components/ImageWithMargin";
-
-function Contact({ text, src }) {
-  return (
-    <div>
-      <Image alt="" src={src} width={50} height={50} />
-      <p>{text}</p>
-      <style jsx>{`
-        div {
-          text-align: center;
-          font-size: 20px;
-          width: 300px;
-        }
-      `}</style>
-    </div>
-  );
-}
+import { getContent } from "../utils/content";
+import Contact from "../components/Contact";
+import whatsapp from "../public/whatsapp.png";
+import instagram from "../public/instagram.png";
+import email from "../public/email.png";
 
 function Price({ src, alt, title, price, right }) {
   return (
@@ -76,9 +65,7 @@ function Price({ src, alt, title, price, right }) {
   );
 }
 
-export default function Index() {
-  const [images, setImages] = useState([]);
-
+export default function Index({ content }) {
   return (
     <>
       <Head>
@@ -118,9 +105,17 @@ export default function Index() {
       <section id="contacts">
         <h3>Контакты</h3>
         <div className="contacts">
-          <Contact src="/whatsapp.png" />
-          <Contact src="/instagram.png" />
-          <Contact src="/email.png" />
+          <Contact
+            alt="WhatsApp"
+            text={content.whatsapp}
+            src={whatsapp}
+          ></Contact>
+          <Contact
+            alt="Instagram"
+            text={content.instagram}
+            src={instagram}
+          ></Contact>
+          <Contact alt="E-mail" text={content.email} src={email}></Contact>
         </div>
       </section>
       <Footer />
@@ -179,4 +174,12 @@ export default function Index() {
       `}</style>
     </>
   );
+}
+
+export async function getStaticProps() {
+  const content = await getContent();
+
+  return {
+    props: { content },
+  };
 }
