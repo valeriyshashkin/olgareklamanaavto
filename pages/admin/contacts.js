@@ -42,7 +42,7 @@ export default function Contacts() {
       setWhatsapp(content.whatsapp);
       setEmail(content.email);
     }
-  }, [content]);
+  }, [content, isContentLoading, isUserLoading]);
 
   if (isUserLoading || isContentLoading) {
     return <Skeletons />;

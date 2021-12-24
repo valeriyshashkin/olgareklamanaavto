@@ -42,7 +42,7 @@ export default function Prices() {
       setSimplePrice(content.simplePrice);
       setUniversalPrice(content.universalPrice);
     }
-  }, [content]);
+  }, [content, isUserLoading, isContentLoading]);
 
   if (isUserLoading || isContentLoading) {
     return <Skeletons />;
