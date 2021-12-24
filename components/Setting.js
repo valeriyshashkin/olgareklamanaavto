@@ -1,6 +1,16 @@
 import Button from "./Button";
 
-export function SettingSkeleton() {
+export function Skeletons() {
+  return (
+    <>
+      <SettingSkeleton />
+      <SettingSkeleton />
+      <SettingSkeleton />
+    </>
+  );
+}
+
+function SettingSkeleton() {
   return (
     <section>
       <div>
@@ -55,7 +65,7 @@ export function SettingSkeleton() {
   );
 }
 
-export default function Setting({ title, desc, tip, children }) {
+export default function Setting({ title, desc, tip, children, onClick }) {
   return (
     <section>
       <div>
@@ -65,7 +75,9 @@ export default function Setting({ title, desc, tip, children }) {
       </div>
       <footer>
         <p>{tip}</p>
-        <Button margin="0 0 0 auto">Сохранить</Button>
+        <Button onClick={onClick} margin="0 0 0 auto">
+          Сохранить
+        </Button>
       </footer>
       <style jsx>{`
         h4 {

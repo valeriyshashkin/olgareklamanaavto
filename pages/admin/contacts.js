@@ -1,21 +1,12 @@
 import Head from "next/head";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Input from "../../components/Input";
-import Setting, { SettingSkeleton } from "../../components/Setting";
+import Setting, { Skeletons } from "../../components/Setting";
 import useUser from "../../utils/user";
-import useContent from "../../utils/content";
+import useContent, { saveContent } from "../../utils/content";
 import Layout from "../../components/Layout";
-
-function Skeletons() {
-  return (
-    <>
-      <SettingSkeleton />
-      <SettingSkeleton />
-      <SettingSkeleton />
-    </>
-  );
-}
+import { useSWRConfig } from "swr";
 
 export default function Contacts() {
   const [instagram, setInstagram] = useState("");
@@ -24,22 +15,34 @@ export default function Contacts() {
 
   const router = useRouter();
 
-  const handleInstagram = (e) => setInstagram(e.target.value);
-  const handleEmail = (e) => setEmail(e.target.value);
-  const handleWhatsapp = (e) => setWhatsapp(e.target.value);
+  const changeInstagram = (e) => setInstagram(e.target.value);
+  const changeEmail = (e) => setEmail(e.target.value);
+  const changeWhatsapp = (e) => setWhatsapp(e.target.value);
 
-  const saveContacts = () =>
-    fetch("/api/content/update", {
-      method: "POST",
-      body: JSON.stringify([
-        { key: "instagram", value: instagram },
-        { key: "whatsapp", value: whatsapp },
-        { key: "email", value: email },
-      ]),
-    });
+  const saveInstagram = () => {
+    mutate("/api/content", {...content, instagram}, false)
+    saveContent("instagram", instagram, () => mutate("/api/content"));
+  };
+  const saveWhatsapp = () => {
+    mutate("/api/content", {...content, whatsapp}, false)
+    saveContent("whatsapp", whatsapp, () => mutate("/api/content"));
+  };
+  const saveEmail = () => {
+    mutate("/api/content", {...content, email}, false)
+    saveContent("email", email, () => mutate("/api/content"));
+  };
 
+  const { mutate } = useSWRConfig();
   const { user, isUserLoading } = useUser();
   const { content, isContentLoading } = useContent();
+
+  useEffect(() => {
+    if (!isUserLoading && !isContentLoading) {
+      setInstagram(content.instagram);
+      setWhatsapp(content.whatsapp);
+      setEmail(content.email);
+    }
+  }, [content]);
 
   if (isUserLoading || isContentLoading) {
     return <Skeletons />;
@@ -59,22 +62,25 @@ export default function Contacts() {
         title="Ваш Instagram"
         desc="Введите свое имя пользователя в Instagram."
         tip="Эти данные будут отображаться на главной странице сайта в разделе Контакты."
+        onClick={saveInstagram}
       >
-        <Input prefix="@" value={instagram} onChange={handleInstagram} />
+        <Input prefix="@" value={instagram} onChange={changeInstagram} />
       </Setting>
       <Setting
         title="Ваш WhatsApp"
         desc="Введите свой номер телефона в WhatsApp."
         tip="Эти данные будут отображаться на главной странице сайта в разделе Контакты."
+        onClick={saveWhatsapp}
       >
-        <Input value={whatsapp} onChange={handleWhatsapp} />
+        <Input value={whatsapp} onChange={changeWhatsapp} />
       </Setting>
       <Setting
         title="Ваша электронная почта"
         desc="Введите адрес вашей электронной почты"
         tip="Эти данные будут отображаться на главной странице сайта в разделе Контакты."
+        onClick={saveEmail}
       >
-        <Input value={email} onChange={handleEmail} />
+        <Input value={email} onChange={changeEmail} />
       </Setting>
     </>
   );

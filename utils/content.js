@@ -6,3 +6,10 @@ export default function useContent() {
 
   return { content: data, isContentLoading: !error && !data, isError: error };
 }
+
+export function saveContent(key, value, callback) {
+  fetch("/api/content/update", {
+    method: "POST",
+    body: JSON.stringify({ key, value }),
+  }).then(callback);
+}

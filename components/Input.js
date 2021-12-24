@@ -48,7 +48,11 @@ export default function Input({ prefix, postfix, type, value, onChange }) {
             : postfix
             ? "0 6px 6px 0"
             : "none"};
-          border-width: ${prefix ? "1px 0 1px 1px" : postfix ? "1px 1px 1px 0" : "0"};
+          border-width: ${prefix
+            ? "1px 0 1px 1px"
+            : postfix
+            ? "1px 1px 1px 0"
+            : "0"};
         }
       `}</style>
     </div>

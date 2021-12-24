@@ -1,20 +1,10 @@
 import Head from "next/head";
 import Layout from "../../components/Layout";
-import Setting, { SettingSkeleton } from "../../components/Setting";
+import Setting, { Skeletons } from "../../components/Setting";
 import Input from "../../components/Input";
 import useUser from "../../utils/user";
 import useContent from "../../utils/content";
 import { useRouter } from "next/router";
-
-function Skeletons() {
-  return (
-    <>
-      <SettingSkeleton />
-      <SettingSkeleton />
-      <SettingSkeleton />
-    </>
-  );
-}
 
 export default function Prices() {
   const router = useRouter();
