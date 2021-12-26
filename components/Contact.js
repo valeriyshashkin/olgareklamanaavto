@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function Contact({ text, src, alt }) {
   return (
     <div>
-      <Image alt={alt} src={src} />
+      <Image alt={alt} src={src} width={60} height={60} />
       <p>{text}</p>
       <style jsx>{`
         div {

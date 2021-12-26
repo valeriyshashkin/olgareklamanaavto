@@ -1,5 +1,9 @@
 module.exports = {
   reactStrictMode: true,
+  images: {
+    loader: "cloudinary",
+    path: "https://res.cloudinary.com/olgareklamanaavto/",
+  },
   async redirects() {
     return [
       {
@@ -12,7 +16,7 @@ module.exports = {
         ],
         permanent: false,
         destination: "/admin/contacts",
-      }
+      },
     ];
   },
 };

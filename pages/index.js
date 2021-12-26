@@ -1,69 +1,13 @@
 import Head from "next/head";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import Image from "next/image";
-import { useState } from "react";
 import {
   ImageWithMargin,
   EmptyImageWithMargin,
 } from "../components/ImageWithMargin";
 import { getContent } from "../utils/getContent";
 import Contact from "../components/Contact";
-import whatsapp from "../public/whatsapp.png";
-import instagram from "../public/instagram.png";
-import email from "../public/email.png";
-
-function Price({ src, alt, title, price, right }) {
-  return (
-    <>
-      {right ? (
-        <div className="container">
-          <div className="text">
-            <h4>{title}</h4>
-            <p>{price}</p>
-          </div>
-          <Image width={400} height={400} alt={alt} src={src} />
-        </div>
-      ) : (
-        <div className="container">
-          <Image width={400} height={400} alt={alt} src={src} />
-          <div className="text">
-            <h4>{title}</h4>
-            <p>{price}</p>
-          </div>
-        </div>
-      )}
-      <style jsx>{`
-        .container {
-          display: flex;
-          margin: 80px 0;
-          align-items: center;
-        }
-
-        .container:first-child,
-        .container:last-child {
-          margin: 0;
-        }
-
-        h4 {
-          font-size: 30px;
-          margin: 0;
-        }
-
-        p {
-          margin: 0;
-          font-size: 20px;
-        }
-      `}</style>
-      <style jsx>{`
-        .text {
-          width: ${right ? "600px" : "520px"};
-          padding-left: ${right ? "0" : "80px"};
-        }
-      `}</style>
-    </>
-  );
-}
+import Price from "../components/Price";
 
 export default function Index({ content }) {
   return (
@@ -83,20 +27,20 @@ export default function Index({ content }) {
         <div className="prices">
           <Price
             alt=""
-            src="/cloud/06082021-002005-1.jpg"
+            src="06082021-002005-1.jpg"
             title="Простая наклейка"
             price={`от  рублей`}
           />
           <Price
             right
             alt=""
-            src="/cloud/06082021-002005-1.jpg"
+            src="06082021-002005-1.jpg"
             title="Универсал, каблучок"
             price={`от  рублей`}
           />
           <Price
             alt=""
-            src="/cloud/06082021-002005-1.jpg"
+            src="06082021-002005-1.jpg"
             title="Микроавтобус, автобус, грузовик"
             price={`от  рублей`}
           />
@@ -108,14 +52,14 @@ export default function Index({ content }) {
           <Contact
             alt="WhatsApp"
             text={content.whatsapp}
-            src={whatsapp}
+            src="whatsapp"
           ></Contact>
           <Contact
             alt="Instagram"
             text={content.instagram}
-            src={instagram}
+            src="instagram"
           ></Contact>
-          <Contact alt="E-mail" text={content.email} src={email}></Contact>
+          <Contact alt="E-mail" text={content.email} src="email"></Contact>
         </div>
       </section>
       <Footer />
