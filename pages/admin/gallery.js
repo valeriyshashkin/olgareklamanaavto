@@ -56,7 +56,7 @@ export default function Gallery() {
       <Button margin="12px 0" labelFor="file-upload">
         Добавить фото
       </Button>
-      {images.map((src, id) => <Image objectFit="scale-down" key={id} src={src} height={300} width={300} />)}
+      {images.map((src, id) => <Image alt="" objectFit="scale-down" key={id} src={src} height={300} width={300} />)}
       <style jsx>{`
         #file-upload {
           opacity: 0;
