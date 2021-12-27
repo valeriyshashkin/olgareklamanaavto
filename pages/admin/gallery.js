@@ -3,9 +3,15 @@ import Layout from "../../components/Layout";
 import Button from "../../components/Button";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import useUser from "../../utils/user";
+import useGallery from "../../utils/gallery";
+import { useSWRConfig } from "swr";
+import { useRouter } from "next/router";
 
 export default function Gallery() {
   const [images, setImages] = useState([]);
+
+  const router = useRouter();
 
   const upload = (e) => {
     fetch("/api/image/sign")
@@ -30,6 +36,8 @@ export default function Gallery() {
                 body: JSON.stringify({
                   public_id,
                 }),
+              }).then(() => {
+                mutate("/api/image");
               });
             });
         });
@@ -44,6 +52,25 @@ export default function Gallery() {
       });
   }, []);
 
+  const { mutate } = useSWRConfig();
+  const { user, isUserLoading } = useUser();
+  const { gallery, isGalleryLoading } = useGallery();
+
+  useEffect(() => {
+    if (!isUserLoading && !isGalleryLoading) {
+      setImages(gallery);
+    }
+  }, [gallery, isGalleryLoading, isUserLoading]);
+
+  if (isUserLoading || isGalleryLoading) {
+    return "loading...";
+  }
+
+  if (user.error) {
+    router.push("/admin");
+    return "loading...";
+  }
+
   return (
     <>
       <input
@@ -56,7 +83,16 @@ export default function Gallery() {
       <Button margin="12px 0" labelFor="file-upload">
         Добавить фото
       </Button>
-      {images.map((src, id) => <Image alt="" objectFit="scale-down" key={id} src={src} height={300} width={300} />)}
+      {images.map((src, id) => (
+        <Image
+          alt=""
+          objectFit="scale-down"
+          key={id}
+          src={src}
+          height={300}
+          width={300}
+        />
+      ))}
       <style jsx>{`
         #file-upload {
           opacity: 0;
