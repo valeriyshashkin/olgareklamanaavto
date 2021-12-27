@@ -1,146 +1,77 @@
-import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import chunk from "../utils/chunk";
 
-function ImageInGallery({ src, onClick, name, active }) {
-  function handle() {
-    return onClick(name);
-  }
-
+export function Skeleton() {
   return (
     <>
-      <div onClick={handle} className={active ? "active" : ""}>
-        <Image className="img" alt="" src={src} height={200} width={200} />
+      <div className="container">
+        <div className="item"></div>
+        <div className="item"></div>
+        <div className="item"></div>
       </div>
       <style jsx>{`
-        div {
-          position: relative;
-          cursor: pointer;
-        }
-      `}</style>
-      <style jsx global>{`
-        .img {
-          object-fit: cover;
+        .container {
+          display: flex;
+          margin-bottom: 10px;
+          width: 100%;
         }
 
-        .active::after {
-          content: "";
-          position: absolute;
-          top: 0;
-          left: 0;
-          height: 200px;
-          width: 200px;
-          background-size: cover;
-          background-repeat: no-repeat;
-          background-image: url("/selected.svg");
+        .item {
+          background: var(--skeletongray);
+          height: 250px;
+          width: 250px;
+          margin-right: 10px;
+        }
+
+        .item:last-child {
+          margin-right: 0;
         }
       `}</style>
     </>
   );
 }
 
-export default function Gallery() {
-  const [active, setActive] = useState([]);
-  const [images, setImages] = useState([]);
-  const inputRef = useRef();
+export default function Gallery({ images, onChange, selection }) {
+  let showedImages = images;
 
-  function hanldeActive(name) {
-    if (active.includes(name)) {
-      setActive(active.filter((item) => item != name));
-    } else {
-      setActive([...active, name]);
-    }
+  for (let i = 0; i < images.length % 3; i++) {
+    showedImages.push(null);
   }
 
-  function fetchImages() {
-    fetch("/api/cloud")
-      .then((res) => res.json())
-      .then(({ images }) => setImages(images));
-  }
+  showedImages = chunk(showedImages, 3);
 
-  function upload(e) {
-    const formData = new FormData();
-
-    for (const f of e.target.files) {
-      formData.append("file", f);
-    }
-
-    fetch("/api/cloud/create", {
-      method: "POST",
-    })
-      .then((res) => res.json())
-      .then(({ url }) =>
-        fetch(url, {
-          method: "POST",
-          body: formData,
-        }).then(() => fetchImages())
-      );
-  }
-
-  function remove() {
-    fetch("/api/cloud/delete", {
-      method: "POST",
-      body: JSON.stringify({ ids: active }),
-    }).then(() => fetchImages());
-  }
-
-  function handleClick() {
-    inputRef.current.click();
-  }
-
-  useEffect(() => {
-    fetchImages();
-  }, []);
+  // const select = (e) => {
+  //   e.target.src
+  // }
 
   return (
     <>
-      <div>
-        <input
-          type="file"
-          multiple
-          accept="image/*"
-          onChange={upload}
-          ref={inputRef}
-        />
-        <button onClick={handleClick}>Добавить фото</button>
-        {active.length !== 0 && (
-          <button className="remove" onClick={remove}>
-            Удалить
-          </button>
-        )}
-      </div>
-      <div>
-        {images.map(({ id, src }) => (
-          <ImageInGallery
-            key={id}
-            src={"data:image/png;base64, " + src}
-            onClick={hanldeActive}
-            name={id}
-            active={active.includes(id)}
-          />
-        ))}
-      </div>
+      {showedImages.map((row, i) => (
+        <div className="row" key={i}>
+          {row.map((src, j) => (
+            <div className="item" key={j}>
+              {src && (
+                <Image onClick={select} alt="" objectFit="scale-down" src={src} layout="fill" />
+              )}
+            </div>
+          ))}
+        </div>
+      ))}
       <style jsx>{`
-        div {
+        .row {
           display: flex;
+          margin-bottom: 10px;
         }
 
-        button {
-          background: var(--to-color);
-          border: none;
-          color: white;
-          border-radius: 6px;
-          padding: 10px;
-          cursor: pointer;
-          margin-bottom: 25px;
+        .item {
+          height: 250px;
+          width: 250px;
+          position: relative;
+          margin-right: 10px;
         }
 
-        input {
-          display: none;
-        }
-
-        .remove {
-          background: #ff2222;
-          margin-left: 20px;
+        .item:last-child {
+          margin-right: 0;
         }
       `}</style>
     </>
