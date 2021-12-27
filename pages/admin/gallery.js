@@ -6,7 +6,9 @@ import useUser from "../../utils/user";
 import useGallery from "../../utils/gallery";
 import { useSWRConfig } from "swr";
 import { useRouter } from "next/router";
-import Gallery, { Skeleton } from "../../components/Gallery";
+import { GalleryItem, GalleryRow, Skeleton } from "../../components/Gallery";
+import prepareImages from "../../utils/prepareImages";
+import Image from "next/image";
 
 export default function GalleryPage() {
   const [images, setImages] = useState([]);
@@ -99,11 +101,24 @@ export default function GalleryPage() {
       ) : user.error ? (
         <Skeleton />
       ) : (
-        <Gallery
-          images={images}
-          onChange={changeSelection}
-          selection={selectedImages}
-        />
+        <>
+          {prepareImages(images).map((row, i) => (
+            <GalleryRow key={i}>
+              {row.map((src, j) => (
+                <GalleryItem key={j}>
+                  {src && (
+                    <Image
+                      alt=""
+                      objectFit="scale-down"
+                      src={src}
+                      layout="fill"
+                    />
+                  )}
+                </GalleryItem>
+              ))}
+            </GalleryRow>
+          ))}
+        </>
       )}
       <style jsx>{`
         #file-upload {

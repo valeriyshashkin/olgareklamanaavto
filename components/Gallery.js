@@ -1,79 +1,72 @@
-import Image from "next/image";
-import chunk from "../utils/chunk";
-
 export function Skeleton() {
   return (
     <>
-      <div className="container">
-        <div className="item"></div>
-        <div className="item"></div>
-        <div className="item"></div>
-      </div>
+      <GalleryRow>
+        <GalleryItem>
+          <div></div>
+        </GalleryItem>
+        <GalleryItem>
+          <div></div>
+        </GalleryItem>
+        <GalleryItem>
+          <div></div>
+        </GalleryItem>
+      </GalleryRow>
+      <GalleryRow>
+        <GalleryItem>
+          <div></div>
+        </GalleryItem>
+        <GalleryItem>
+          <div></div>
+        </GalleryItem>
+        <GalleryItem>
+          <div></div>
+        </GalleryItem>
+      </GalleryRow>
       <style jsx>{`
-        .container {
-          display: flex;
-          margin-bottom: 10px;
-          width: 100%;
-        }
-
-        .item {
+        div {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
           background: var(--skeletongray);
-          height: 250px;
-          width: 250px;
-          margin-right: 10px;
-        }
-
-        .item:last-child {
-          margin-right: 0;
         }
       `}</style>
     </>
   );
 }
 
-export default function Gallery({ images, onChange, selection }) {
-  let showedImages = images;
-
-  for (let i = 0; i < images.length % 3; i++) {
-    showedImages.push(null);
-  }
-
-  showedImages = chunk(showedImages, 3);
-
-  // const select = (e) => {
-  //   e.target.src
-  // }
-
+export function GalleryItem({ children }) {
   return (
-    <>
-      {showedImages.map((row, i) => (
-        <div className="row" key={i}>
-          {row.map((src, j) => (
-            <div className="item" key={j}>
-              {src && (
-                <Image onClick={select} alt="" objectFit="scale-down" src={src} layout="fill" />
-              )}
-            </div>
-          ))}
-        </div>
-      ))}
+    <div>
+      {children}
       <style jsx>{`
-        .row {
-          display: flex;
-          margin-bottom: 10px;
-        }
-
-        .item {
+        div {
           height: 250px;
           width: 250px;
           position: relative;
           margin-right: 10px;
         }
 
-        .item:last-child {
+        div:last-child {
           margin-right: 0;
         }
       `}</style>
-    </>
+    </div>
+  );
+}
+
+export function GalleryRow({ children }) {
+  return (
+    <div>
+      {children}
+      <style jsx>{`
+        div {
+          display: flex;
+          margin-bottom: 10px;
+        }
+      `}</style>
+    </div>
   );
 }
