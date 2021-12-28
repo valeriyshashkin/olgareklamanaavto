@@ -159,6 +159,11 @@ export default function GalleryPage() {
           margin-left: 20px;
         }
       `}</style>
+      <style global jsx>{`
+        body {
+          overflow-y: scroll;
+        }
+      `}</style>
     </>
   );
 }
