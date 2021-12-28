@@ -12,8 +12,6 @@ import Image from "next/image";
 
 export default function GalleryPage() {
   const [images, setImages] = useState([]);
-  const [uploadedImages, setUploadedImages] = useState(0);
-  const [totalImages, setTotalImages] = useState(0);
   const [selectedImages, setSelectedImages] = useState([]);
 
   const router = useRouter();
@@ -65,7 +63,10 @@ export default function GalleryPage() {
     fetch("/api/image/delete", {
       method: "POST",
       body: JSON.stringify(selectedImages),
-    }).then(() => mutate("/api/image"));
+    }).then(() => {
+      mutate("/api/image");
+      setSelectedImages([]);
+    });
 
   useEffect(() => {
     fetch("/api/image")
@@ -105,11 +106,6 @@ export default function GalleryPage() {
         <Button onClick={remove} red margin="12px 0 12px 10px">
           Удалить выбранные
         </Button>
-      )}
-      {uploadedImages !== totalImages && (
-        <span>
-          Загружено {uploadedImages} из {totalImages}
-        </span>
       )}
       {isUserLoading || isGalleryLoading ? (
         <Skeleton />
