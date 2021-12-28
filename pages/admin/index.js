@@ -2,6 +2,7 @@ import Head from "next/head";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Button from "../../components/Button";
+import Link from "next/link";
 
 export default function Index() {
   const [email, setEmail] = useState("");
@@ -52,7 +53,12 @@ export default function Index() {
         placeholder="Пароль"
         type="password"
       />
-      <Button large onClick={login}>Войти</Button>
+      <Button large onClick={login}>
+        Войти
+      </Button>
+      <Link href="/" passHref>
+        <a>&larr; Вернуться на главную</a>
+      </Link>
       <style jsx>{`
         div {
           display: flex;
@@ -84,6 +90,13 @@ export default function Index() {
           border: none;
           cursor: pointer;
           background: var(--to-color);
+        }
+
+        a {
+          text-align: center;
+          margin-top: 20px;
+          text-decoration: none;
+          color: var(--to-color);
         }
       `}</style>
     </div>
