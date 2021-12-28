@@ -1,3 +1,5 @@
+import Spinner from "./Spinner";
+
 export default function Button({
   large,
   onClick,
@@ -11,12 +13,12 @@ export default function Button({
     <>
       {labelFor ? (
         <label htmlFor={labelFor} onClick={onClick}>
-          {loading && <div>Загрузка...</div>}
+          {loading && <div><Spinner width={20} /></div>}
           {children}
         </label>
       ) : (
         <button onClick={onClick} disabled={loading}>
-          {loading && <div>Загрузка...</div>}
+          {loading && <div><Spinner width={20} /></div>}
           {children}
         </button>
       )}
@@ -42,7 +44,7 @@ export default function Button({
           margin: ${margin ?? "0"};
           font-size: ${large ? "20px" : "14px"};
           background: ${loading
-            ? "var(--gray)"
+            ? "var(--loadinggray)"
             : red
             ? "var(--red)"
             : "var(--to-color)"};
