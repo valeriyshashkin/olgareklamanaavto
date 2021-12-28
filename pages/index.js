@@ -4,8 +4,12 @@ import Footer from "../components/Footer";
 import { getContent } from "../utils/getContent";
 import Contact from "../components/Contact";
 import Price from "../components/Price";
+import { getImages } from "../utils/getImages";
+import { GalleryRow, GalleryItem } from "../components/Gallery";
+import prepareImages from "../utils/prepareImages";
+import Image from "next/image";
 
-export default function Index({ content }) {
+export default function Index({ content, images }) {
   return (
     <>
       <Head>
@@ -17,6 +21,22 @@ export default function Index({ content }) {
       </h1>
       <section id="gallery">
         <h3>Сделано</h3>
+        {prepareImages(images).map((row, i) => (
+          <GalleryRow key={i}>
+            {row.map((src, j) => (
+              <GalleryItem key={j}>
+                {src && (
+                  <Image
+                    alt=""
+                    objectFit="scale-down"
+                    src={src}
+                    layout="fill"
+                  />
+                )}
+              </GalleryItem>
+            ))}
+          </GalleryRow>
+        ))}
       </section>
       <section id="prices">
         <h3>Цены</h3>
@@ -25,20 +45,20 @@ export default function Index({ content }) {
             alt=""
             src="06082021-002005-1.jpg"
             title="Простая наклейка"
-            price={`от  рублей`}
+            price={`от ${content.simplePrice} рублей`}
           />
           <Price
             right
             alt=""
             src="06082021-002005-1.jpg"
             title="Универсал, каблучок"
-            price={`от  рублей`}
+            price={`от ${content.universalPrice} рублей`}
           />
           <Price
             alt=""
             src="06082021-002005-1.jpg"
             title="Микроавтобус, автобус, грузовик"
-            price={`от  рублей`}
+            price={`от ${content.busPrice} рублей`}
           />
         </div>
       </section>
@@ -118,8 +138,9 @@ export default function Index({ content }) {
 
 export async function getStaticProps() {
   const content = await getContent();
+  const images = await getImages();
 
   return {
-    props: { content },
+    props: { content, images },
   };
 }
