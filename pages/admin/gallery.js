@@ -130,7 +130,7 @@ export default function GalleryPage() {
                         layout="fill"
                       />
                       {selectedImages.includes(src) && (
-                        <Image src="selected" layout="fill" />
+                        <Image alt="selected" src="selected" layout="fill" />
                       )}
                     </>
                   )}
