@@ -133,6 +133,7 @@ export default function GalleryPage() {
                         objectFit="scale-down"
                         src={src}
                         layout="fill"
+                        sizes="33vw"
                       />
                       {selectedImages.includes(src) && (
                         <Image alt="selected" src="selected" layout="fill" />
