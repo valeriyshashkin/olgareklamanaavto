@@ -1,8 +1,16 @@
 import prisma from "../../../utils/prisma";
 import cloudinary from "cloudinary";
+import jwt from "jsonwebtoken";
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
+    try {
+      jwt.verify(req.cookies.auth, process.env.JWT_SECRET);
+    } catch {
+      res.end();
+      return;
+    }
+
     const public_ids = JSON.parse(req.body);
 
     cloudinary.config({
