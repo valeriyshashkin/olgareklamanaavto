@@ -125,7 +125,7 @@ export default function GalleryPage() {
           {prepareImages(images).map((row, i) => (
             <GalleryRow key={i}>
               {row.map((src, j) => (
-                <GalleryItem onClick={() => select(src)} key={j}>
+                <GalleryItem onClick={() => src ? select(src) : undefined} key={j}>
                   {src && (
                     <>
                       <Image
