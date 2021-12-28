@@ -13,11 +13,13 @@ import Image from "next/image";
 export default function GalleryPage() {
   const [images, setImages] = useState([]);
   const [selectedImages, setSelectedImages] = useState([]);
+  const [isUpload, setIsUpload] = useState(false);
+  const [isRemoving, setIsRemoving] = useState(false);
 
   const router = useRouter();
 
   const upload = (e) => {
-    setTotalImages(e.target.files.length);
+    setIsUpload(true);
     fetch("/api/image/sign")
       .then((res) => res.json())
       .then(({ timestamp, signature }) => {
@@ -42,12 +44,10 @@ export default function GalleryPage() {
                 }),
               }).then(() => {
                 mutate("/api/image");
-                setUploadedImages(i);
+                setIsUpload(false);
               });
             });
         });
-        setUploadedImages(0);
-        setTotalImages(0);
       });
   };
 
@@ -59,14 +59,17 @@ export default function GalleryPage() {
     }
   };
 
-  const remove = () =>
+  const remove = () => {
+    setIsRemoving(true);
     fetch("/api/image/delete", {
       method: "POST",
       body: JSON.stringify(selectedImages),
     }).then(() => {
       mutate("/api/image");
       setSelectedImages([]);
+      setIsRemoving(false);
     });
+  };
 
   useEffect(() => {
     fetch("/api/image")
@@ -98,12 +101,18 @@ export default function GalleryPage() {
         multiple
         accept="image/*"
         onChange={upload}
+        disabled={isUpload}
       />
-      <Button margin="12px 0" labelFor="file-upload">
+      <Button loading={isUpload} margin="12px 0" labelFor="file-upload">
         Добавить фото
       </Button>
       {selectedImages.length > 0 && (
-        <Button onClick={remove} red margin="12px 0 12px 10px">
+        <Button
+          loading={isRemoving}
+          onClick={remove}
+          red
+          margin="12px 0 12px 10px"
+        >
           Удалить выбранные
         </Button>
       )}
