@@ -6,15 +6,13 @@ export default function Header({ admin }) {
   const router = useRouter();
   const [isScrollZero, setIsScrollZero] = useState(true);
 
-  const logout = () =>
-    fetch("/api/logout").then(() => {
-      router.push("/admin");
-    });
+  const logout = () => fetch("/api/logout").then(() => router.push("/admin"));
+
+  const scroll = () => setIsScrollZero(scrollY === 0);
 
   useEffect(() => {
-    addEventListener("scroll", () => {
-      setIsScrollZero(scrollY === 0);
-    });
+    addEventListener("scroll", scroll);
+    return () => removeEventListener("scroll", scroll);
   }, []);
 
   return (

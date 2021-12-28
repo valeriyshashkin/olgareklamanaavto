@@ -53,9 +53,19 @@ export default function GalleryPage() {
       });
   };
 
-  const changeSelection = (selected) => {
-    setSelectedImages([...setSelectedImages, selected]);
+  const select = (src) => {
+    if (selectedImages.includes(src)) {
+      setSelectedImages(selectedImages.filter((s) => s !== src));
+    } else {
+      setSelectedImages([...selectedImages, src]);
+    }
   };
+
+  const remove = () =>
+    fetch("/api/image/delete", {
+      method: "POST",
+      body: JSON.stringify(selectedImages),
+    }).then(() => mutate("/api/image"));
 
   useEffect(() => {
     fetch("/api/image")
@@ -91,6 +101,11 @@ export default function GalleryPage() {
       <Button margin="12px 0" labelFor="file-upload">
         Добавить фото
       </Button>
+      {selectedImages.length > 0 && (
+        <Button onClick={remove} red margin="12px 0 12px 10px">
+          Удалить выбранные
+        </Button>
+      )}
       {uploadedImages !== totalImages && (
         <span>
           Загружено {uploadedImages} из {totalImages}
@@ -105,14 +120,19 @@ export default function GalleryPage() {
           {prepareImages(images).map((row, i) => (
             <GalleryRow key={i}>
               {row.map((src, j) => (
-                <GalleryItem key={j}>
+                <GalleryItem onClick={() => select(src)} key={j}>
                   {src && (
-                    <Image
-                      alt=""
-                      objectFit="scale-down"
-                      src={src}
-                      layout="fill"
-                    />
+                    <>
+                      <Image
+                        alt=""
+                        objectFit="scale-down"
+                        src={src}
+                        layout="fill"
+                      />
+                      {selectedImages.includes(src) && (
+                        <Image src="selected" layout="fill" />
+                      )}
+                    </>
                   )}
                 </GalleryItem>
               ))}

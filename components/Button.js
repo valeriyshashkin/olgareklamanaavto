@@ -1,4 +1,4 @@
-export default function Button({ large, onClick, children, margin, labelFor }) {
+export default function Button({ large, onClick, children, margin, labelFor, red }) {
   return (
     <>
       {labelFor ? (
@@ -8,7 +8,6 @@ export default function Button({ large, onClick, children, margin, labelFor }) {
       )}
       <style jsx>{`
         button, label {
-          background: var(--to-color);
           border: none;
           color: white;
           border-radius: 6px;
@@ -21,6 +20,7 @@ export default function Button({ large, onClick, children, margin, labelFor }) {
         button, label {
           margin: ${margin ?? "0"};
           font-size: ${large ? "20px" : "14px"};
+          background: ${red ? "var(--red)" : "var(--to-color)"};
         }
       `}</style>
     </>

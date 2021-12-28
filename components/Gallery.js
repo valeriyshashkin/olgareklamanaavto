@@ -37,9 +37,9 @@ export function Skeleton() {
   );
 }
 
-export function GalleryItem({ children }) {
+export function GalleryItem({ children, onClick }) {
   return (
-    <div>
+    <div onClick={onClick}>
       {children}
       <style jsx>{`
         div {

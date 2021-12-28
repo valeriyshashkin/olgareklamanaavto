@@ -1,10 +1,6 @@
 import Head from "next/head";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import {
-  ImageWithMargin,
-  EmptyImageWithMargin,
-} from "../components/ImageWithMargin";
 import { getContent } from "../utils/getContent";
 import Contact from "../components/Contact";
 import Price from "../components/Price";

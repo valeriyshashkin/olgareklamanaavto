@@ -21,6 +21,7 @@ function MyApp({ Component, pageProps }) {
           --gray: #555;
           --bordergray: lightgray;
           --skeletongray: #d1d1d1;
+          --red: #ff4b4b;
         }
       `}</style>
     </>
