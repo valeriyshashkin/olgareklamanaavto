@@ -23,6 +23,7 @@ function MyApp({ Component, pageProps }) {
           --skeletongray: #d1d1d1;
           --red: #ff4b4b;
           --loadinggray: #c0c0c0;
+          --imageskeletongray: #e0e0e0;
         }
       `}</style>
     </>

@@ -30,7 +30,7 @@ export function Skeleton() {
           bottom: 0;
           left: 0;
           right: 0;
-          background: var(--skeletongray);
+          background: var(--imageskeletongray);
         }
       `}</style>
     </>
