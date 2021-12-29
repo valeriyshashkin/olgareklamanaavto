@@ -130,7 +130,7 @@ export default function GalleryPage() {
                     <>
                       <Image
                         alt=""
-                        objectFit="scale-down"
+                        objectFit="cover"
                         src={src}
                         layout="fill"
                         sizes="33vw"

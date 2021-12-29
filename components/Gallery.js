@@ -39,17 +39,22 @@ export function Skeleton() {
 
 export function GalleryItem({ children, onClick }) {
   return (
-    <div onClick={onClick}>
-      {children}
+    <div className="outer">
+      <div className="inner" onClick={onClick}>
+        {children}
+      </div>
       <style jsx>{`
-        div {
-          height: 250px;
-          width: 250px;
-          position: relative;
+        .outer {
+          width: 100%;
           margin-right: 10px;
         }
 
-        div:last-child {
+        .inner {
+          padding-bottom: 100%;
+          position: relative;
+        }
+
+        .outer:last-child {
           margin-right: 0;
         }
       `}</style>
