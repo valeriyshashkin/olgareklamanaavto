@@ -8,8 +8,17 @@ import { getImages } from "../utils/getImages";
 import { GalleryRow, GalleryItem } from "../components/Gallery";
 import prepareImages from "../utils/prepareImages";
 import Image from "next/image";
+import { useState } from "react";
+import Slider from "../components/Slider";
 
 export default function Index({ content, images }) {
+  const [showSlider, setShowSlider] = useState(false);
+
+  const slider = (src) => {
+    document.body.style.overflow = "hidden";
+    setShowSlider(true);
+  };
+
   return (
     <>
       <Head>
@@ -21,10 +30,11 @@ export default function Index({ content, images }) {
       </h1>
       <section id="gallery">
         <h3>Сделано</h3>
+        {showSlider && <Slider />}
         {prepareImages(images).map((row, i) => (
           <GalleryRow key={i}>
             {row.map((src, j) => (
-              <GalleryItem key={j}>
+              <GalleryItem onClick={() => slider(src)} key={j}>
                 {src && (
                   <Image
                     alt=""
