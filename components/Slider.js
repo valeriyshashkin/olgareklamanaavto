@@ -51,7 +51,7 @@ export default function Slider({ images, onClick }) {
       <Swiper onSwiper={handleSwiper}>
         {images.map((src) => (
           <SwiperSlide key={src}>
-            <Image src={src} layout="fill" objectFit="contain" />
+            <Image alt="" src={src} layout="fill" objectFit="contain" />
           </SwiperSlide>
         ))}
       </Swiper>
