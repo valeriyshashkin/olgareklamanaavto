@@ -47,6 +47,7 @@ export function GalleryItem({ children, onClick }) {
         .outer {
           width: 100%;
           margin-right: 10px;
+          cursor: pointer;
         }
 
         .inner {

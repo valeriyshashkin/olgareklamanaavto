@@ -14,9 +14,18 @@ import Slider from "../components/Slider";
 export default function Index({ content, images }) {
   const [showSlider, setShowSlider] = useState(false);
 
-  const slider = (src) => {
+  const openSlider = (src) => {
+    if (!src) {
+      return;
+    }
+
     document.body.style.overflow = "hidden";
     setShowSlider(true);
+  };
+
+  const closeSlider = () => {
+    document.body.style.overflow = "auto";
+    setShowSlider(false);
   };
 
   return (
@@ -30,11 +39,11 @@ export default function Index({ content, images }) {
       </h1>
       <section id="gallery">
         <h3>Сделано</h3>
-        {showSlider && <Slider />}
+        {showSlider && <Slider images={images} onClick={closeSlider} />}
         {prepareImages(images).map((row, i) => (
           <GalleryRow key={i}>
             {row.map((src, j) => (
-              <GalleryItem onClick={() => slider(src)} key={j}>
+              <GalleryItem onClick={() => openSlider(src)} key={j}>
                 {src && (
                   <Image
                     alt=""
@@ -152,5 +161,6 @@ export async function getStaticProps() {
 
   return {
     props: { content, images },
+    revalidate: 60,
   };
 }
