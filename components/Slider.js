@@ -3,7 +3,7 @@ import "swiper/css";
 import Image from "next/image";
 import { useState } from "react";
 
-export default function Slider({ images, onClick }) {
+export default function Slider({ images, onClick, currentSlide }) {
   const [swiper, setSwiper] = useState(null);
 
   const handleSwiper = (s) => setSwiper(s);
@@ -48,7 +48,7 @@ export default function Slider({ images, onClick }) {
         <path d="M0 0h24v24H0z" fill="none" />
         <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
       </svg>
-      <Swiper onSwiper={handleSwiper}>
+      <Swiper onSwiper={handleSwiper} initialSlide={currentSlide}>
         {images.map((src) => (
           <SwiperSlide key={src}>
             <Image alt="" src={src} layout="fill" objectFit="contain" />

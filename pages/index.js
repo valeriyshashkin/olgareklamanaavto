@@ -13,6 +13,7 @@ import Slider from "../components/Slider";
 
 export default function Index({ content, images }) {
   const [showSlider, setShowSlider] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   const openSlider = (src) => {
     if (!src) {
@@ -21,6 +22,7 @@ export default function Index({ content, images }) {
 
     document.body.style.overflow = "hidden";
     setShowSlider(true);
+    setCurrentSlide(images.indexOf(src));
   };
 
   const closeSlider = () => {
@@ -39,7 +41,7 @@ export default function Index({ content, images }) {
       </h1>
       <section id="gallery">
         <h3>Сделано</h3>
-        {showSlider && <Slider images={images} onClick={closeSlider} />}
+        {showSlider && <Slider images={images} onClick={closeSlider} currentSlide={currentSlide} />}
         {prepareImages(images).map((row, i) => (
           <GalleryRow key={i}>
             {row.map((src, j) => (
