@@ -87,7 +87,7 @@ export default function Header({ admin }) {
         }
 
         nav {
-          width: 1024px;
+          max-width: 1024px;
           margin: 0 auto;
           display: flex;
           align-items: center;
