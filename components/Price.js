@@ -37,9 +37,24 @@ export default function Price({ src, alt, title, price, right }) {
           flex-direction: ${right ? "row-reverse" : "row"};
         }
 
+        @media (max-width: 720px) {
+          .container {
+            flex-direction: column;
+            margin: 0;
+          }
+        }
+
         .text {
           width: ${right ? "600px" : "520px"};
           padding-left: ${right ? "0" : "80px"};
+        }
+
+        @media (max-width: 720px) {
+          .text {
+            text-align: center;
+            padding: 0;
+            margin: 20px 0 60px 0;
+          }
         }
       `}</style>
     </>

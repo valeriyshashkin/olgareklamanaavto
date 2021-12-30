@@ -49,6 +49,12 @@ export function GalleryItem({ children, onClick }) {
           margin-right: 10px;
           cursor: pointer;
         }
+        
+        @media (max-width: 640px) {
+          .outer {
+            margin-right: 3px;
+          }
+        }
 
         .inner {
           padding-bottom: 100%;

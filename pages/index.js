@@ -110,6 +110,13 @@ export default function Index({ content, images }) {
           width: 700px;
         }
 
+        @media (max-width: 720px) {
+          h1 {
+            width: 500px;
+            font-size: 50px;
+          }
+        }
+
         section {
           max-width: 1024px;
           margin: 0 auto;
@@ -151,6 +158,14 @@ export default function Index({ content, images }) {
           margin: 200px 0;
           display: flex;
           justify-content: space-between;
+          align-items: center;
+        }
+
+        @media (max-width: 580px) {
+          .contacts {
+            flex-direction: column;
+            margin: 50px 0;
+          }
         }
       `}</style>
     </>
