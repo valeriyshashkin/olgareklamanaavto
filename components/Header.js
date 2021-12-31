@@ -58,17 +58,30 @@ export default function Header({ admin }) {
               </svg>
             </div>
           ) : (
-            <ul>
-              <li>
-                <a href="#gallery">Сделано</a>
-              </li>
-              <li>
-                <a href="#prices">Цены</a>
-              </li>
-              <li>
-                <a href="#contacts">Контакты</a>
-              </li>
-            </ul>
+            <>
+              <svg
+                width="60"
+                height="23"
+                viewBox="0 0 98 23"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="mobile"
+              >
+                <line y1="1" x2="98" y2="1" stroke="black" strokeWidth="2" />
+                <line y1="22" x2="98" y2="22" stroke="black" strokeWidth="2" />
+              </svg>
+              <ul>
+                <li>
+                  <a href="#gallery">Сделано</a>
+                </li>
+                <li>
+                  <a href="#prices">Цены</a>
+                </li>
+                <li>
+                  <a href="#contacts">Контакты</a>
+                </li>
+              </ul>
+            </>
           )}
         </nav>
       </header>
@@ -80,6 +93,10 @@ export default function Header({ admin }) {
           right: 0;
           background: white;
           z-index: 1;
+        }
+
+        .mobile {
+          display: none;
         }
 
         .logo {
@@ -98,6 +115,17 @@ export default function Header({ admin }) {
           list-style-type: none;
           margin-left: auto;
           padding: 0;
+        }
+
+        @media (max-width: 400px) {
+          ul {
+            display: none;
+          }
+
+          .mobile {
+            display: block;
+            margin-left: auto;
+          }
         }
 
         ul li {

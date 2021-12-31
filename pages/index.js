@@ -37,7 +37,9 @@ export default function Index({ content, images }) {
       </Head>
       <Header />
       <h1>
-        <span>Живописные</span> наклейки на&nbsp;автомобиль
+        <span className="colorful">Живописные</span>
+        <span>наклейки</span>
+        <span>на&nbsp;автомобиль</span>
       </h1>
       <section id="gallery">
         <h3>Сделано</h3>
@@ -110,8 +112,7 @@ export default function Index({ content, images }) {
 
         @media (max-width: 720px) {
           h1 {
-            width: 500px;
-            font-size: 50px;
+            font-size: 30px;
           }
         }
 
@@ -143,6 +144,10 @@ export default function Index({ content, images }) {
         }
 
         span {
+          display: block;
+        }
+
+        .colorful {
           background-image: linear-gradient(
             to right,
             var(--from-color),
