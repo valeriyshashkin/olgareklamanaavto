@@ -41,7 +41,13 @@ export default function Index({ content, images }) {
       </h1>
       <section id="gallery">
         <h3>Сделано</h3>
-        {showSlider && <Slider images={images} onClick={closeSlider} currentSlide={currentSlide} />}
+        {showSlider && (
+          <Slider
+            images={images}
+            onClick={closeSlider}
+            currentSlide={currentSlide}
+          />
+        )}
         {prepareImages(images).map((row, i) => (
           <GalleryRow key={i}>
             {row.map((src, j) => (
@@ -86,17 +92,9 @@ export default function Index({ content, images }) {
       <section id="contacts">
         <h3>Контакты</h3>
         <div className="contacts">
-          <Contact
-            alt="WhatsApp"
-            text={content.whatsapp}
-            src="whatsapp"
-          ></Contact>
-          <Contact
-            alt="Instagram"
-            text={content.instagram}
-            src="instagram"
-          ></Contact>
-          <Contact alt="E-mail" text={content.email} src="email"></Contact>
+          <Contact alt="WhatsApp" text={content.whatsapp} src="whatsapp" />
+          <Contact alt="Instagram" text={content.instagram} src="instagram" />
+          <Contact alt="E-mail" text={content.email} src="email" />
         </div>
       </section>
       <Footer />
