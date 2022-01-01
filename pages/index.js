@@ -107,12 +107,23 @@ export default function Index({ content, images }) {
           color: var(--to-color);
           text-align: center;
           font-size: 80px;
-          width: 700px;
         }
 
         @media (max-width: 720px) {
           h1 {
-            font-size: 30px;
+            font-size: 55px;
+          }
+        }
+
+        @media (max-width: 520px) {
+          h1 {
+            font-size: 45px;
+          }
+        }
+
+        @media (max-width: 420px) {
+          h1 {
+            font-size: 35px;
           }
         }
 
@@ -133,7 +144,6 @@ export default function Index({ content, images }) {
         .prices {
           display: flex;
           flex-direction: column;
-          align-items: center;
         }
 
         h3 {

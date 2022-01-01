@@ -4,8 +4,10 @@ export default function Price({ src, alt, title, price, right }) {
   return (
     <>
       <div className="container">
-        <Image width={400} height={400} alt={alt} src={src} />
-        <div className="text">
+        <div className="half">
+          <Image width={400} height={400} alt={alt} src={src} />
+        </div>
+        <div className="text half">
           <h4>{title}</h4>
           <p>{price}</p>
         </div>
@@ -15,11 +17,23 @@ export default function Price({ src, alt, title, price, right }) {
           display: flex;
           margin: 80px 0;
           align-items: center;
+          justify-content: flex-start;
         }
 
         .container:first-child,
         .container:last-child {
           margin: 0;
+        }
+
+        .half {
+          width: 50%;
+        }
+
+        @media (max-width: 720px) {
+          .half {
+            width: 100%;
+            text-align: center;
+          }
         }
 
         h4 {
@@ -45,8 +59,8 @@ export default function Price({ src, alt, title, price, right }) {
         }
 
         .text {
-          width: ${right ? "600px" : "520px"};
           padding-left: ${right ? "0" : "80px"};
+          padding-right: ${right ? "80px" : "0"};
         }
 
         @media (max-width: 720px) {
