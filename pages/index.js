@@ -57,7 +57,7 @@ export default function Index({ content, images }) {
                 {src && (
                   <Image
                     alt=""
-                    objectFit="scale-down"
+                    objectFit="cover"
                     src={src}
                     layout="fill"
                   />
@@ -109,15 +109,30 @@ export default function Index({ content, images }) {
           font-size: 80px;
         }
 
+        h3 {
+          text-align: center;
+          font-size: 40px;
+          padding-top: 100px;
+          margin-top: 0;
+        }
+
         @media (max-width: 720px) {
           h1 {
             font-size: 55px;
+          }
+
+          h3 {
+            font-size: 40px;
           }
         }
 
         @media (max-width: 520px) {
           h1 {
             font-size: 45px;
+          }
+
+          h3 {
+            font-size: 30px;
           }
         }
 
@@ -130,6 +145,11 @@ export default function Index({ content, images }) {
         section {
           max-width: 1024px;
           margin: 0 auto;
+          padding: 0 20px;
+        }
+
+        #gallery {
+          padding: 0;
         }
 
         .image-row {
@@ -144,13 +164,6 @@ export default function Index({ content, images }) {
         .prices {
           display: flex;
           flex-direction: column;
-        }
-
-        h3 {
-          text-align: center;
-          font-size: 40px;
-          padding-top: 100px;
-          margin-top: 0;
         }
 
         span {

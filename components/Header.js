@@ -93,6 +93,7 @@ export default function Header({ admin }) {
           right: 0;
           background: white;
           z-index: 1;
+          padding: 0 20px;
         }
 
         .mobile {
