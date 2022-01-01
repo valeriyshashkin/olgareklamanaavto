@@ -55,12 +55,7 @@ export default function Index({ content, images }) {
             {row.map((src, j) => (
               <GalleryItem onClick={() => openSlider(src)} key={j}>
                 {src && (
-                  <Image
-                    alt=""
-                    objectFit="cover"
-                    src={src}
-                    layout="fill"
-                  />
+                  <Image alt="" objectFit="cover" src={src} layout="fill" />
                 )}
               </GalleryItem>
             ))}
@@ -148,7 +143,8 @@ export default function Index({ content, images }) {
           padding: 0 20px;
         }
 
-        #gallery {
+        #gallery,
+        #prices {
           padding: 0;
         }
 
