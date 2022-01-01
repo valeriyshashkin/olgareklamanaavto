@@ -1,12 +1,8 @@
-import Image from "next/image";
-
-export default function Price({ src, alt, title, price, right }) {
+export default function Price({ title, price, right, children }) {
   return (
     <>
       <div className="container">
-        <div className="half">
-          <Image width={400} height={400} alt={alt} src={src} />
-        </div>
+        <div className="half">{children}</div>
         <div className="text half">
           <h4>{title}</h4>
           <p>{price}</p>
