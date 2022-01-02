@@ -5,6 +5,11 @@ import { useEffect, useState } from "react";
 export default function Header({ admin }) {
   const router = useRouter();
   const [isScrollZero, setIsScrollZero] = useState(true);
+  const [isMobileMenuOpened, setIsMobileMenuOpened] = useState(false);
+
+  const openMobileMenu = () => setIsMobileMenuOpened(true);
+
+  const closeMobileMenu = () => setIsMobileMenuOpened(false);
 
   const logout = () => fetch("/api/logout").then(() => router.push("/admin"));
 
@@ -60,17 +65,33 @@ export default function Header({ admin }) {
             </div>
           ) : (
             <>
-              <svg
-                width="30"
-                height="23"
-                viewBox="0 0 98 23"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="mobile"
-              >
-                <line y1="1" x2="80" y2="1" stroke="black" strokeWidth="2" />
-                <line y1="30" x2="80" y2="30" stroke="black" strokeWidth="2" />
-              </svg>
+              {isMobileMenuOpened ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="24px"
+                  viewBox="0 0 24 24"
+                  width="24px"
+                  fill="#000000"
+                  className="mobile"
+                  onClick={closeMobileMenu}
+                >
+                  <path d="M0 0h24v24H0z" fill="none" />
+                  <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="24px"
+                  viewBox="0 0 24 24"
+                  width="24px"
+                  fill="#000000"
+                  className="mobile"
+                  onClick={openMobileMenu}
+                >
+                  <path d="M0 0h24v24H0z" fill="none" />
+                  <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+                </svg>
+              )}
               <ul>
                 <li>
                   <a href="#gallery">Сделано</a>
