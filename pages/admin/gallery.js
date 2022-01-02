@@ -125,7 +125,10 @@ export default function GalleryPage() {
           {prepareImages(images).map((row, i) => (
             <GalleryRow key={i}>
               {row.map((src, j) => (
-                <GalleryItem onClick={() => src ? select(src) : undefined} key={j}>
+                <GalleryItem
+                  onClick={() => (src ? select(src) : undefined)}
+                  key={j}
+                >
                   {src && (
                     <>
                       <Image
@@ -136,7 +139,24 @@ export default function GalleryPage() {
                         sizes="33vw"
                       />
                       {selectedImages.includes(src) && (
-                        <Image alt="selected" src="selected" layout="fill" />
+                        <svg
+                          viewBox="0 0 200 200"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                          style={{ position: "absolute" }}
+                        >
+                          <rect
+                            width="200"
+                            height="200"
+                            fill="black"
+                            fillOpacity="0.3"
+                          />
+                          <path
+                            d="M73 98L93 118L130 81"
+                            stroke="white"
+                            strokeWidth="4"
+                          />
+                        </svg>
                       )}
                     </>
                   )}
