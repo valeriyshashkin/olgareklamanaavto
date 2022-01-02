@@ -139,7 +139,6 @@ export default function Index({ content, images }) {
             src="06082021-002005-1.jpg"
             title="Универсал, каблучок"
             price={`от ${content.universalPrice} рублей`}
-            className="prices-emoji"
           >
             <svg
               width="400"
@@ -147,6 +146,7 @@ export default function Index({ content, images }) {
               viewBox="0 0 164 110"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
+              className="prices-emoji"
             >
               <path
                 d="M164 59.2222C164 61.7414 161.964 63.7778 159.444 63.7778H154.889C152.37 63.7778 150.333 61.7414 150.333 59.2222V31.8889C150.333 29.3697 152.37 27.3333 154.889 27.3333H159.444C161.964 27.3333 164 29.3697 164 31.8889V59.2222Z"
