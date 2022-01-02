@@ -25,13 +25,6 @@ export default function Price({ title, price, right, children }) {
           width: 50%;
         }
 
-        @media (max-width: 720px) {
-          .half {
-            width: 100%;
-            text-align: center;
-          }
-        }
-
         h4 {
           font-size: 30px;
           margin: 0;
@@ -40,6 +33,23 @@ export default function Price({ title, price, right, children }) {
         p {
           margin: 0;
           font-size: 20px;
+          color: var(--gray);
+          margin-top: 10px;
+        }
+
+        @media (max-width: 720px) {
+          .half {
+            width: 100%;
+            text-align: center;
+          }
+
+          h4 {
+            font-size: 22px;
+          }
+
+          p {
+            font-size: 18px;
+          }
         }
       `}</style>
       <style jsx>{`

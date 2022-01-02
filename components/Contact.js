@@ -14,6 +14,12 @@ export default function Contact({ text, src, alt }) {
         p {
           font-size: 20px;
         }
+
+        @media (max-width: 720px) {
+          p {
+            font-size: 18px;
+          }
+        }
       `}</style>
     </div>
   );

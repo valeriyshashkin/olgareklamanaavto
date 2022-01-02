@@ -314,8 +314,7 @@ export default function Index({ content, images }) {
           padding: 0 20px;
         }
 
-        #gallery,
-        #prices {
+        #gallery {
           padding: 0;
         }
 
