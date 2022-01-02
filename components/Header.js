@@ -7,9 +7,15 @@ export default function Header({ admin }) {
   const [isScrollZero, setIsScrollZero] = useState(true);
   const [isMobileMenuOpened, setIsMobileMenuOpened] = useState(false);
 
-  const openMobileMenu = () => setIsMobileMenuOpened(true);
+  const openMobileMenu = () => {
+    document.body.style.overflow = "hidden";
+    setIsMobileMenuOpened(true);
+  };
 
-  const closeMobileMenu = () => setIsMobileMenuOpened(false);
+  const closeMobileMenu = () => {
+    document.body.style.overflow = "auto";
+    setIsMobileMenuOpened(false);
+  };
 
   const logout = () => fetch("/api/logout").then(() => router.push("/admin"));
 
@@ -66,18 +72,31 @@ export default function Header({ admin }) {
           ) : (
             <>
               {isMobileMenuOpened ? (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="24px"
-                  viewBox="0 0 24 24"
-                  width="24px"
-                  fill="#000000"
-                  className="mobile"
-                  onClick={closeMobileMenu}
-                >
-                  <path d="M0 0h24v24H0z" fill="none" />
-                  <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
-                </svg>
+                <>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="24px"
+                    viewBox="0 0 24 24"
+                    width="24px"
+                    fill="#000000"
+                    className="mobile"
+                    onClick={closeMobileMenu}
+                  >
+                    <path d="M0 0h24v24H0z" fill="none" />
+                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                  </svg>
+                  <ul className="mobile-menu">
+                    <li onClick={closeMobileMenu}>
+                      <a href="#gallery">Сделано</a>
+                    </li>
+                    <li onClick={closeMobileMenu}>
+                      <a href="#prices">Цены</a>
+                    </li>
+                    <li onClick={closeMobileMenu}>
+                      <a href="#contacts">Контакты</a>
+                    </li>
+                  </ul>
+                </>
               ) : (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -120,6 +139,30 @@ export default function Header({ admin }) {
 
         .mobile {
           display: none;
+        }
+
+        .mobile-menu {
+          display: flex;
+          position: fixed;
+          background: white;
+          left: 0;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          margin: 0;
+          z-index: -1;
+          flex-direction: column;
+          justify-content: center;
+        }
+
+        .mobile-menu li {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin: 0;
+          padding: 20px 0;
+          font-size: 30px;
+          font-weight: bold;
         }
 
         .logo {
