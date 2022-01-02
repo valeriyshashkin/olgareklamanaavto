@@ -298,6 +298,7 @@ export default function Index({ content, images }) {
 
           .prices-emoji {
             width: 200px;
+            height: 200px;
           }
         }
 
