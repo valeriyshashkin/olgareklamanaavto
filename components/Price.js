@@ -5,7 +5,7 @@ export default function Price({ title, price, features }) {
         <p className="title">{title}</p>
         <p className="price">от {price} рублей</p>
         {features.map((f, i) => (
-          <div className="item">
+          <div className="item" key={i}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               height="24px"
