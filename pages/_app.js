@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps }) {
         }
 
         * {
-          font-family: Open Sans;
+          font-family: Inter;
         }
 
         :root {

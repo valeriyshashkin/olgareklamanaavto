@@ -1,36 +1,33 @@
-export default function Price({ title, price, right, children }) {
+export default function Price({ title, price, features }) {
   return (
     <>
-      <div className="container">
-        <div className="half">{children}</div>
-        <div className="text half">
-          <h4>{title}</h4>
-          <p>{price}</p>
-        </div>
+      <div>
+        <p className="title">{title}</p>
+        <p className="price">от {price} рублей</p>
+        <ul>
+          {features.map((f, i) => (
+            <li key={i}>{f}</li>
+          ))}
+        </ul>
       </div>
       <style jsx>{`
-        .container {
-          display: flex;
-          margin: 80px 0;
-          align-items: center;
-          justify-content: flex-start;
+        div {
+          max-width: 300px;
+          padding: 0 20px;
         }
 
-        .container:first-child,
-        .container:last-child {
+        div:first-child,
+        div:last-child {
           margin: 0;
         }
 
-        .half {
-          width: 50%;
-        }
-
-        h4 {
-          font-size: 30px;
+        .title {
+          font-size: 24px;
           margin: 0;
+          font-weight: bold;
         }
 
-        p {
+        .price {
           margin: 0;
           font-size: 20px;
           color: var(--gray);
@@ -38,42 +35,20 @@ export default function Price({ title, price, right, children }) {
         }
 
         @media (max-width: 720px) {
-          .half {
-            width: 100%;
-            text-align: center;
-          }
-
           h4 {
             font-size: 22px;
           }
 
-          p {
+          .price {
             font-size: 18px;
           }
         }
       `}</style>
       <style jsx>{`
-        .container {
-          flex-direction: ${right ? "row-reverse" : "row"};
-        }
-
         @media (max-width: 720px) {
-          .container {
+          div {
             flex-direction: column;
             margin: 0;
-          }
-        }
-
-        .text {
-          padding-left: ${right ? "0" : "80px"};
-          padding-right: ${right ? "80px" : "0"};
-        }
-
-        @media (max-width: 720px) {
-          .text {
-            text-align: center;
-            padding: 0;
-            margin: 20px 0 60px 0;
           }
         }
       `}</style>

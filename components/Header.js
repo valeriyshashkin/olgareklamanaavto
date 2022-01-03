@@ -86,14 +86,14 @@ export default function Header({ admin }) {
                     <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
                   </svg>
                   <ul className="mobile-menu">
-                    <li onClick={closeMobileMenu}>
-                      <a href="#gallery">Сделано</a>
+                    <li>
+                      <a href="#gallery" onClick={closeMobileMenu}>Сделано</a>
                     </li>
-                    <li onClick={closeMobileMenu}>
-                      <a href="#prices">Цены</a>
+                    <li>
+                      <a href="#prices" onClick={closeMobileMenu}>Цены</a>
                     </li>
-                    <li onClick={closeMobileMenu}>
-                      <a href="#contacts">Контакты</a>
+                    <li>
+                      <a href="#contacts" onClick={closeMobileMenu}>Контакты</a>
                     </li>
                   </ul>
                 </>
