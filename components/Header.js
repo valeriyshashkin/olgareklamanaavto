@@ -94,7 +94,7 @@ export default function Header({ admin }) {
                       </Link>
                     </li>
                     <li>
-                      <a style={{ color: "var(--red)" }} onClick={logout}>
+                      <a href="#" style={{ color: "var(--red)" }} onClick={logout}>
                         Выйти
                       </a>
                     </li>
