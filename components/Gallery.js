@@ -78,6 +78,12 @@ export function GalleryRow({ children }) {
           display: flex;
           margin-bottom: 10px;
         }
+
+        @media (max-width: 640px) {
+          div {
+            margin-bottom: 3px;
+          }
+        }
       `}</style>
     </div>
   );
