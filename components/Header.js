@@ -6,15 +6,26 @@ export default function Header({ admin }) {
   const router = useRouter();
   const [isScrollZero, setIsScrollZero] = useState(true);
   const [isMobileMenuOpened, setIsMobileMenuOpened] = useState(false);
+  const [isAdminMobileMenuOpened, setIsAdminMobileMenuOpened] = useState(false);
 
   const openMobileMenu = () => {
     document.body.style.overflow = "hidden";
     setIsMobileMenuOpened(true);
   };
 
+  const openAdminMobileMenu = () => {
+    document.body.style.overflow = "hidden";
+    setIsAdminMobileMenuOpened(true);
+  };
+
   const closeMobileMenu = () => {
     document.body.style.overflow = "auto";
     setIsMobileMenuOpened(false);
+  };
+
+  const closeAdminMobileMenu = () => {
+    document.body.style.overflow = "auto";
+    setIsAdminMobileMenuOpened(false);
   };
 
   const logout = () => fetch("/api/logout").then(() => router.push("/admin"));
@@ -51,24 +62,77 @@ export default function Header({ admin }) {
             </a>
           </Link>
           {admin ? (
-            <div onClick={logout}>
-              <p>Выйти</p>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                enableBackground="new 0 0 24 24"
-                height="24px"
-                viewBox="0 0 24 24"
-                width="24px"
-                fill="#000000"
-              >
-                <g>
-                  <path d="M0,0h24v24H0V0z" fill="none" />
-                </g>
-                <g>
-                  <path d="M17,8l-1.41,1.41L17.17,11H9v2h8.17l-1.58,1.58L17,16l4-4L17,8z M5,5h7V3H5C3.9,3,3,3.9,3,5v14c0,1.1,0.9,2,2,2h7v-2H5V5z" />
-                </g>
-              </svg>
-            </div>
+            <>
+              {isAdminMobileMenuOpened ? (
+                <>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="24px"
+                    viewBox="0 0 24 24"
+                    width="24px"
+                    fill="#000000"
+                    className="mobile"
+                    onClick={closeAdminMobileMenu}
+                  >
+                    <path d="M0 0h24v24H0z" fill="none" />
+                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                  </svg>
+                  <ul className="mobile-menu">
+                    <li>
+                      <Link href="/admin/contacts" passHref>
+                        <a onClick={closeAdminMobileMenu}>Контакты</a>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/admin/prices" passHref>
+                        <a onClick={closeAdminMobileMenu}>Цены</a>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/admin/gallery" passHref>
+                        <a onClick={closeAdminMobileMenu}>Галерея</a>
+                      </Link>
+                    </li>
+                    <li>
+                      <a style={{ color: "var(--red)" }} onClick={logout}>
+                        Выйти
+                      </a>
+                    </li>
+                  </ul>
+                </>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="24px"
+                  viewBox="0 0 24 24"
+                  width="24px"
+                  fill="#000000"
+                  className="mobile"
+                  onClick={openAdminMobileMenu}
+                >
+                  <path d="M0 0h24v24H0z" fill="none" />
+                  <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+                </svg>
+              )}
+              <div onClick={logout}>
+                <p>Выйти</p>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  enableBackground="new 0 0 24 24"
+                  height="24px"
+                  viewBox="0 0 24 24"
+                  width="24px"
+                  fill="#000000"
+                >
+                  <g>
+                    <path d="M0,0h24v24H0V0z" fill="none" />
+                  </g>
+                  <g>
+                    <path d="M17,8l-1.41,1.41L17.17,11H9v2h8.17l-1.58,1.58L17,16l4-4L17,8z M5,5h7V3H5C3.9,3,3,3.9,3,5v14c0,1.1,0.9,2,2,2h7v-2H5V5z" />
+                  </g>
+                </svg>
+              </div>
+            </>
           ) : (
             <>
               {isMobileMenuOpened ? (
@@ -87,13 +151,19 @@ export default function Header({ admin }) {
                   </svg>
                   <ul className="mobile-menu">
                     <li>
-                      <a href="#gallery" onClick={closeMobileMenu}>Сделано</a>
+                      <a href="#gallery" onClick={closeMobileMenu}>
+                        Сделано
+                      </a>
                     </li>
                     <li>
-                      <a href="#prices" onClick={closeMobileMenu}>Цены</a>
+                      <a href="#prices" onClick={closeMobileMenu}>
+                        Цены
+                      </a>
                     </li>
                     <li>
-                      <a href="#contacts" onClick={closeMobileMenu}>Контакты</a>
+                      <a href="#contacts" onClick={closeMobileMenu}>
+                        Контакты
+                      </a>
                     </li>
                   </ul>
                 </>
@@ -183,17 +253,6 @@ export default function Header({ admin }) {
           padding: 0;
         }
 
-        @media (max-width: 400px) {
-          ul {
-            display: none;
-          }
-
-          .mobile {
-            display: block;
-            margin-left: auto;
-          }
-        }
-
         ul li {
           margin-right: 50px;
         }
@@ -223,6 +282,21 @@ export default function Header({ admin }) {
         div p {
           margin: 0;
           margin-right: 10px;
+        }
+
+        @media (max-width: 400px) {
+          ul {
+            display: none;
+          }
+
+          .mobile {
+            display: block;
+            margin-left: auto;
+          }
+
+          div {
+            display: none;
+          }
         }
       `}</style>
       <style jsx>{`
