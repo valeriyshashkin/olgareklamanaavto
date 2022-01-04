@@ -38,6 +38,16 @@ function SettingSkeleton() {
           margin-bottom: 80px;
         }
 
+        @media (max-width: 580px) {
+          p {
+            width: 220px;
+          }
+
+          h4 {
+            width: 200px;
+          }
+        }
+
         section {
           border-radius: 6px;
           border: 1px solid var(--bordergray);
