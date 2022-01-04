@@ -109,7 +109,7 @@ export default function GalleryPage() {
         disabled={isUpload}
       />
       <Button loading={isUpload} margin="12px 0" labelFor="file-upload">
-        Добавить фото
+        Добавить
       </Button>
       {selectedImages.length > 0 && (
         <Button
@@ -118,7 +118,7 @@ export default function GalleryPage() {
           red
           margin="12px 0 12px 10px"
         >
-          Удалить выбранные
+          Удалить
         </Button>
       )}
       {isUserLoading || isGalleryLoading ? (
