@@ -23,6 +23,7 @@ export default function Layout({ children, active }) {
         .container {
           max-width: 1024px;
           margin: 0 auto;
+          padding: 0 20px;
         }
 
         @media (max-width: 720px) {
