@@ -72,11 +72,16 @@ export default function GalleryPage() {
   };
 
   useEffect(() => {
+    let isMounted = true;
     fetch("/api/image")
       .then((res) => res.json())
       .then((res) => {
-        setImages(res);
+        if (isMounted) {
+          setImages(res);
+        }
       });
+
+    return () => (isMounted = false);
   }, []);
 
   const { mutate } = useSWRConfig();
