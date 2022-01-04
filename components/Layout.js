@@ -9,7 +9,9 @@ export default function Layout({ children, active }) {
         <div className="container">{active}</div>
       </h3>
       <div className="container row">
-        <NavigationBar active={active} />
+        <div className="navigation">
+          <NavigationBar active={active} />
+        </div>
         <div className="settings">{children}</div>
       </div>
       <style jsx>{`
@@ -21,6 +23,12 @@ export default function Layout({ children, active }) {
         .container {
           max-width: 1024px;
           margin: 0 auto;
+        }
+
+        @media (max-width: 720px) {
+          .navigation {
+            display: none;
+          }
         }
 
         .settings {

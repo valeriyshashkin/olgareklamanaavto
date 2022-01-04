@@ -47,7 +47,7 @@ export default function NavigationBar({ active }) {
       </ul>
       <style jsx>{`
         div {
-          width: 300px;
+          width: 250px;
         }
 
         ul {
