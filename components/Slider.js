@@ -92,7 +92,7 @@ export default function Slider({ images, onClick, currentSlide }) {
           bottom: 0;
           left: 0;
           right: 0;
-          background: rgba(0, 0, 0, 0.85);
+          background: black;
           z-index: 1;
           width: 100%;
           height: 100%;
@@ -105,7 +105,6 @@ export default function Slider({ images, onClick, currentSlide }) {
           position: absolute;
           z-index: 2;
           cursor: pointer;
-          fill: var(--to-color);
         }
 
         .close {
@@ -113,20 +112,33 @@ export default function Slider({ images, onClick, currentSlide }) {
           right: 0;
           margin-top: 6px;
           margin-right: 6px;
+          padding: 4px;
+          fill: white;
         }
 
         .left,
         .right {
           top: 50%;
           transform: translateY(-50%);
+          background: white;
+          border-radius: 50%;
+        }
+
+        @media (max-width: 580px) {
+          .left,
+          .right {
+            display: none;
+          }
         }
 
         .left {
           left: 0;
+          margin-left: 20px;
         }
 
         .right {
           right: 0;
+          margin-right: 20px;
         }
       `}</style>
     </section>
