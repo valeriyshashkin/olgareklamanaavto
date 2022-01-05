@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import { GalleryItem, GalleryRow, Skeleton } from "../../components/Gallery";
 import prepareImages from "../../utils/prepareImages";
 import Image from "next/image";
+import Protip from "../../components/Protip";
 
 export default function GalleryPage() {
   const [images, setImages] = useState([]);
@@ -121,6 +122,7 @@ export default function GalleryPage() {
           Удалить
         </Button>
       )}
+      <Protip>Для выделения фото нажмите на него</Protip>
       {isUserLoading || isGalleryLoading ? (
         <Skeleton />
       ) : user.error ? (

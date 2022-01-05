@@ -24,6 +24,7 @@ function MyApp({ Component, pageProps }) {
           --red: #ff4b4b;
           --loadinggray: #c0c0c0;
           --imageskeletongray: #e0e0e0;
+          --protipgray: #d8d8d8;
         }
       `}</style>
     </>
