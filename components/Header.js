@@ -28,7 +28,10 @@ export default function Header({ admin }) {
     setIsAdminMobileMenuOpened(false);
   };
 
-  const logout = () => fetch("/api/logout").then(() => router.push("/admin"));
+  const logout = () => {
+    document.body.style.overflow = "auto";
+    fetch("/api/logout").then(() => router.push("/admin"));
+  };
 
   const scroll = () => setIsScrollZero(scrollY === 0);
 
@@ -94,7 +97,11 @@ export default function Header({ admin }) {
                       </Link>
                     </li>
                     <li>
-                      <a href="#" style={{ color: "var(--red)" }} onClick={logout}>
+                      <a
+                        href="#"
+                        style={{ color: "var(--red)" }}
+                        onClick={logout}
+                      >
                         Выйти
                       </a>
                     </li>
