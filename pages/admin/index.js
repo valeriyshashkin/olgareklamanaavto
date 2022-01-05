@@ -7,6 +7,8 @@ import Link from "next/link";
 export default function Index() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   function handleEmail(e) {
@@ -18,6 +20,7 @@ export default function Index() {
   }
 
   function login() {
+    setIsLoading(true);
     fetch("/api/login", {
       method: "post",
       body: JSON.stringify({
@@ -30,7 +33,8 @@ export default function Index() {
         if (!res.error) {
           router.push("/admin/contacts");
         } else {
-          console.log(res);
+          setIsLoading(false);
+          setIsError(true);
         }
       });
   }
@@ -41,6 +45,9 @@ export default function Index() {
         <title>Вход в панель управления - Olga</title>
       </Head>
       <h1>Вход</h1>
+      {isError && (
+        <p>Не удается войти. Проверьте правильность ввода почты и пароля</p>
+      )}
       <input
         value={email}
         onChange={handleEmail}
@@ -53,7 +60,7 @@ export default function Index() {
         placeholder="Пароль"
         type="password"
       />
-      <Button large onClick={login}>
+      <Button large onClick={login} loading={isLoading}>
         Войти
       </Button>
       <Link href="/" passHref>
@@ -97,6 +104,15 @@ export default function Index() {
           margin-top: 20px;
           text-decoration: none;
           color: var(--to-color);
+        }
+
+        p {
+          background: var(--red);
+          padding: 10px;
+          border-radius: 6px;
+          color: white;
+          margin: 0;
+          margin-bottom: 20px;
         }
       `}</style>
     </div>

@@ -13,12 +13,12 @@ export default function Button({
     <>
       {labelFor ? (
         <label htmlFor={labelFor} onClick={onClick}>
-          {loading && <div><Spinner width={20} /></div>}
+          {loading && <div><Spinner width={large ? 24 : 18} /></div>}
           {children}
         </label>
       ) : (
         <button onClick={onClick} disabled={loading}>
-          {loading && <div><Spinner width={20} /></div>}
+          {loading && <div><Spinner width={large ? 24 : 18} /></div>}
           {children}
         </button>
       )}
