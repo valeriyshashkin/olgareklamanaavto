@@ -72,7 +72,13 @@ export default function Index() {
           flex-direction: column;
           width: 300px;
           margin: 0 auto;
-          margin-top: 60px;
+          margin-top: 180px;
+        }
+
+        @media (max-width: 580px) {
+          div {
+            margin-top: 60px;
+          }
         }
 
         h1 {
