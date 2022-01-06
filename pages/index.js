@@ -10,6 +10,7 @@ import prepareImages from "../utils/prepareImages";
 import Image from "next/image";
 import { useState } from "react";
 import Slider from "../components/Slider";
+import Script from "next/script";
 
 export default function Index({ content, images }) {
   const [showSlider, setShowSlider] = useState(false);
@@ -35,6 +36,19 @@ export default function Index({ content, images }) {
       <Head>
         <title>Olga - творческая оклейка автомобилей</title>
       </Head>
+      <Script
+        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID}`}
+        strategy="afterInteractive"
+      />
+      <Script strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+        
+          gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID}');
+        `}
+      </Script>
       <Header />
       <h1>
         <span className="colorful">Живописные</span>
