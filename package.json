@@ -22,8 +22,5 @@
     "eslint": "7.32.0",
     "eslint-config-next": "12.0.4",
     "prisma": "^3.6.0"
-  },
-  "prisma": {
-    "seed": "node prisma/seed.js"
   }
 }
