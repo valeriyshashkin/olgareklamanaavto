@@ -55,9 +55,6 @@ export default function Index({ content, images }) {
         <span>наклейки</span>
         <span>на&nbsp;автомобиль</span>
       </h1>
-      <div className="video">
-        <video src="/video.mp4" autoPlay loop playsInline muted></video>
-      </div>
       <section id="gallery">
         <h3>Сделано</h3>
         {showSlider && (
@@ -217,11 +214,6 @@ export default function Index({ content, images }) {
             align-items: center;
             flex-direction: column;
           }
-        }
-
-        .video {
-          display: flex;
-          justify-content: center;
         }
       `}</style>
     </>
