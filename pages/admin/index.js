@@ -63,7 +63,7 @@ export default function Index() {
       <Button large onClick={login} loading={isLoading}>
         Войти
       </Button>
-      <Link href="/" passHref>
+      <Link href="/">
         <a>&larr; Вернуться на главную</a>
       </Link>
       <style jsx>{`

@@ -3,7 +3,7 @@ import Link from "next/link";
 function NavigationLink({ href, children, active }) {
   return (
     <li>
-      <Link href={href} passHref>
+      <Link href={href}>
         <a>{children}</a>
       </Link>
       <style jsx>{`

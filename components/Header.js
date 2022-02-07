@@ -44,8 +44,8 @@ export default function Header({ admin }) {
     <>
       <header>
         <nav>
-          <Link href="/" passHref>
-            <a className="logo" href="#">
+          <Link href="/">
+            <a className="logo">
               <svg
                 width="100"
                 height="45"
@@ -82,17 +82,17 @@ export default function Header({ admin }) {
                   </svg>
                   <ul className="mobile-menu">
                     <li>
-                      <Link href="/admin/contacts" passHref>
+                      <Link href="/admin/contacts">
                         <a onClick={closeAdminMobileMenu}>Контакты</a>
                       </Link>
                     </li>
                     <li>
-                      <Link href="/admin/prices" passHref>
+                      <Link href="/admin/prices">
                         <a onClick={closeAdminMobileMenu}>Цены</a>
                       </Link>
                     </li>
                     <li>
-                      <Link href="/admin/gallery" passHref>
+                      <Link href="/admin/gallery">
                         <a onClick={closeAdminMobileMenu}>Галерея</a>
                       </Link>
                     </li>
