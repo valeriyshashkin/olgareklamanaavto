@@ -1,7 +1,6 @@
 import Head from "next/head";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { getContent } from "../utils/getContent";
 import Contact from "../components/Contact";
 import Price from "../components/Price";
 import { getImages } from "../utils/getImages";
@@ -12,7 +11,7 @@ import { useState } from "react";
 import Slider from "../components/Slider";
 import Script from "next/script";
 
-export default function Index({ content, images }) {
+export default function Index({ images }) {
   const [showSlider, setShowSlider] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -50,13 +49,15 @@ export default function Index({ content, images }) {
         `}
       </Script>
       <Header />
-      <h1>
-        <span className="colorful">Живописные</span>
+      <h1 className="font-bold text-4xl sm:text-7xl mt-40 mb-28 text-center">
+        <span className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+          Живописные
+        </span>
         <span>наклейки</span>
         <span>на&nbsp;автомобиль</span>
       </h1>
       <section id="gallery">
-        <h3>Сделано</h3>
+        <h3 className="text-4xl font-bold text-center mb-8">Сделано</h3>
         {showSlider && (
           <Slider
             images={images}
@@ -77,11 +78,11 @@ export default function Index({ content, images }) {
         ))}
       </section>
       <section id="prices">
-        <h3>Цены</h3>
+        <h3 className="text-4xl font-bold text-center my-8">Цены</h3>
         <div className="prices">
           <Price
             title="Небольшая красивая наклейка"
-            price={content.simplePrice}
+            price="1000"
             features={[
               "небольшая наклейка",
               "капот, дверь или заднее стекло",
@@ -90,7 +91,7 @@ export default function Index({ content, images }) {
           />
           <Price
             title="Легковое авто, универсал, каблучок"
-            price={content.universalPrice}
+            price="2000"
             features={[
               "полная оклейка дверей, стекол",
               "капот и заднее стекло",
@@ -99,7 +100,7 @@ export default function Index({ content, images }) {
           />
           <Price
             title="Микроавтобус, автобус, грузовик"
-            price={content.busPrice}
+            price="3000"
             features={[
               "боковая часть полностью или частично",
               "переднее и заднее стекло",
@@ -109,56 +110,15 @@ export default function Index({ content, images }) {
         </div>
       </section>
       <section id="contacts">
-        <h3>Контакты</h3>
+        <h3 className="text-4xl font-bold text-center mt-8">Контакты</h3>
         <div className="contacts">
-          <Contact alt="WhatsApp" text={content.whatsapp} src="whatsapp" />
-          <Contact alt="Instagram" text={content.instagram} src="instagram" />
-          <Contact alt="E-mail" text={content.email} src="email" />
+          <Contact alt="WhatsApp" text="whatsapp" src="whatsapp" />
+          <Contact alt="Instagram" text="instagram" src="instagram" />
+          <Contact alt="E-mail" text="email" src="email" />
         </div>
       </section>
       <Footer />
       <style jsx>{`
-        h1 {
-          padding-top: 130px;
-          margin: 0 auto;
-          color: var(--to-color);
-          text-align: center;
-          font-size: 80px;
-        }
-
-        h3 {
-          text-align: center;
-          font-size: 40px;
-          padding-top: 100px;
-          margin-top: 0;
-        }
-
-        @media (max-width: 720px) {
-          h1 {
-            font-size: 55px;
-          }
-
-          h3 {
-            font-size: 40px;
-          }
-        }
-
-        @media (max-width: 520px) {
-          h1 {
-            font-size: 45px;
-          }
-
-          h3 {
-            font-size: 30px;
-          }
-        }
-
-        @media (max-width: 420px) {
-          h1 {
-            font-size: 35px;
-          }
-        }
-
         section {
           max-width: 1024px;
           margin: 0 auto;
@@ -221,11 +181,10 @@ export default function Index({ content, images }) {
 }
 
 export async function getStaticProps() {
-  const content = await getContent();
   const images = await getImages();
 
   return {
-    props: { content, images },
+    props: { images },
     revalidate: 60,
   };
 }

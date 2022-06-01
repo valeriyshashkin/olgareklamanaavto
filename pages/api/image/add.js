@@ -1,11 +1,8 @@
 import prisma from "../../../utils/prisma";
-import jwt from "jsonwebtoken";
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
-    try {
-      jwt.verify(req.cookies.auth, process.env.JWT_SECRET);
-    } catch {
+    if (!req.preview) {
       res.end();
       return;
     }

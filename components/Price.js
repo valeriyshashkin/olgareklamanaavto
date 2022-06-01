@@ -1,20 +1,14 @@
+import { BadgeCheckIcon } from "@heroicons/react/outline";
+
 export default function Price({ title, price, features }) {
   return (
     <>
       <div className="container">
-        <p className="title">{title}</p>
-        <p className="price">от {price} рублей</p>
+        <p className="text-xl font-bold">{title}</p>
+        <p className="price">от <span className="font-bold">{price}</span> рублей</p>
         {features.map((f, i) => (
-          <div className="item" key={i}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="24px"
-              viewBox="0 0 24 24"
-              width="24px"
-            >
-              <path d="M0 0h24v24H0z" fill="none" />
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-            </svg>
+          <div className="flex items-center my-4" key={i}>
+            <BadgeCheckIcon className="w-6 h-6 shrink-0 stroke-blue-500 mr-2" />
             <div key={i}>{f}</div>
           </div>
         ))}
@@ -27,27 +21,6 @@ export default function Price({ title, price, features }) {
 
         .container:last-child {
           margin: 0;
-        }
-
-        .item {
-          display: flex;
-          margin: 20px 0;
-          align-items: center;
-        }
-
-        .item svg {
-          fill: var(--to-color);
-          min-width: 24px;
-        }
-
-        .item div {
-          margin-left: 10px;
-        }
-
-        .title {
-          font-size: 24px;
-          margin: 0;
-          font-weight: 600;
         }
 
         .price {
