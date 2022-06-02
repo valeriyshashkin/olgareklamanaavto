@@ -2,10 +2,15 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { MenuAlt4Icon } from "@heroicons/react/outline";
 import { XIcon } from "@heroicons/react/outline";
+import { XCircleIcon } from "@heroicons/react/outline";
+import { InformationCircleIcon } from "@heroicons/react/outline";
 
-export default function Header({ admin }) {
+export default function Header({ preview }) {
   const [isScrollZero, setIsScrollZero] = useState(true);
   const [isMobileMenuOpened, setIsMobileMenuOpened] = useState(false);
+  const [error, setError] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const openMobileMenu = () => {
     document.body.style.overflow = "hidden";
@@ -17,6 +22,34 @@ export default function Header({ admin }) {
     setIsMobileMenuOpened(false);
   };
 
+  function handleEmail(e) {
+    setEmail(e.target.value);
+  }
+
+  function handlePassword(e) {
+    setPassword(e.target.value);
+  }
+
+  function login() {
+    fetch("/api/login", {
+      method: "POST",
+      body: JSON.stringify({ email, password }),
+    })
+      .then((res) => res.json())
+      .then(({ error }) => {
+        if (error) {
+          setError(true);
+          return;
+        }
+
+        location.reload();
+      });
+  }
+
+  function openLogin() {
+    document.getElementById("login").checked = "true";
+  }
+
   const scroll = () => setIsScrollZero(scrollY === 0);
 
   useEffect(() => {
@@ -26,6 +59,14 @@ export default function Header({ admin }) {
 
   return (
     <>
+      {preview && (
+        <div className="fixed bottom-0 bg-blue-500 z-10 left-0 right-0 p-2 text-white">
+          <div className="flex justify-center">
+            <InformationCircleIcon className="flex-shrink-0 w-6 h-6 mr-2" />
+            <span>Вы в режиме редактирования</span>
+          </div>
+        </div>
+      )}
       <header
         className={`fixed top-0 left-0 right-0 bg-white px-5 z-10${
           !isScrollZero && " border-b border-gray-300"
@@ -51,37 +92,44 @@ export default function Header({ admin }) {
               </svg>
             </a>
           </Link>
-          <button className="btn btn-outline btn-sm ml-auto sm:hidden">
-            Войти
-          </button>
-          {isMobileMenuOpened ? (
-            <ul className="flex fixed bg-white left-0 right-0 top-0 bottom-0 m-0 z-20 flex-col justify-center">
-              <XIcon
-                className="w-6 h-6 mr-5 mt-6 fixed right-0 top-0"
-                onClick={closeMobileMenu}
+          <div className="flex items-center ml-auto">
+            {!preview && (
+              <label
+                htmlFor="login"
+                className="btn btn-outline btn-sm mr-5 sm:hidden"
+              >
+                Войти
+              </label>
+            )}
+            {isMobileMenuOpened ? (
+              <ul className="flex fixed bg-white left-0 right-0 top-0 bottom-0 m-0 z-20 flex-col justify-center">
+                <XIcon
+                  className="w-6 h-6 mr-5 mt-6 fixed right-0 top-0"
+                  onClick={closeMobileMenu}
+                />
+                <li className="flex justify-center items-center m-0 py-5 text-3xl font-bold">
+                  <a href="#gallery" onClick={closeMobileMenu}>
+                    Сделано
+                  </a>
+                </li>
+                <li className="flex justify-center items-center m-0 py-5 text-3xl font-bold">
+                  <a href="#prices" onClick={closeMobileMenu}>
+                    Цены
+                  </a>
+                </li>
+                <li className="flex justify-center items-center m-0 py-5 text-3xl font-bold">
+                  <a href="#contacts" onClick={closeMobileMenu}>
+                    Контакты
+                  </a>
+                </li>
+              </ul>
+            ) : (
+              <MenuAlt4Icon
+                className="w-6 h-6 ml-auto sm:hidden"
+                onClick={openMobileMenu}
               />
-              <li className="flex justify-center items-center m-0 py-5 text-3xl font-bold">
-                <a href="#gallery" onClick={closeMobileMenu}>
-                  Сделано
-                </a>
-              </li>
-              <li className="flex justify-center items-center m-0 py-5 text-3xl font-bold">
-                <a href="#prices" onClick={closeMobileMenu}>
-                  Цены
-                </a>
-              </li>
-              <li className="flex justify-center items-center m-0 py-5 text-3xl font-bold">
-                <a href="#contacts" onClick={closeMobileMenu}>
-                  Контакты
-                </a>
-              </li>
-            </ul>
-          ) : (
-            <MenuAlt4Icon
-              className="w-6 h-6 ml-5 sm:hidden"
-              onClick={openMobileMenu}
-            />
-          )}
+            )}
+          </div>
           <ul className="hidden sm:flex ml-auto p-0">
             <li className="mr-12">
               <a href="#gallery">Сделано</a>
@@ -93,10 +141,49 @@ export default function Header({ admin }) {
               <a href="#contacts">Контакты</a>
             </li>
           </ul>
-          <button className="btn btn-outline btn-sm ml-10 hidden sm:block">
-            Войти
-          </button>
+          {!preview && (
+            <button
+              onClick={openLogin}
+              className="btn btn-outline btn-sm hidden sm:block ml-10"
+            >
+              Войти
+            </button>
+          )}
         </nav>
+        <input type="checkbox" id="login" className="modal-toggle" />
+        <label htmlFor="login" className="modal cursor-pointer">
+          <label
+            className="modal-box relative flex flex-col items-center space-y-6"
+            htmlFor=""
+          >
+            <h3 className="text-2xl font-bold text-center">Вход</h3>
+            {error && (
+              <div className="alert alert-error shadow-lg">
+                <div>
+                  <XCircleIcon className="stroke-current flex-shrink-0 h-6 w-6" />
+                  <span>Неправильно введена почта или пароль</span>
+                </div>
+              </div>
+            )}
+            <input
+              type="text"
+              value={email}
+              onChange={handleEmail}
+              placeholder="Почта"
+              className="input input-bordered w-full max-w-lg"
+            />
+            <input
+              type="password"
+              value={password}
+              onChange={handlePassword}
+              placeholder="Пароль"
+              className="input input-bordered w-full max-w-lg"
+            />
+            <button onClick={login} className="btn btn-primary w-full max-w-lg">
+              Войти
+            </button>
+          </label>
+        </label>
       </header>
     </>
   );

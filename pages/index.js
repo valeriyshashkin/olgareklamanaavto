@@ -7,8 +7,9 @@ import Image from "next/image";
 import { useState } from "react";
 import Slider from "../components/Slider";
 import Script from "next/script";
+import { PlusCircleIcon } from "@heroicons/react/outline";
 
-export default function Index({ images }) {
+export default function Index({ images, preview }) {
   const [showSlider, setShowSlider] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -41,7 +42,7 @@ export default function Index({ images }) {
           gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID}');
         `}
       </Script>
-      <Header />
+      <Header preview={preview} />
       <h1 className="font-bold text-4xl sm:text-7xl mt-40 mb-28 text-center">
         <span className="block bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
           Живописные
@@ -51,6 +52,14 @@ export default function Index({ images }) {
       </h1>
       <section id="gallery" className="mx-auto max-w-screen-lg">
         <h3 className="text-4xl font-bold text-center mb-8">Сделано</h3>
+        {preview && (
+          <div className="mx-2">
+            <label className="btn btn-outline w-full mb-8 btn-primary">
+              <PlusCircleIcon className="h-6 w-6 mr-2" />
+              Добавить фото
+            </label>
+          </div>
+        )}
         {showSlider && (
           <Slider
             images={images}
@@ -113,15 +122,28 @@ export default function Index({ images }) {
       <footer className="border-t border-gray-300 p-5 text-center text-gray-500">
         Copyright © {new Date().getFullYear()} Olga. Все права защищены.
       </footer>
+      {preview && <div className="h-10"></div>}
     </>
   );
 }
 
-export async function getStaticProps() {
+export async function getStaticProps(context) {
   const images = await getImages();
 
+  if (context.preview) {
+    return {
+      props: {
+        images,
+        preview: true,
+      },
+    };
+  }
+
   return {
-    props: { images },
+    props: {
+      images,
+      preview: false,
+    },
     revalidate: 60,
   };
 }
