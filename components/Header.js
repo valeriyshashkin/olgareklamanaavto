@@ -45,7 +45,7 @@ export default function Header({ admin }) {
 
   return (
     <>
-      <header>
+      <header className="fixed top-0 left-0 right-0 bg-white px-5 z-10">
         <nav>
           <Link href="/">
             <a className="logo">
@@ -110,16 +110,6 @@ export default function Header({ admin }) {
         </nav>
       </header>
       <style jsx>{`
-        header {
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          background: white;
-          z-index: 1;
-          padding: 0 20px;
-        }
-
         .mobile {
           display: none;
         }

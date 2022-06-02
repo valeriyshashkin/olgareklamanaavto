@@ -77,7 +77,7 @@ export default function Slider({ images, onClick, currentSlide }) {
           left: 0;
           right: 0;
           background: black;
-          z-index: 1;
+          z-index: 20;
           width: 100%;
           height: 100%;
           display: flex;
