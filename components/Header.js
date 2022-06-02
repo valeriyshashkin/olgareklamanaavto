@@ -69,7 +69,7 @@ export default function Header({ preview }) {
       )}
       <header
         className={`fixed top-0 left-0 right-0 bg-white px-5 z-10${
-          !isScrollZero && " border-b border-gray-300"
+          !isScrollZero ? " border-b border-gray-300" : ""
         }`}
       >
         <nav className="max-w-screen-lg mx-auto flex items-center">
