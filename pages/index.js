@@ -105,9 +105,9 @@ export default function Index({ images }) {
       <section id="contacts" className="mx-auto px-5 max-w-screen-lg">
         <h3 className="text-4xl font-bold text-center mt-8">Контакты</h3>
         <div className="flex flex-col sm:flex-row justify-center items-center my-12 sm:my-48">
-          <Contact alt="WhatsApp" text="whatsapp" src="whatsapp" />
-          <Contact alt="Instagram" text="instagram" src="instagram" />
-          <Contact alt="E-mail" text="email" src="email" />
+          <Contact alt="WhatsApp" text="8-800-000-00-00" src="whatsapp" />
+          <Contact alt="Instagram" text="@olgareklamanaavto" src="instagram" />
+          <Contact alt="E-mail" text="admin@admin.com" src="email" />
         </div>
       </section>
       <footer className="border-t border-gray-300 p-5 text-center text-gray-500">

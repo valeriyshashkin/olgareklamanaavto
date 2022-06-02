@@ -42,10 +42,12 @@ export default function Slider({ images, onClick, currentSlide }) {
 
   return (
     <section>
-      <XIcon
+      <div
         onClick={onClick}
-        className="w-9 h-9 cursor-pointer absolute right-0 top-0 m-4 sm:m-8 bg-white rounded-full z-20"
-      />
+        className="flex items-center justify-center w-9 h-9 cursor-pointer absolute right-0 top-0 m-4 sm:m-8 bg-white rounded-full z-20"
+      >
+        <XIcon className="w-7 h-7" />
+      </div>
       {!isFirst && (
         <ArrowCircleLeftIcon
           onClick={prev}
