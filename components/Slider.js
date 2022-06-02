@@ -1,17 +1,20 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   ArrowCircleRightIcon,
   ArrowCircleLeftIcon,
   XIcon,
+  TrashIcon,
 } from "@heroicons/react/outline";
+import classNames from "classnames";
 
-export default function Slider({ images, onClick, currentSlide }) {
+export default function Slider({ images, onClick, currentSlide, preview }) {
   const [swiper, setSwiper] = useState(null);
   const [isLast, setIsLast] = useState(false);
   const [isFirst, setIsFirst] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSwiper = (s) => {
     setSwiper(s);
@@ -40,6 +43,16 @@ export default function Slider({ images, onClick, currentSlide }) {
     }
   };
 
+  function deleteImage() {
+    setLoading(true);
+    fetch("/api/image/delete", {
+      method: "POST",
+      body: JSON.stringify({
+        public_id: images[swiper.activeIndex],
+      }),
+    }).then(() => location.reload());
+  }
+
   return (
     <section>
       <div
@@ -48,6 +61,40 @@ export default function Slider({ images, onClick, currentSlide }) {
       >
         <XIcon className="w-7 h-7" />
       </div>
+      {preview && (
+        <>
+          <label
+            htmlFor="delete"
+            className="cursor-pointer z-20 absolute border-2 border-red-500 right-0 w-9 h-9 flex items-center justify-center rounded-full m-4 mr-16 sm:m-8 sm:mr-24"
+          >
+            <TrashIcon className="w-7 h-7 stroke-red-500" />
+          </label>
+          <input type="checkbox" id="delete" className="modal-toggle" />
+          <label htmlFor="delete" className="modal cursor-pointer">
+            <label className="modal-box relative space-y-4" htmlFor="">
+              <h3 className="text-lg font-bold text-center">
+                Вы уверены, что хотите удалить эту картинку?
+              </h3>
+              <button
+                onClick={deleteImage}
+                className={classNames("btn btn-error w-full btn-outline", {
+                  loading,
+                })}
+              >
+                Удалить
+              </button>
+              <label
+                htmlFor="delete"
+                className={classNames("btn btn-primary w-full", {
+                  loading,
+                })}
+              >
+                Отмена
+              </label>
+            </label>
+          </label>
+        </>
+      )}
       {!isFirst && (
         <ArrowCircleLeftIcon
           onClick={prev}

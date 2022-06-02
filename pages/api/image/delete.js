@@ -8,7 +8,7 @@ export default async function handler(req, res) {
       return;
     }
 
-    const public_ids = JSON.parse(req.body);
+    const { public_id } = JSON.parse(req.body);
 
     cloudinary.config({
       cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
@@ -16,12 +16,12 @@ export default async function handler(req, res) {
       api_secret: process.env.CLOUDINARY_API_SECRET,
     });
 
-    for (let i = 0; i < public_ids.length; i++) {
-      await cloudinary.v2.uploader.destroy(public_ids[i]);
-    }
+    await cloudinary.v2.uploader.destroy(public_id);
 
-    await prisma.image.deleteMany({
-      where: { src: { in: public_ids } },
+    await prisma.image.delete({
+      where: {
+        src: public_id,
+      },
     });
 
     res.end();

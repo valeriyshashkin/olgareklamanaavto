@@ -9,5 +9,5 @@ export async function getImages() {
     result.push(src);
   }
 
-  return result;
+  return result.reverse();
 }

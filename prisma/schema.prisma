@@ -4,20 +4,15 @@ generator client {
 
 datasource db {
     provider = "mysql"
-    url = env("DATABASE_URL")
+    url      = env("DATABASE_URL")
 }
 
 model Admin {
-    email String @unique
+    email    String @unique
     password String
 }
 
 model Image {
-    id Int @id @default(autoincrement())
-    src String
-}
-
-model Content {
-    key String @unique
-    value String
+    id  Int    @id @default(autoincrement())
+    src String @unique
 }

@@ -40,30 +40,6 @@ INSERT INTO `admin` VALUES ('admin@admin.com','admin');
 UNLOCK TABLES;
 
 --
--- Table structure for table `content`
---
-
-DROP TABLE IF EXISTS `content`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `content` (
-  `key` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `value` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  UNIQUE KEY `Content_key_key` (`key`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `content`
---
-
-LOCK TABLES `content` WRITE;
-/*!40000 ALTER TABLE `content` DISABLE KEYS */;
-INSERT INTO `content` VALUES ('busPrice','300'),('email','admin@admin.com'),('instagram','olgareklamanaavto'),('simplePrice','1000'),('universalPrice','2000'),('whatsapp','8 800 000 00 00');
-/*!40000 ALTER TABLE `content` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `image`
 --
 

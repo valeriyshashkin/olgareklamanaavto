@@ -8,10 +8,12 @@ import { useState } from "react";
 import Slider from "../components/Slider";
 import Script from "next/script";
 import { PlusCircleIcon } from "@heroicons/react/outline";
+import classNames from "classnames";
 
 export default function Index({ images, preview }) {
   const [showSlider, setShowSlider] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   const openSlider = (src) => {
     document.body.style.overflow = "hidden";
@@ -23,6 +25,31 @@ export default function Index({ images, preview }) {
     document.body.style.overflow = "auto";
     setShowSlider(false);
   };
+
+  function uploadImage(e) {
+    setLoading(true);
+    fetch("/api/image/sign")
+      .then((res) => res.json())
+      .then(({ timestamp, signature }) => {
+        const fd = new FormData();
+        fd.append("file", e.target.files[0]);
+        fd.append("api_key", process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY);
+        fd.append("timestamp", timestamp);
+        fd.append("signature", signature);
+
+        fetch(
+          `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+          { method: "POST", body: fd }
+        )
+          .then((res) => res.json())
+          .then(({ public_id }) => {
+            fetch("/api/image/add", {
+              method: "POST",
+              body: JSON.stringify({ public_id }),
+            }).then(() => location.reload());
+          });
+      });
+  }
 
   return (
     <>
@@ -53,18 +80,34 @@ export default function Index({ images, preview }) {
       <section id="gallery" className="mx-auto max-w-screen-lg">
         <h3 className="text-4xl font-bold text-center mb-8">Сделано</h3>
         {preview && (
-          <div className="mx-2">
-            <label className="btn btn-outline w-full mb-8 btn-primary">
-              <PlusCircleIcon className="h-6 w-6 mr-2" />
-              Добавить фото
-            </label>
-          </div>
+          <>
+            <input
+              id="upload"
+              type="file"
+              accept="image/*"
+              hidden
+              onChange={uploadImage}
+            />
+            <div className="mx-2">
+              <label
+                htmlFor="upload"
+                className={classNames(
+                  "btn btn-outline w-full mb-8 btn-primary",
+                  { loading }
+                )}
+              >
+                <PlusCircleIcon className="h-6 w-6 mr-2" />
+                Добавить фото
+              </label>
+            </div>
+          </>
         )}
         {showSlider && (
           <Slider
             images={images}
             onClick={closeSlider}
             currentSlide={currentSlide}
+            preview={preview}
           />
         )}
         <div className="grid grid-cols-3 gap-1 sm:gap-4">
