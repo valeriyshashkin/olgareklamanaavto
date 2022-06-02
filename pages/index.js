@@ -1,11 +1,8 @@
 import Head from "next/head";
 import Header from "../components/Header";
-import Footer from "../components/Footer";
 import Contact from "../components/Contact";
 import Price from "../components/Price";
 import { getImages } from "../utils/getImages";
-import { GalleryRow, GalleryItem } from "../components/Gallery";
-import prepareImages from "../utils/prepareImages";
 import Image from "next/image";
 import { useState } from "react";
 import Slider from "../components/Slider";
@@ -16,10 +13,6 @@ export default function Index({ images }) {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const openSlider = (src) => {
-    if (!src) {
-      return;
-    }
-
     document.body.style.overflow = "hidden";
     setShowSlider(true);
     setCurrentSlide(images.indexOf(src));
@@ -50,13 +43,13 @@ export default function Index({ images }) {
       </Script>
       <Header />
       <h1 className="font-bold text-4xl sm:text-7xl mt-40 mb-28 text-center">
-        <span className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+        <span className="block bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
           Живописные
         </span>
-        <span>наклейки</span>
-        <span>на&nbsp;автомобиль</span>
+        <span className="block">наклейки</span>
+        <span className="block">на&nbsp;автомобиль</span>
       </h1>
-      <section id="gallery">
+      <section className="mx-auto max-w-screen-lg">
         <h3 className="text-4xl font-bold text-center mb-8">Сделано</h3>
         {showSlider && (
           <Slider
@@ -65,21 +58,21 @@ export default function Index({ images }) {
             currentSlide={currentSlide}
           />
         )}
-        {prepareImages(images).map((row, i) => (
-          <GalleryRow key={i}>
-            {row.map((src, j) => (
-              <GalleryItem onClick={() => openSlider(src)} key={j}>
-                {src && (
-                  <Image alt="" objectFit="cover" src={src} layout="fill" />
-                )}
-              </GalleryItem>
-            ))}
-          </GalleryRow>
-        ))}
+        <div className="grid grid-cols-3 gap-1 sm:gap-4">
+          {images.map((src, i) => (
+            <div
+              key={i}
+              className="w-full pb-full relative cursor-pointer"
+              onClick={() => openSlider(src)}
+            >
+              <Image alt="" objectFit="cover" src={src} layout="fill" />
+            </div>
+          ))}
+        </div>
       </section>
-      <section id="prices">
+      <section className="mx-auto px-5 max-w-screen-lg">
         <h3 className="text-4xl font-bold text-center my-8">Цены</h3>
-        <div className="prices">
+        <div className="flex flex-col sm:flex-row justify-center">
           <Price
             title="Небольшая красивая наклейка"
             price="1000"
@@ -109,73 +102,17 @@ export default function Index({ images }) {
           />
         </div>
       </section>
-      <section id="contacts">
+      <section className="mx-auto px-5 max-w-screen-lg">
         <h3 className="text-4xl font-bold text-center mt-8">Контакты</h3>
-        <div className="contacts">
+        <div className="flex flex-col sm:flex-row justify-center items-center my-12 sm:my-48">
           <Contact alt="WhatsApp" text="whatsapp" src="whatsapp" />
           <Contact alt="Instagram" text="instagram" src="instagram" />
           <Contact alt="E-mail" text="email" src="email" />
         </div>
       </section>
-      <Footer />
-      <style jsx>{`
-        section {
-          max-width: 1024px;
-          margin: 0 auto;
-          padding: 0 20px;
-        }
-
-        #gallery {
-          padding: 0;
-        }
-
-        .image-row {
-          display: flex;
-          padding-bottom: 20px;
-        }
-
-        .image-row:last-child {
-          padding-bottom: 0;
-        }
-
-        .prices {
-          display: flex;
-          justify-content: center;
-        }
-
-        span {
-          display: block;
-        }
-
-        .colorful {
-          background-image: linear-gradient(
-            to right,
-            var(--from-color),
-            var(--to-color)
-          );
-          color: transparent;
-          background-clip: text;
-        }
-
-        .contacts {
-          margin: 200px 0;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        }
-
-        @media (max-width: 580px) {
-          .contacts {
-            flex-direction: column;
-            margin: 50px 0;
-          }
-
-          .prices {
-            align-items: center;
-            flex-direction: column;
-          }
-        }
-      `}</style>
+      <footer className="border-t border-gray-300 p-5 text-center text-gray-500">
+        Copyright © {new Date().getFullYear()} Olga. Все права защищены.
+      </footer>
     </>
   );
 }

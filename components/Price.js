@@ -1,4 +1,4 @@
-import { BadgeCheckIcon } from "@heroicons/react/outline";
+import { BadgeCheckIcon } from "@heroicons/react/solid";
 
 export default function Price({ title, price, features }) {
   return (
@@ -8,7 +8,7 @@ export default function Price({ title, price, features }) {
         <p className="price">от <span className="font-bold">{price}</span> рублей</p>
         {features.map((f, i) => (
           <div className="flex items-center my-4" key={i}>
-            <BadgeCheckIcon className="w-6 h-6 shrink-0 stroke-blue-500 mr-2" />
+            <BadgeCheckIcon className="w-6 h-6 shrink-0 fill-blue-500 mr-2" />
             <div key={i}>{f}</div>
           </div>
         ))}
