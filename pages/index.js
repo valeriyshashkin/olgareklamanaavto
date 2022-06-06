@@ -165,7 +165,7 @@ export default function Index({ images, preview }) {
       <footer className="border-t border-gray-300 p-5 text-center text-gray-500">
         Copyright © {new Date().getFullYear()} Olga. Все права защищены.
       </footer>
-      {preview && <div className="h-10"></div>}
+      {preview && <div className="h-9"></div>}
     </>
   );
 }

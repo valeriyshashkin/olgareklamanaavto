@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { MenuAlt4Icon } from "@heroicons/react/outline";
 import { XIcon } from "@heroicons/react/outline";
 import { XCircleIcon } from "@heroicons/react/outline";
-import { InformationCircleIcon } from "@heroicons/react/outline";
 
 export default function Header({ preview }) {
   const [isScrollZero, setIsScrollZero] = useState(true);
@@ -60,10 +59,11 @@ export default function Header({ preview }) {
   return (
     <>
       {preview && (
-        <div className="fixed bottom-0 bg-blue-500 z-10 left-0 right-0 p-2 text-white">
+        <div className="fixed bottom-0 bg-blue-500 z-10 left-0 right-0 p-1 text-lg text-white">
           <div className="flex justify-center">
-            <InformationCircleIcon className="flex-shrink-0 w-6 h-6 mr-2" />
-            <span>Вы в режиме редактирования</span>
+            <Link href="/api/logout" prefetch={false}>
+              <a>Режим редактирования &mdash; Выйти</a>
+            </Link>
           </div>
         </div>
       )}
