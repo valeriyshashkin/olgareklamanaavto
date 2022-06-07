@@ -77,7 +77,7 @@ export default function Index({ images, preview }) {
         <span className="block">наклейки</span>
         <span className="block">на&nbsp;автомобиль</span>
       </h1>
-      <section id="gallery" className="mx-auto max-w-screen-lg">
+      <section id="gallery" className="mx-auto max-w-screen-lg -mt-20 pt-20">
         <h3 className="text-4xl font-bold text-center mb-8">Сделано</h3>
         {preview && (
           <>
@@ -122,7 +122,7 @@ export default function Index({ images, preview }) {
           ))}
         </div>
       </section>
-      <section id="prices" className="mx-auto px-5 max-w-screen-lg">
+      <section id="prices" className="mx-auto px-5 max-w-screen-lg -mt-20 pt-20">
         <h3 className="text-4xl font-bold text-center my-8">Цены</h3>
         <div className="flex flex-col sm:flex-row justify-center">
           <Price
@@ -154,7 +154,7 @@ export default function Index({ images, preview }) {
           />
         </div>
       </section>
-      <section id="contacts" className="mx-auto px-5 max-w-screen-lg">
+      <section id="contacts" className="mx-auto px-5 max-w-screen-lg -mt-20 pt-20">
         <h3 className="text-4xl font-bold text-center mt-8">Контакты</h3>
         <div className="flex flex-col sm:flex-row justify-center items-center my-12 sm:my-48">
           <Contact alt="WhatsApp" text="8-800-000-00-00" src="whatsapp" />

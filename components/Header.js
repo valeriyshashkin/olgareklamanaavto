@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { MenuAlt4Icon } from "@heroicons/react/outline";
 import { XIcon } from "@heroicons/react/outline";
 import { XCircleIcon } from "@heroicons/react/outline";
+import classNames from "classnames";
 
 export default function Header({ preview }) {
   const [isScrollZero, setIsScrollZero] = useState(true);
@@ -68,9 +69,9 @@ export default function Header({ preview }) {
         </div>
       )}
       <header
-        className={`fixed top-0 left-0 right-0 bg-white px-5 z-10${
-          !isScrollZero ? " border-b border-gray-300" : ""
-        }`}
+        className={classNames("fixed top-0 left-0 right-0 bg-white px-5 z-10", {
+          "border-b border-gray-300": !isScrollZero,
+        })}
       >
         <nav className="max-w-screen-lg mx-auto flex items-center">
           <Link href="/">
