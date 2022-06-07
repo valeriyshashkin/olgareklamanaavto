@@ -171,14 +171,14 @@ export default function Header({ preview }) {
               value={email}
               onChange={handleEmail}
               placeholder="Почта"
-              className="input input-bordered w-full max-w-lg"
+              className="input input-bordered w-full max-w-lg shrink-0"
             />
             <input
               type="password"
               value={password}
               onChange={handlePassword}
               placeholder="Пароль"
-              className="input input-bordered w-full max-w-lg"
+              className="input input-bordered w-full max-w-lg shrink-0"
             />
             <button onClick={login} className="btn btn-primary w-full max-w-lg">
               Войти

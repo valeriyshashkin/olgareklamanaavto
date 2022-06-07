@@ -70,12 +70,11 @@ export default function Index({ images, preview }) {
         `}
       </Script>
       <Header preview={preview} />
-      <h1 className="font-bold text-4xl sm:text-7xl mt-40 mb-28 text-center">
+      <h1 className="font-bold text-5xl sm:text-7xl mt-40 mb-28 text-center">
         <span className="block bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-          Живописные
+          Наклейки
         </span>
-        <span className="block">наклейки</span>
-        <span className="block">на&nbsp;автомобиль</span>
+        <span className="block">на&nbsp;ваш автомобиль</span>
       </h1>
       <section id="gallery" className="mx-auto max-w-screen-lg -mt-20 pt-20">
         <h3 className="text-4xl font-bold text-center mb-8">Сделано</h3>
@@ -163,7 +162,7 @@ export default function Index({ images, preview }) {
         </div>
       </section>
       <footer className="border-t border-gray-300 p-5 text-center text-gray-500">
-        Copyright © {new Date().getFullYear()} Olga. Все права защищены.
+        Copyright © {new Date().getFullYear()} Olga
       </footer>
       {preview && <div className="h-9"></div>}
     </>
