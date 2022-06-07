@@ -9,12 +9,18 @@ import {
   TrashIcon,
 } from "@heroicons/react/outline";
 import classNames from "classnames";
+import { useEffect } from "react";
 
 export default function Slider({ images, onClick, currentSlide, preview }) {
   const [swiper, setSwiper] = useState(null);
   const [isLast, setIsLast] = useState(false);
   const [isFirst, setIsFirst] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleSwiper = (s) => {
     setSwiper(s);
@@ -54,7 +60,12 @@ export default function Slider({ images, onClick, currentSlide, preview }) {
   }
 
   return (
-    <section>
+    <section
+      className={classNames({
+        "flex fixed top-0 bottom-0 left-0 right-0 bg-black w-full h-full z-20":
+          mounted,
+      })}
+    >
       <div
         onClick={onClick}
         className="flex items-center justify-center w-9 h-9 cursor-pointer absolute right-0 top-0 m-4 sm:m-8 bg-white rounded-full z-20"
@@ -118,20 +129,6 @@ export default function Slider({ images, onClick, currentSlide, preview }) {
           </SwiperSlide>
         ))}
       </Swiper>
-      <style jsx>{`
-        section {
-          position: fixed;
-          top: 0;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          background: black;
-          z-index: 20;
-          width: 100%;
-          height: 100%;
-          display: flex;
-        }
-      `}</style>
     </section>
   );
 }
