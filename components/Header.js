@@ -1,26 +1,15 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { MenuAlt4Icon } from "@heroicons/react/outline";
+import { MenuAlt4Icon, UserCircleIcon } from "@heroicons/react/outline";
 import { XIcon } from "@heroicons/react/outline";
 import { XCircleIcon } from "@heroicons/react/outline";
 import classNames from "classnames";
 
 export default function Header({ preview }) {
   const [isScrollZero, setIsScrollZero] = useState(true);
-  const [isMobileMenuOpened, setIsMobileMenuOpened] = useState(false);
   const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const openMobileMenu = () => {
-    document.body.style.overflow = "hidden";
-    setIsMobileMenuOpened(true);
-  };
-
-  const closeMobileMenu = () => {
-    document.body.style.overflow = "auto";
-    setIsMobileMenuOpened(false);
-  };
 
   function handleEmail(e) {
     setEmail(e.target.value);
@@ -95,61 +84,11 @@ export default function Header({ preview }) {
           </Link>
           <div className="flex items-center ml-auto">
             {!preview && (
-              <label
-                htmlFor="login"
-                className="btn btn-outline btn-sm mr-5 sm:hidden"
-              >
-                Войти
+              <label htmlFor="login">
+                <UserCircleIcon className="w-7 h-7 cursor-pointer" />
               </label>
             )}
-            {isMobileMenuOpened ? (
-              <ul className="flex fixed bg-white left-0 right-0 top-0 bottom-0 m-0 z-20 flex-col justify-center">
-                <XIcon
-                  className="w-6 h-6 mr-5 mt-6 fixed right-0 top-0"
-                  onClick={closeMobileMenu}
-                />
-                <li className="flex justify-center items-center m-0 py-5 text-3xl font-bold">
-                  <a href="#gallery" onClick={closeMobileMenu}>
-                    Сделано
-                  </a>
-                </li>
-                <li className="flex justify-center items-center m-0 py-5 text-3xl font-bold">
-                  <a href="#prices" onClick={closeMobileMenu}>
-                    Цены
-                  </a>
-                </li>
-                <li className="flex justify-center items-center m-0 py-5 text-3xl font-bold">
-                  <a href="#contacts" onClick={closeMobileMenu}>
-                    Контакты
-                  </a>
-                </li>
-              </ul>
-            ) : (
-              <MenuAlt4Icon
-                className="w-6 h-6 ml-auto sm:hidden"
-                onClick={openMobileMenu}
-              />
-            )}
           </div>
-          <ul className="hidden sm:flex ml-auto p-0">
-            <li className="mr-12">
-              <a href="#gallery">Сделано</a>
-            </li>
-            <li className="mr-12">
-              <a href="#prices">Цены</a>
-            </li>
-            <li>
-              <a href="#contacts">Контакты</a>
-            </li>
-          </ul>
-          {!preview && (
-            <button
-              onClick={openLogin}
-              className="btn btn-outline btn-sm hidden sm:block ml-10"
-            >
-              Войти
-            </button>
-          )}
         </nav>
         <input type="checkbox" id="login" className="modal-toggle" />
         <label htmlFor="login" className="modal cursor-pointer">
