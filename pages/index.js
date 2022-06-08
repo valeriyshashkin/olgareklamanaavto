@@ -10,7 +10,7 @@ import {
   ChatIcon,
   PlusCircleIcon,
   MailIcon,
-  PhotographIcon,
+  CameraIcon,
 } from "@heroicons/react/outline";
 import classNames from "classnames";
 
@@ -77,21 +77,24 @@ export default function Index({ images, preview }) {
       <h1 className="text-center px-4 font-bold text-4xl sm:text-7xl mt-24 mb-8 max-w-screen-lg mx-auto">
         Наклейки на&nbsp;автомобиль
       </h1>
-      <div className="max-w-md mx-auto px-4 space-y-4">
-        <div className="flex">
-          <ChatIcon className="w-6 h-6" />
-          <span className="font-bold ml-2">WhatsApp</span>
-          <span className="ml-auto font-medium">8-800-000-00-00</span>
+      <div className="max-w-screen-lg mx-auto grid sm:grid-cols-3 gap-6">
+        <div className="mx-auto">
+          <div className="flex">
+            <ChatIcon className="w-7 h-7 mr-2" />
+            <span className="ml-auto text-lg font-medium">8-800-000-00-00</span>
+          </div>
         </div>
-        <div className="flex">
-          <PhotographIcon className="w-6 h-6" />
-          <span className="font-bold ml-2">Instagram</span>
-          <span className="ml-auto font-medium">@olgareklamanaavto</span>
+        <div className="mx-auto">
+          <div className="flex">
+            <CameraIcon className="w-7 h-7 mr-2" />
+            <span className="ml-auto text-lg font-medium">@olgareklamanaavto</span>
+          </div>
         </div>
-        <div className="flex">
-          <MailIcon className="w-6 h-6" />
-          <span className="font-bold ml-2">Email</span>
-          <span className="ml-auto font-medium">admin@admin.com</span>
+        <div className="mx-auto">
+          <div className="flex">
+            <MailIcon className="w-7 h-7 mr-2" />
+            <span className="ml-auto text-lg font-medium">admin@admin.com</span>
+          </div>
         </div>
       </div>
       <section className="mx-auto max-w-screen-lg -mt-20 pt-20">
