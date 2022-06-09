@@ -112,7 +112,7 @@ export default function Index({ images, preview }) {
               <label
                 htmlFor="upload"
                 className={classNames(
-                  "btn btn-outline w-full mb-8 btn-primary",
+                  "btn btn-outline w-full mb-8",
                   { loading }
                 )}
               >
