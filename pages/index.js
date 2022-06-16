@@ -83,7 +83,7 @@ export default function Index({ photos, contacts }) {
             currentSlide={currentSlide}
           />
         )}
-        <div className="grid grid-cols-3 gap-1 sm:gap-4">
+        <div className="grid grid-cols-3 gap-1 sm:gap-4 mb-1 sm:mb-4">
           {photos.map((p, slideNumber) => (
             <div
               key={p._id}
@@ -98,7 +98,6 @@ export default function Index({ photos, contacts }) {
               />
             </div>
           ))}
-          <div></div>
         </div>
       </section>
     </>
@@ -106,7 +105,7 @@ export default function Index({ photos, contacts }) {
 }
 
 export async function getStaticProps() {
-  const photos = await client.fetch(`*[_type == "photos"]`);
+  const photos = await client.fetch(`*[_type == "photos"] | order(_createdAt desc)`);
   const contacts = await client.fetch(`*[_type == "contacts"]`);
   console.log(contacts);
 
