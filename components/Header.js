@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { XCircleIcon } from "@heroicons/react/outline";
 import classNames from "classnames";
 
 export default function Header() {
@@ -21,7 +20,7 @@ export default function Header() {
       >
         <nav className="max-w-screen-lg mx-auto flex items-center">
           <Link href="/">
-            <a className="my-3">
+            <a className="my-5 mx-auto">
               <svg
                 width="100"
                 height="45"
