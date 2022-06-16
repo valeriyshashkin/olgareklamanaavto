@@ -3,21 +3,18 @@ import "swiper/css";
 import Image from "next/image";
 import { useState } from "react";
 import {
-  ArrowCircleRightIcon,
-  ArrowCircleLeftIcon,
   XIcon,
-  TrashIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
 } from "@heroicons/react/outline";
 import classNames from "classnames";
 import { useEffect } from "react";
+import { urlFor } from "../client";
 
-export default function Slider({ images, onClick, currentSlide, preview }) {
+export default function Slider({ photos, onClick, currentSlide }) {
   const [swiper, setSwiper] = useState(null);
   const [isLast, setIsLast] = useState(false);
   const [isFirst, setIsFirst] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -44,22 +41,12 @@ export default function Slider({ images, onClick, currentSlide, preview }) {
       setIsFirst(false);
     }
 
-    if (s.activeIndex === images.length - 1) {
+    if (s.activeIndex === photos.length - 1) {
       setIsLast(true);
     } else {
       setIsLast(false);
     }
   };
-
-  function deleteImage() {
-    setLoading(true);
-    fetch("/api/image/delete", {
-      method: "POST",
-      body: JSON.stringify({
-        public_id: images[swiper.activeIndex],
-      }),
-    }).then(() => location.reload());
-  }
 
   return (
     <section
@@ -74,40 +61,6 @@ export default function Slider({ images, onClick, currentSlide, preview }) {
       >
         <XIcon className="h-10 stroke-gray-500 group-hover:stroke-white" />
       </div>
-      {preview && (
-        <>
-          <label
-            htmlFor="delete"
-            className="group cursor-pointer h-20 w-20 sm:h-40 sm:w-40 z-30 absolute right-0 top-0 mr-20 sm:mr-40 flex items-center justify-center"
-          >
-            <TrashIcon className="h-10 group-hover:stroke-red-500 stroke-red-400" />
-          </label>
-          <input type="checkbox" id="delete" className="modal-toggle" />
-          <label htmlFor="delete" className="modal cursor-pointer">
-            <label className="modal-box relative space-y-4" htmlFor="">
-              <h3 className="text-lg font-bold text-center">
-                Вы уверены, что хотите удалить эту картинку?
-              </h3>
-              <button
-                onClick={deleteImage}
-                className={classNames("btn btn-error w-full btn-outline", {
-                  loading,
-                })}
-              >
-                Удалить
-              </button>
-              <label
-                htmlFor="delete"
-                className={classNames("btn btn-primary w-full", {
-                  loading,
-                })}
-              >
-                Отмена
-              </label>
-            </label>
-          </label>
-        </>
-      )}
       {!isFirst && (
         <div
           onClick={prev}
@@ -129,9 +82,9 @@ export default function Slider({ images, onClick, currentSlide, preview }) {
         initialSlide={currentSlide}
         onSlideChange={updateArrows}
       >
-        {images.map((src) => (
-          <SwiperSlide key={src}>
-            <Image alt="" src={src} layout="fill" objectFit="contain" />
+        {photos.map((p) => (
+          <SwiperSlide key={p._id}>
+            <Image alt="" src={urlFor(p.photo).url()} layout="fill" objectFit="contain" />
           </SwiperSlide>
         ))}
       </Swiper>

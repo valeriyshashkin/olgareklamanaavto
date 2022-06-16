@@ -1,44 +1,10 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { MenuAlt4Icon, UserCircleIcon } from "@heroicons/react/outline";
-import { XIcon } from "@heroicons/react/outline";
 import { XCircleIcon } from "@heroicons/react/outline";
 import classNames from "classnames";
 
-export default function Header({ preview }) {
+export default function Header() {
   const [isScrollZero, setIsScrollZero] = useState(true);
-  const [error, setError] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  function handleEmail(e) {
-    setEmail(e.target.value);
-  }
-
-  function handlePassword(e) {
-    setPassword(e.target.value);
-  }
-
-  function login() {
-    fetch("/api/login", {
-      method: "POST",
-      body: JSON.stringify({ email, password }),
-    })
-      .then((res) => res.json())
-      .then(({ error }) => {
-        if (error) {
-          setError(true);
-          return;
-        }
-
-        location.reload();
-      });
-  }
-
-  function openLogin() {
-    document.getElementById("login").checked = "true";
-  }
-
   const scroll = () => setIsScrollZero(scrollY === 0);
 
   useEffect(() => {
@@ -48,15 +14,6 @@ export default function Header({ preview }) {
 
   return (
     <>
-      {preview && (
-        <div className="fixed bottom-0 bg-blue-500 z-10 left-0 right-0 p-1 text-lg text-white">
-          <div className="flex justify-center">
-            <Link href="/api/logout" prefetch={false}>
-              <a>Режим редактирования &mdash; Выйти</a>
-            </Link>
-          </div>
-        </div>
-      )}
       <header
         className={classNames("fixed top-0 left-0 right-0 bg-white px-5 z-10", {
           "border-b border-gray-300": !isScrollZero,
@@ -82,48 +39,7 @@ export default function Header({ preview }) {
               </svg>
             </a>
           </Link>
-          <div className="flex items-center ml-auto">
-            {!preview && (
-              <label htmlFor="login">
-                <UserCircleIcon className="w-7 h-7 cursor-pointer" />
-              </label>
-            )}
-          </div>
         </nav>
-        <input type="checkbox" id="login" className="modal-toggle" />
-        <label htmlFor="login" className="modal cursor-pointer">
-          <label
-            className="modal-box relative flex flex-col items-center space-y-6"
-            htmlFor=""
-          >
-            <h3 className="text-2xl font-bold text-center">Вход</h3>
-            {error && (
-              <div className="alert alert-error shadow-lg">
-                <div>
-                  <XCircleIcon className="stroke-current flex-shrink-0 h-6 w-6" />
-                  <span>Неправильно введена почта или пароль</span>
-                </div>
-              </div>
-            )}
-            <input
-              type="text"
-              value={email}
-              onChange={handleEmail}
-              placeholder="Почта"
-              className="input input-bordered w-full max-w-lg shrink-0"
-            />
-            <input
-              type="password"
-              value={password}
-              onChange={handlePassword}
-              placeholder="Пароль"
-              className="input input-bordered w-full max-w-lg shrink-0"
-            />
-            <button onClick={login} className="btn btn-primary w-full max-w-lg">
-              Войти
-            </button>
-          </label>
-        </label>
       </header>
     </>
   );
