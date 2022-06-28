@@ -107,7 +107,6 @@ export default function Index({ photos, contacts }) {
 export async function getStaticProps() {
   const photos = await client.fetch(`*[_type == "photos"] | order(_createdAt desc)`);
   const contacts = await client.fetch(`*[_type == "contacts"]`);
-  console.log(contacts);
 
   return {
     props: {
