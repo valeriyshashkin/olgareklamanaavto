@@ -5,7 +5,6 @@ import { useState } from "react";
 import Slider from "../components/Slider";
 import Script from "next/script";
 import { ChatIcon, MailIcon, CameraIcon } from "@heroicons/react/outline";
-import client from "../client";
 import { urlFor } from "../client";
 
 export default function Index({ photos, contacts }) {
@@ -52,7 +51,7 @@ export default function Index({ photos, contacts }) {
               <ChatIcon className="w-7 h-7 mr-2" />
               WhatsApp
             </div>
-            {contacts.find((c) => c.name === "WhatsApp").value}
+            {contacts.find((c) => c.key === "WhatsApp").value}
           </span>
         </div>
         <div className="mx-auto">
@@ -61,7 +60,7 @@ export default function Index({ photos, contacts }) {
               <CameraIcon className="w-7 h-7 mr-2" />
               Instagram
             </div>
-            {contacts.find((c) => c.name === "Instagram").value}
+            {contacts.find((c) => c.key === "Instagram").value}
           </span>
         </div>
         <div className="mx-auto">
@@ -70,7 +69,7 @@ export default function Index({ photos, contacts }) {
               <MailIcon className="w-7 h-7 mr-2" />
               Email
             </div>
-            {contacts.find((c) => c.name === "Email").value}
+            {contacts.find((c) => c.key === "Email").value}
           </span>
         </div>
       </div>
@@ -84,16 +83,16 @@ export default function Index({ photos, contacts }) {
           />
         )}
         <div className="grid grid-cols-3 gap-1 sm:gap-4 mb-1 sm:mb-4">
-          {photos.map((p, slideNumber) => (
+          {photos.map((p, i) => (
             <div
-              key={p._id}
+              key={i}
               className="w-full pb-full relative cursor-pointer"
-              onClick={() => openSlider(slideNumber)}
+              onClick={() => openSlider(i)}
             >
               <Image
                 alt=""
                 objectFit="cover"
-                src={urlFor(p.photo).width(500).url()}
+                src={p}
                 layout="fill"
               />
             </div>
@@ -105,8 +104,29 @@ export default function Index({ photos, contacts }) {
 }
 
 export async function getStaticProps() {
-  const photos = await client.fetch(`*[_type == "photos"] | order(_createdAt desc)`);
-  const contacts = await client.fetch(`*[_type == "contacts"]`);
+  const contactsResponse = await fetch(
+    `https://discord.com/api/channels/${process.env.DISCORD_CONTACTS_CHANNEL}/messages`,
+    { headers: { authorization: `Bot ${process.env.DISCORD_TOKEN}` } }
+  );
+  const photosResponse = await fetch(
+    `https://discord.com/api/channels/${process.env.DISCORD_PHOTOS_CHANNEL}/messages`,
+    { headers: { authorization: `Bot ${process.env.DISCORD_TOKEN}` } }
+  );
+
+  const contacts = (await contactsResponse.json()).map((m) => {
+    const [key, value] = m.content.split(" ");
+    return {
+      key,
+      value,
+    };
+  });
+
+  let photos = [];
+  for (let m of await photosResponse.json()) {
+    for (let p of m.attachments) {
+      photos.push(p.url);
+    }
+  }
 
   return {
     props: {

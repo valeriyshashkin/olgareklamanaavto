@@ -82,9 +82,9 @@ export default function Slider({ photos, onClick, currentSlide }) {
         initialSlide={currentSlide}
         onSlideChange={updateArrows}
       >
-        {photos.map((p) => (
-          <SwiperSlide key={p._id}>
-            <Image alt="" src={urlFor(p.photo).url()} layout="fill" objectFit="contain" />
+        {photos.map((p, i) => (
+          <SwiperSlide key={i}>
+            <Image alt="" src={p} layout="fill" objectFit="contain" />
           </SwiperSlide>
         ))}
       </Swiper>
