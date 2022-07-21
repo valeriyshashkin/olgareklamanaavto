@@ -9,7 +9,6 @@ import {
 } from "@heroicons/react/outline";
 import classNames from "classnames";
 import { useEffect } from "react";
-import { urlFor } from "../client";
 
 export default function Slider({ photos, onClick, currentSlide }) {
   const [swiper, setSwiper] = useState(null);

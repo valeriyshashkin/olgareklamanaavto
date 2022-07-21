@@ -5,7 +5,6 @@ import { useState } from "react";
 import Slider from "../components/Slider";
 import Script from "next/script";
 import { ChatIcon, MailIcon, CameraIcon } from "@heroicons/react/outline";
-import { urlFor } from "../client";
 
 export default function Index({ photos, contacts }) {
   const [showSlider, setShowSlider] = useState(false);
