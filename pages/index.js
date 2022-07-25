@@ -88,12 +88,7 @@ export default function Index({ photos, contacts }) {
               className="w-full pb-full relative cursor-pointer"
               onClick={() => openSlider(i)}
             >
-              <Image
-                alt=""
-                objectFit="cover"
-                src={p}
-                layout="fill"
-              />
+              <Image alt="" objectFit="cover" src={p} layout="fill" />
             </div>
           ))}
         </div>
@@ -103,16 +98,11 @@ export default function Index({ photos, contacts }) {
 }
 
 export async function getStaticProps() {
-  const contactsResponse = await fetch(
-    `https://discord.com/api/channels/${process.env.DISCORD_CONTACTS_CHANNEL}/messages`,
-    { headers: { authorization: `Bot ${process.env.DISCORD_TOKEN}` } }
-  );
-  const photosResponse = await fetch(
-    `https://discord.com/api/channels/${process.env.DISCORD_PHOTOS_CHANNEL}/messages`,
-    { headers: { authorization: `Bot ${process.env.DISCORD_TOKEN}` } }
-  );
+  const { contacts, photos } = await (
+    await fetch("http://localhost:3001")
+  ).json();
 
-  const contacts = (await contactsResponse.json()).map((m) => {
+  const contactsResult = contacts.map((m) => {
     const [key, value] = m.content.split(" ");
     return {
       key,
@@ -120,17 +110,17 @@ export async function getStaticProps() {
     };
   });
 
-  let photos = [];
-  for (let m of await photosResponse.json()) {
+  let photosResult = [];
+  for (let m of photos) {
     for (let p of m.attachments) {
-      photos.push(p.url);
+      photosResult.push(p.url);
     }
   }
 
   return {
     props: {
-      photos,
-      contacts,
+      photos: photosResult,
+      contacts: contactsResult,
     },
     revalidate: 60,
   };
