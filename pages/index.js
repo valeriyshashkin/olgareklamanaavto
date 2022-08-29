@@ -5,6 +5,9 @@ import { useState } from "react";
 import Slider from "../components/Slider";
 import Script from "next/script";
 import { ChatIcon, MailIcon, CameraIcon } from "@heroicons/react/outline";
+import { parse } from "yaml";
+import { promises as fs } from "fs";
+import path from "path";
 
 export default function Index({ photos, contacts }) {
   const [showSlider, setShowSlider] = useState(false);
@@ -50,7 +53,7 @@ export default function Index({ photos, contacts }) {
               <ChatIcon className="w-7 h-7 mr-2" />
               WhatsApp
             </div>
-            {contacts.find((c) => c.key === "WhatsApp").value}
+            {contacts["ватсап"]}
           </span>
         </div>
         <div className="mx-auto">
@@ -59,7 +62,7 @@ export default function Index({ photos, contacts }) {
               <CameraIcon className="w-7 h-7 mr-2" />
               Instagram
             </div>
-            {contacts.find((c) => c.key === "Instagram").value}
+            {contacts["инстаграм"]}
           </span>
         </div>
         <div className="mx-auto">
@@ -68,7 +71,7 @@ export default function Index({ photos, contacts }) {
               <MailIcon className="w-7 h-7 mr-2" />
               Email
             </div>
-            {contacts.find((c) => c.key === "Email").value}
+            {contacts["почта"]}
           </span>
         </div>
       </div>
@@ -82,13 +85,13 @@ export default function Index({ photos, contacts }) {
           />
         )}
         <div className="grid grid-cols-3 gap-1 sm:gap-4 mb-1 sm:mb-4">
-          {photos.map((p, i) => (
+          {photos.map((src, i) => (
             <div
               key={i}
               className="w-full pb-full relative cursor-pointer"
               onClick={() => openSlider(i)}
             >
-              <Image alt="" objectFit="cover" src={p} layout="fill" />
+              <Image alt="" objectFit="cover" src={src} layout="fill" />
             </div>
           ))}
         </div>
@@ -98,30 +101,12 @@ export default function Index({ photos, contacts }) {
 }
 
 export async function getStaticProps() {
-  const { contacts, photos } = await (
-    await fetch("http://localhost:3001")
-  ).json();
-
-  const contactsResult = contacts.map((m) => {
-    const [key, value] = m.content.split(" ");
-    return {
-      key,
-      value,
-    };
-  });
-
-  let photosResult = [];
-  for (let m of photos) {
-    for (let p of m.attachments) {
-      photosResult.push(p.url);
-    }
-  }
+  const contacts = parse(await fs.readFile("контакты.yml", "utf8"));
+  const photos = (
+    await fs.readdir(path.join(process.cwd(), "public", "images"))
+  ).map((filename) => `/images/${filename}`);
 
   return {
-    props: {
-      photos: photosResult,
-      contacts: contactsResult,
-    },
-    revalidate: 60,
+    props: { photos, contacts },
   };
 }
