@@ -1,0 +1,22 @@
+version: "3"
+services:
+  olgareklamanaavto:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    networks:
+      - app-network
+  nginx:
+    image: nginx:alpine
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - app-network
+networks:
+  app-network:
+    driver: bridge
