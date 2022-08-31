@@ -1,9 +1,7 @@
 version: "3"
 services:
   olgareklamanaavto:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: valeriyshashkin/olgareklamanaavto:latest
     ports:
       - 3000:3000
     networks:
