@@ -3,10 +3,11 @@ services:
   olgareklamanaavto:
     image: valeriyshashkin/olgareklamanaavto:latest
     ports:
-      - 3000:3000
+      - "3000"
     networks:
       - app-network
   nginx:
+    container_name: nginx
     image: nginx:alpine
     ports:
       - 80:80
