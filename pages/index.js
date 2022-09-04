@@ -5,9 +5,7 @@ import { useState } from "react";
 import Slider from "../components/Slider";
 import Script from "next/script";
 import { ChatIcon, MailIcon, CameraIcon } from "@heroicons/react/outline";
-import { parse } from "yaml";
-import { promises as fs } from "fs";
-import path from "path";
+import knex from "knex";
 
 export default function Index({ photos, contacts }) {
   const [showSlider, setShowSlider] = useState(false);
@@ -53,7 +51,7 @@ export default function Index({ photos, contacts }) {
               <ChatIcon className="w-7 h-7 mr-2" />
               WhatsApp
             </div>
-            {contacts["ватсап"]}
+            {contacts.whatsapp}
           </span>
         </div>
         <div className="mx-auto">
@@ -62,7 +60,7 @@ export default function Index({ photos, contacts }) {
               <CameraIcon className="w-7 h-7 mr-2" />
               Instagram
             </div>
-            {contacts["инстаграм"]}
+            {contacts.instagram}
           </span>
         </div>
         <div className="mx-auto">
@@ -71,7 +69,7 @@ export default function Index({ photos, contacts }) {
               <MailIcon className="w-7 h-7 mr-2" />
               Email
             </div>
-            {contacts["почта"]}
+            {contacts.email}
           </span>
         </div>
       </div>
@@ -101,12 +99,48 @@ export default function Index({ photos, contacts }) {
 }
 
 export async function getStaticProps() {
-  const contacts = parse(await fs.readFile("контакты.yml", "utf8"));
+  const db = knex({
+    client: "mysql2",
+    connection: {
+      host: "localhost",
+      port: 3306,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
+    },
+  });
+
+  const { option_value: email } = await db("wp_options")
+    .where("option_name", "contacts_email")
+    .select("option_value")
+    .first();
+
+  const { option_value: whatsapp } = await db("wp_options")
+    .where("option_name", "contacts_whatsapp")
+    .select("option_value")
+    .first();
+
+  const { option_value: instagram } = await db("wp_options")
+    .where("option_name", "contacts_instagram")
+    .select("option_value")
+    .first();
+
   const photos = (
-    await fs.readdir(path.join(process.cwd(), "public", "images"))
-  ).map((filename) => `/images/${filename}`);
+    await (await fetch("http://localhost/wp-json/wp/v2/media")).json()
+  ).map(
+    (image) =>
+      `${process.env.PROTOCOL}://${process.env.DOMAIN}/wp-content/uploads/${image.media_details.file}`
+  );
 
   return {
-    props: { photos, contacts },
+    props: {
+      photos,
+      contacts: {
+        email,
+        instagram,
+        whatsapp,
+      },
+    },
+    revalidate: 10,
   };
 }

@@ -11,12 +11,13 @@
     "@heroicons/react": "^1.0.6",
     "classnames": "^2.3.1",
     "daisyui": "^2.15.2",
+    "knex": "^2.3.0",
+    "mysql2": "^2.3.3",
     "next": "12.2.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "sharp": "^0.30.7",
-    "swiper": "^7.4.1",
-    "yaml": "^2.1.1"
+    "swiper": "^7.4.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.7",
