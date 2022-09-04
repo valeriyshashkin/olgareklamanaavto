@@ -1,0 +1,47 @@
+version: "3"
+
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: exampledb
+      MYSQL_USER: exampleuser
+      MYSQL_PASSWORD: examplepass
+      MYSQL_RANDOM_ROOT_PASSWORD: "1"
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - app-network
+
+  wordpress:
+    image: wordpress
+    ports:
+      - 4000:80
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: exampleuser
+      WORDPRESS_DB_PASSWORD: examplepass
+      WORDPRESS_DB_NAME: exampledb
+    volumes:
+      - wordpress:/var/www/html
+      - ./wp-content/themes/:/var/www/html/wp-content/themes/
+      - ./wp-content/plugins/:/var/www/html/wp-content/plugins/
+    networks:
+      - app-network
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx-conf-dev:/etc/nginx/conf.d
+    networks:
+      - app-network
+
+volumes:
+  wordpress:
+  dbdata:
+
+networks:
+  app-network:
+    driver: bridge
