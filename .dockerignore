@@ -1,0 +1,6 @@
+example.env
+docker-compose*.yml
+.eslingrc.json
+nginx-conf*
+wp-content
+Dockerfile
