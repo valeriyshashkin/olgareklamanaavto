@@ -5,9 +5,9 @@ import { useState } from "react";
 import Slider from "../components/Slider";
 import Script from "next/script";
 import { ChatIcon, MailIcon, CameraIcon } from "@heroicons/react/outline";
-import knex from "knex";
+import data from "../data";
 
-export default function Index({ photos, contacts }) {
+export default function Index() {
   const [showSlider, setShowSlider] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -51,7 +51,7 @@ export default function Index({ photos, contacts }) {
               <ChatIcon className="w-7 h-7 mr-2" />
               WhatsApp
             </div>
-            {contacts.whatsapp}
+            {data.phone}
           </span>
         </div>
         <div className="mx-auto">
@@ -60,7 +60,7 @@ export default function Index({ photos, contacts }) {
               <CameraIcon className="w-7 h-7 mr-2" />
               Instagram
             </div>
-            {contacts.instagram}
+            {data.instagram}
           </span>
         </div>
         <div className="mx-auto">
@@ -69,7 +69,7 @@ export default function Index({ photos, contacts }) {
               <MailIcon className="w-7 h-7 mr-2" />
               Email
             </div>
-            {contacts.email}
+            {data.email}
           </span>
         </div>
       </div>
@@ -77,13 +77,13 @@ export default function Index({ photos, contacts }) {
         <h3 className="text-center text-4xl font-bold px-4 my-8">Работы</h3>
         {showSlider && (
           <Slider
-            photos={photos}
+            photos={data.photos}
             onClick={closeSlider}
             currentSlide={currentSlide}
           />
         )}
         <div className="grid grid-cols-3 gap-1 sm:gap-4 mb-1 sm:mb-4">
-          {photos.map((src, i) => (
+          {data.photos.map((src, i) => (
             <div
               key={i}
               className="w-full pb-full relative cursor-pointer"
@@ -96,51 +96,4 @@ export default function Index({ photos, contacts }) {
       </section>
     </>
   );
-}
-
-export async function getStaticProps() {
-  const db = knex({
-    client: "mysql2",
-    connection: {
-      host: "localhost",
-      port: 3306,
-      user: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME,
-    },
-  });
-
-  const { option_value: email } = await db("wp_options")
-    .where("option_name", "contacts_email")
-    .select("option_value")
-    .first();
-
-  const { option_value: whatsapp } = await db("wp_options")
-    .where("option_name", "contacts_whatsapp")
-    .select("option_value")
-    .first();
-
-  const { option_value: instagram } = await db("wp_options")
-    .where("option_name", "contacts_instagram")
-    .select("option_value")
-    .first();
-
-  const photos = (
-    await (await fetch("http://localhost/wp-json/wp/v2/media")).json()
-  ).map(
-    (image) =>
-      `${process.env.PROTOCOL}://${process.env.DOMAIN}/wp-content/uploads/${image.media_details.file}`
-  );
-
-  return {
-    props: {
-      photos,
-      contacts: {
-        email,
-        instagram,
-        whatsapp,
-      },
-    },
-    revalidate: 10,
-  };
 }
